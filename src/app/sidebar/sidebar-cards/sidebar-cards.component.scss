@@ -1,0 +1,9 @@
+.card {
+  background-color: rgb(226, 223, 223);
+  margin-left: 5px;
+  margin-right: 5px;
+
+  &__text {
+    font-weight: 700;
+  }
+}

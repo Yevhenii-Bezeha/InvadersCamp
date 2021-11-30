@@ -1,0 +1,13 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer #drawer mode="side" position="end">
+    <app-sidebar-nav></app-sidebar-nav>
+    <app-sidebar-cards></app-sidebar-cards>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-header [sidebar]="drawer"></app-header>
+    <main>
+      <app-lists></app-lists>
+    </main>
+    <app-footer></app-footer>
+  </mat-drawer-content>
+</mat-drawer-container>
