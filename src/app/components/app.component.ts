@@ -1,4 +1,3 @@
-import { MainService } from './service/main.service';
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 
