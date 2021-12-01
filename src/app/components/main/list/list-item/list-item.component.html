@@ -1,0 +1,24 @@
+<div>
+  <mat-divider></mat-divider>
+  <div class="container listItem">
+    <mat-list-item>
+      <mat-icon mat-list-icon class="listItem__icon">tag_faces</mat-icon>
+      <div mat-line>{{ post.authorName }}</div>
+      <div mat-line>{{ post.date | date }}</div>
+      <button class="listItem__btn" (click)="onHeartClick(post.id)">
+        <mat-icon *ngIf="post.likes" class="active">favorite</mat-icon>
+        <mat-icon *ngIf="!post.likes">favorite_border</mat-icon>
+        {{ post.likes }}
+      </button>
+    </mat-list-item>
+    <div class="listItemAdditional">
+      <p class="mat-display-1 listItemAdditional__title">
+        {{ post.title | uppercase }}
+      </p>
+      <p class="listItemAdditional__text">
+        {{ post.description }}
+      </p>
+      <a mat-button routerLink=".">Read more...</a>
+    </div>
+  </div>
+</div>

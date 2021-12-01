@@ -1,0 +1,30 @@
+<form class="form" [formGroup]="postForm" (ngSubmit)="onSubmit()">
+  <mat-form-field class="form-container" appearance="fill">
+    <mat-label>Author Name</mat-label>
+    <input
+      type="email"
+      matInput
+      placeholder="Ex. John Dow"
+      formControlName="authorName"
+    />
+  </mat-form-field>
+  <mat-form-field class="form-container" appearance="fill">
+    <mat-label>Title</mat-label>
+    <textarea
+      matInput
+      placeholder="Ex .Natural language interface accessibility"
+      formControlName="title"
+    ></textarea>
+  </mat-form-field>
+  <mat-form-field class="form-container" appearance="fill">
+    <mat-label>Description</mat-label>
+    <textarea
+      matInput
+      placeholder="Ex. Spoken interaction with mobile devices and consumer"
+      formControlName="description"
+    ></textarea>
+  </mat-form-field>
+  <button mat-raised-button type="submit" [disabled]="!postForm.valid">
+    Basic
+  </button>
+</form>
