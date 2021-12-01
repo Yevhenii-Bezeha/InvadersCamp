@@ -11,6 +11,9 @@ import { FooterComponent } from './footer/footer.component';
 import { SidebarNavComponent } from './sidebar/sidebar-nav/sidebar-nav.component';
 import { SidebarCardsComponent } from './sidebar/sidebar-cards/sidebar-cards.component';
 import { ListItemComponent } from './main/list/list-item/list-item.component';
+import { ModalComponent } from './modal/modal.component';
+import { FormComponent } from './form/form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,8 +24,15 @@ import { ListItemComponent } from './main/list/list-item/list-item.component';
     SidebarCardsComponent,
     ListItemComponent,
     ListComponent,
+    ModalComponent,
+    FormComponent,
   ],
-  imports: [BrowserModule, BrowserAnimationsModule, MaterialModule],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    ReactiveFormsModule,
+  ],
   providers: [PostsService],
   bootstrap: [AppComponent],
 })

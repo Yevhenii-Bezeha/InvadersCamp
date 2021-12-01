@@ -4,14 +4,13 @@ import { IPost } from '../interfaces/IPost';
 
 @Injectable()
 export class PostsService {
-
   private posts: IPost[] = [
     {
       id: 1,
       authorName: 'John Dow',
       date: 'November 2, 2021',
       title: 'Natural language interface accessibility',
-      description: '  Spoken interaction with mobile devices and consumer',
+      description: 'Spoken interaction with mobile devices and consumer',
       likes: 0,
     },
     {
@@ -19,7 +18,7 @@ export class PostsService {
       authorName: 'John Dow',
       date: 'November 2, 2021',
       title: 'Natural language interface accessibility',
-      description: '  Spoken interaction with mobile devices and consumer',
+      description: 'Spoken interaction with mobile devices and consumer',
       likes: 0,
     },
   ];
@@ -36,6 +35,13 @@ export class PostsService {
       }
       return el;
     });
+  }
+
+  isShowModalChanged = new Subject<boolean>();
+  isShowModal = false;
+  showModal() {
+    this.isShowModal = !this.isShowModal;
+    this.isShowModalChanged.next(this.isShowModal);
   }
   constructor() {}
 }
