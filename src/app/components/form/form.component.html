@@ -1,5 +1,5 @@
 <form class="form" [formGroup]="postForm" (ngSubmit)="onSubmit()">
-  <mat-form-field class="form-container" appearance="fill">
+  <mat-form-field class="form-container" appearance="outline">
     <mat-label>Author Name</mat-label>
     <input
       type="email"
@@ -7,22 +7,31 @@
       placeholder="Ex. John Dow"
       formControlName="authorName"
     />
+    <mat-error *ngIf="postForm.controls['authorName'].hasError('required')">
+      Author name is required
+    </mat-error>
   </mat-form-field>
-  <mat-form-field class="form-container" appearance="fill">
+  <mat-form-field class="form-container" appearance="outline">
     <mat-label>Title</mat-label>
     <textarea
       matInput
       placeholder="Ex .Natural language interface accessibility"
       formControlName="title"
     ></textarea>
+    <mat-error *ngIf="postForm.controls['title'].hasError('required')">
+      Title name is required
+    </mat-error>
   </mat-form-field>
-  <mat-form-field class="form-container" appearance="fill">
+  <mat-form-field class="form-container" appearance="outline">
     <mat-label>Description</mat-label>
     <textarea
       matInput
       placeholder="Ex. Spoken interaction with mobile devices and consumer"
       formControlName="description"
     ></textarea>
+    <mat-error *ngIf="postForm.controls['description'].hasError('required')">
+      Description name is required
+    </mat-error>
   </mat-form-field>
   <button mat-raised-button type="submit" [disabled]="!postForm.valid">
     Basic

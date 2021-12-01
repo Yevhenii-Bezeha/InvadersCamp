@@ -1,8 +1,14 @@
 export interface IPost {
-  id: number;
+  id: string;
   authorName: string;
-  date: string;
+  date: Date;
   title: string;
   description: string;
   likes: number;
+}
+
+export interface IPostToAdd {
+  authorName: string;
+  title: string;
+  description: string;
 }

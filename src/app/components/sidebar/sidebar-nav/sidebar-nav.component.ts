@@ -1,3 +1,4 @@
+import { ModalService } from './../../../services/modalService';
 import { PostsService } from './../../../services/postsService';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,10 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarNavComponent implements OnInit {
   onAddClick() {
-    this.postService.showModal();
+    this.modalService.showModal();
   }
 
-  constructor(private postService: PostsService) {}
+  constructor(private modalService: ModalService) {}
 
   ngOnInit(): void {}
 }

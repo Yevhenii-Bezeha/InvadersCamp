@@ -1,4 +1,4 @@
-import { PostsService } from './../../services/postsService';
+import { ModalService } from './../../services/modalService';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,10 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class ModalComponent implements OnInit {
   handleBackdropClick(e: MouseEvent) {
     if (e.target !== e.currentTarget) return;
-    this.postService.showModal();
+    this.modalService.showModal();
   }
 
-  constructor(private postService: PostsService) {}
+  constructor(private modalService: ModalService) {}
 
   ngOnInit(): void {}
 }

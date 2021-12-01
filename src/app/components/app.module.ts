@@ -1,3 +1,4 @@
+import { ModalService } from './../services/modalService';
 import { PostsService } from './../services/postsService';
 import { MaterialModule } from './material/material.module';
 import { NgModule } from '@angular/core';
@@ -33,7 +34,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     ReactiveFormsModule,
   ],
-  providers: [PostsService],
+  providers: [PostsService, ModalService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

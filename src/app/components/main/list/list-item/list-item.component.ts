@@ -13,7 +13,7 @@ export class ListItemComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onHeartClick(id: number) {
+  onHeartClick(id: string) {
     this.postService.addLike(id);
   }
 }
