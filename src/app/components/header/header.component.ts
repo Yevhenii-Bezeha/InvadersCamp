@@ -1,7 +1,6 @@
-import { ModalService } from './../../services/modalService';
+import { ModalService } from '@services/modalService';
 
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',

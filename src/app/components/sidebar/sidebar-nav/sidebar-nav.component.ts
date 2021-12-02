@@ -1,5 +1,4 @@
-import { ModalService } from './../../../services/modalService';
-import { PostsService } from './../../../services/postsService';
+import { ModalService } from '@services/modalService';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

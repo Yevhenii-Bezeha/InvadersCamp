@@ -9,6 +9,15 @@
   padding-left: 15px;
   padding-right: 15px;
   position: relative;
+  margin-left: 20px;
+  margin-right: 20px;
+
+  &__title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
 
   &__close {
     position: absolute;
@@ -16,8 +25,14 @@
     right: 0;
     padding: 5px;
   }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .form-container {
   width: 100%;
+  margin-bottom: 5px;
 }

@@ -1,4 +1,5 @@
 <form class="form" [formGroup]="postForm" (ngSubmit)="onSubmit()">
+  <p class="form__title">Create a new post</p>
   <button
     mat-icon-button
     class="form__close"
@@ -14,6 +15,7 @@
       matInput
       placeholder="Ex. John Dow"
       formControlName="authorName"
+      autocomplete="off"
     />
     <mat-error *ngIf="postForm.controls['authorName'].hasError('required')">
       Author name is required
@@ -31,6 +33,7 @@
       matInput
       placeholder="Ex .Natural language interface accessibility"
       formControlName="title"
+      autocomplete="off"
     ></textarea>
     <mat-error *ngIf="postForm.controls['title'].hasError('required')">
       Title name is required
@@ -42,12 +45,15 @@
       matInput
       placeholder="Ex. Spoken interaction with mobile devices and consumer"
       formControlName="description"
+      autocomplete="off"
     ></textarea>
     <mat-error *ngIf="postForm.controls['description'].hasError('required')">
       Description name is required
     </mat-error>
   </mat-form-field>
-  <button mat-raised-button type="submit" [disabled]="!postForm.valid">
-    Create
-  </button>
+  <div class="form__button">
+    <button mat-raised-button type="submit" [disabled]="!postForm.valid">
+      Create
+    </button>
+  </div>
 </form>

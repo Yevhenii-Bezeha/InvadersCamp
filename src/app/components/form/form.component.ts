@@ -1,5 +1,5 @@
-import { ModalService } from './../../services/modalService';
-import { PostsService } from './../../services/postsService';
+import { ModalService } from '@services/modalService';
+import { PostsService } from '@services/postsService';
 import { Component, OnInit } from '@angular/core';
 import {
   FormControl,

@@ -11,7 +11,7 @@ export class ModalService {
   }
 
   isSidenavChanged = new Subject<boolean>();
-  isSidenavOpened = false;
+  isSidenavOpened = true;
   showSidenav() {
     this.isSidenavOpened = true;
     this.isSidenavChanged.next(this.isSidenavOpened);

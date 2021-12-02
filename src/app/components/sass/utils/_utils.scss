@@ -1,4 +1,3 @@
-@import "./breakpoints-placeholders";
-@import "./container";
-@import "./reset";
-@import "./variables";
+@use "./container";
+@use "./reset";
+@use "./variables";

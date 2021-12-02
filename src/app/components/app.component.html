@@ -1,12 +1,14 @@
 <mat-drawer-container class="example-container">
-  <mat-drawer #drawer mode="side" position="end" [opened]="isSideNavOpened" >
+  <mat-drawer #drawer mode="side" position="end" [opened]="isSideNavOpened">
     <app-sidebar-nav></app-sidebar-nav>
     <app-sidebar-cards></app-sidebar-cards>
   </mat-drawer>
   <mat-drawer-content>
     <app-header></app-header>
     <main>
-      <app-list></app-list>
+      <div class="container">
+        <app-list></app-list>
+      </div>
     </main>
   </mat-drawer-content>
 </mat-drawer-container>

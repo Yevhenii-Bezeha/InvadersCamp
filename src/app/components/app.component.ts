@@ -1,4 +1,5 @@
-import { ModalService } from './../services/modalService';
+import { ModalService } from '@services/modalService';
+
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 

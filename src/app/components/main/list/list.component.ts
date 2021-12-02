@@ -1,5 +1,5 @@
-import { IPost } from './../../../interfaces/IPost';
-import { PostsService } from './../../../services/postsService';
+import { IPost } from '@interfaces/IPost';
+import { PostsService } from '@services/postsService';
 import { Component, OnInit } from '@angular/core';
 
 export interface Section {
