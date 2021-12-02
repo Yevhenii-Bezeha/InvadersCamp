@@ -12,6 +12,9 @@ export class SidebarNavComponent implements OnInit {
     this.modalService.showModal();
   }
 
+  onHomeClick() {
+    this.modalService.closeSidenav();
+  }
   constructor(private modalService: ModalService) {}
 
   ngOnInit(): void {}

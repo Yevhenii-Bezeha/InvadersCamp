@@ -1,4 +1,12 @@
 <form class="form" [formGroup]="postForm" (ngSubmit)="onSubmit()">
+  <button
+    mat-icon-button
+    class="form__close"
+    (click)="onCloseClick()"
+    type="button"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
   <mat-form-field class="form-container" appearance="outline">
     <mat-label>Author Name</mat-label>
     <input
@@ -9,6 +17,12 @@
     />
     <mat-error *ngIf="postForm.controls['authorName'].hasError('required')">
       Author name is required
+    </mat-error>
+    <mat-error *ngIf="postForm.controls['authorName'].hasError('minlength')">
+      Min-length is 3
+    </mat-error>
+    <mat-error *ngIf="postForm.controls['authorName'].hasError('maxlength')">
+      Max-length is 15
     </mat-error>
   </mat-form-field>
   <mat-form-field class="form-container" appearance="outline">
@@ -34,6 +48,6 @@
     </mat-error>
   </mat-form-field>
   <button mat-raised-button type="submit" [disabled]="!postForm.valid">
-    Basic
+    Create
   </button>
 </form>

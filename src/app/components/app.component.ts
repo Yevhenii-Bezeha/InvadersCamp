@@ -10,6 +10,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 export class AppComponent implements OnInit {
   @ViewChild('drawer') sidebar: MatDrawer;
   isShowModal = false;
+  isSideNavOpened = false;
 
   constructor(private modalService: ModalService) {}
 
@@ -17,6 +18,11 @@ export class AppComponent implements OnInit {
     this.isShowModal = this.modalService.isShowModal;
     this.modalService.isShowModalChanged.subscribe((isShowModal) => {
       this.isShowModal = isShowModal;
+    });
+
+    this.isSideNavOpened = this.modalService.isSidenavOpened;
+    this.modalService.isSidenavChanged.subscribe((isSideNavOpened) => {
+      this.isSideNavOpened = isSideNavOpened;
     });
   }
 }

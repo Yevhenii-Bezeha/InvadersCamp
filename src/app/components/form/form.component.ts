@@ -32,7 +32,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class FormComponent implements OnInit {
   postForm = this.fb.group({
-    authorName: ['', Validators.required],
+    authorName: [
+      '',
+      [Validators.required, Validators.minLength(3), Validators.maxLength(15)],
+    ],
     title: ['', Validators.required],
     description: ['', Validators.required],
   });
@@ -47,6 +50,11 @@ export class FormComponent implements OnInit {
   onSubmit() {
     this.postService.addPost(this.postForm.value);
     this.postForm.reset();
+    this.modalService.showModal();
+    this.modalService.closeSidenav();
+  }
+
+  onCloseClick() {
     this.modalService.showModal();
   }
 
