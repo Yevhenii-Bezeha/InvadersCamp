@@ -1,5 +1,5 @@
-import { ModalService } from './../services/modalService';
-import { PostsService } from './../services/postsService';
+import { ModalService } from '@services/modalService';
+import { PostsService } from '@services/postsService';
 import { MaterialModule } from './material/material.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';

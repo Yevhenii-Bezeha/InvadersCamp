@@ -3,7 +3,6 @@ import { PostsService } from '@services/postsService';
 import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
-  FormGroup,
   Validators,
   FormBuilder,
   FormGroupDirective,
@@ -32,6 +31,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class FormComponent implements OnInit {
   postForm = this.fb.group({
+    authorAvatar: ['sentiment_very_satisfied'],
     authorName: [
       '',
       [Validators.required, Validators.minLength(3), Validators.maxLength(15)],

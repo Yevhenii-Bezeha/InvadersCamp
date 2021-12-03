@@ -2,7 +2,9 @@
   <mat-divider></mat-divider>
   <div class="container listItem">
     <mat-list-item>
-      <mat-icon mat-list-icon class="listItem__icon">tag_faces</mat-icon>
+      <mat-icon mat-list-icon class="listItem__icon">{{
+        post.authorAvatar
+      }}</mat-icon>
       <div mat-line>{{ post.authorName }}</div>
       <div mat-line>{{ post.date | date }}</div>
       <button class="listItem__btn" (click)="onHeartClick(post.id)">

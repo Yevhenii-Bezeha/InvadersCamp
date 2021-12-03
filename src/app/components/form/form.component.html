@@ -8,6 +8,21 @@
   >
     <mat-icon>close</mat-icon>
   </button>
+  <p class="form__text">Choose your avatar:</p>
+  <mat-radio-group aria-label="Select an option" class="form__radiogroup"       formControlName="authorAvatar">
+    <mat-radio-button value="sentiment_very_satisfied" class="form__radiobtn">
+      <mat-icon class="form__icon">sentiment_very_satisfied</mat-icon>
+    </mat-radio-button>
+    <mat-radio-button value="sentiment_satisfied" class="form__radiobtn">
+      <mat-icon class="form__icon">sentiment_satisfied</mat-icon>
+    </mat-radio-button>
+    <mat-radio-button value="sentiment_neutral" class="form__radiobtn">
+      <mat-icon class="form__icon">sentiment_neutral</mat-icon>
+    </mat-radio-button>
+    <mat-radio-button value="sentiment_very_dissatisfied" class="form__radiobtn">
+      <mat-icon class="form__icon">sentiment_very_dissatisfied</mat-icon>
+    </mat-radio-button>
+  </mat-radio-group>
   <mat-form-field class="form-container" appearance="outline">
     <mat-label>Author Name</mat-label>
     <input

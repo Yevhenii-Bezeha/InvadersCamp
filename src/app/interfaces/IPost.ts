@@ -1,5 +1,6 @@
 export interface IPost {
   id: string;
+  authorAvatar: string;
   authorName: string;
   date: Date;
   title: string;
@@ -8,6 +9,7 @@ export interface IPost {
 }
 
 export interface IPostToAdd {
+  authorAvatar: string;
   authorName: string;
   title: string;
   description: string;

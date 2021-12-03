@@ -11,6 +11,7 @@ export class PostsService {
   private posts: IPost[] = [
     {
       id: uuidv4(),
+      authorAvatar: 'sentiment_very_satisfied',
       authorName: 'John Dow',
       date: new Date(),
       title: 'Natural language interface accessibility',
@@ -19,6 +20,7 @@ export class PostsService {
     },
     {
       id: uuidv4(),
+      authorAvatar: 'sentiment_very_satisfied',
       authorName: 'John Dow',
       date: new Date(),
       title: 'Natural language interface accessibility',

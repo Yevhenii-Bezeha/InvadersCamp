@@ -12,11 +12,19 @@
   margin-left: 20px;
   margin-right: 20px;
 
+  &__icon {
+    font-size: 45px;
+  }
+
   &__title {
     text-align: center;
     font-size: 22px;
     font-weight: 500;
     margin-bottom: 20px;
+  }
+
+  &__text {
+    font-size: 16px;
   }
 
   &__close {
@@ -29,6 +37,12 @@
   &__button {
     display: flex;
     justify-content: center;
+  }
+
+  &__radiogroup {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
   }
 }
 
