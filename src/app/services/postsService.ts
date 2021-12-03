@@ -6,7 +6,9 @@ import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class PostsService {
-  postsChanged = new Subject<IPost[]>();
+  private postsChanged = new Subject<IPost[]>();
+
+  public postsChanged$ = this.postsChanged.asObservable();
 
   private posts: IPost[] = [
     {

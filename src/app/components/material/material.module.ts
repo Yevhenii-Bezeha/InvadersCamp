@@ -20,7 +20,7 @@ const materialComponents = [
 ];
 
 @NgModule({
-  imports: [materialComponents],
-  exports: [materialComponents],
+  imports: [...materialComponents],
+  exports: [...materialComponents],
 })
 export class MaterialModule {}

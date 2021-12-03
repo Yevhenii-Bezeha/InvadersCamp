@@ -1,6 +1,7 @@
 import { IPost } from '@interfaces/IPost';
 import { PostsService } from '@services/postsService';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 export interface Section {
   name: string;
@@ -12,14 +13,21 @@ export interface Section {
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
   posts: IPost[];
+
+  private sub: Subscription;
+
   constructor(private postService: PostsService) {}
 
   ngOnInit(): void {
     this.posts = this.postService.getPosts();
-    this.postService.postsChanged.subscribe((posts: IPost[]) => {
-      this.posts = posts;
-    });
+    this.sub = this.postService.postsChanged$.subscribe(
+      (posts: IPost[]) => (this.posts = posts)
+    );
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe;
   }
 }

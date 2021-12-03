@@ -3,14 +3,21 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ModalService {
-  isShowModalChanged = new Subject<boolean>();
+  private isShowModalChanged = new Subject<boolean>();
+
+  public isShowModalChanged$ = this.isShowModalChanged.asObservable();
+
   isShowModal = false;
+
   showModal() {
     this.isShowModal = !this.isShowModal;
     this.isShowModalChanged.next(this.isShowModal);
   }
 
-  isSidenavChanged = new Subject<boolean>();
+  private isSidenavChanged = new Subject<boolean>();
+
+  public isSidenavChanged$ = this.isSidenavChanged.asObservable();
+
   isSidenavOpened = false;
   showSidenav() {
     this.isSidenavOpened = true;
