@@ -1,7 +1,6 @@
 <mat-drawer-container class="example-container">
-  <mat-drawer #drawer mode="side" position="end" [opened]="isSideNavOpened">
-    <app-sidebar-nav></app-sidebar-nav>
-    <app-sidebar-cards></app-sidebar-cards>
+  <mat-drawer [opened]="isSideNavOpened" mode="side" position="end">
+    <app-sidebar></app-sidebar>
   </mat-drawer>
   <mat-drawer-content>
     <app-header></app-header>

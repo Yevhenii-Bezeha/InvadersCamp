@@ -15,6 +15,7 @@ import { ListItemComponent } from './main/list/list-item/list-item.component';
 import { ModalComponent } from './modal/modal.component';
 import { FormComponent } from './form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ListComponent,
     ModalComponent,
     FormComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,

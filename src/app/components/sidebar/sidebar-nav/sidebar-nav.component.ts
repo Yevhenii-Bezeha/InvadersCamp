@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar-nav.component.scss'],
 })
 export class SidebarNavComponent implements OnInit {
+  constructor(private modalService: ModalService) {}
+
+  ngOnInit(): void {}
+
   onAddClick() {
     this.modalService.showModal();
   }
@@ -14,7 +18,4 @@ export class SidebarNavComponent implements OnInit {
   onHomeClick() {
     this.modalService.closeSidenav();
   }
-  constructor(private modalService: ModalService) {}
-
-  ngOnInit(): void {}
 }

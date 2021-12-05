@@ -7,6 +7,16 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit, OnDestroy {
+  constructor(private modalService: ModalService) {}
+
+  ngOnInit(): void {
+    window.addEventListener('keydown', this.onEsc);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('keydown', this.onEsc);
+  }
+
   handleBackdropClick(e: MouseEvent) {
     if (e.target !== e.currentTarget) return;
     this.modalService.showModal();
@@ -18,14 +28,4 @@ export class ModalComponent implements OnInit, OnDestroy {
       this.modalService.closeSidenav();
     }
   };
-
-  constructor(private modalService: ModalService) {}
-
-  ngOnInit(): void {
-    window.addEventListener('keydown', this.onEsc);
-  }
-
-  ngOnDestroy() {
-    window.removeEventListener('keydown', this.onEsc);
-  }
 }

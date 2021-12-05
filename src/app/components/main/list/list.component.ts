@@ -1,6 +1,6 @@
 import { IPost } from '@interfaces/IPost';
 import { PostsService } from '@services/postsService';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 export interface Section {
@@ -14,7 +14,7 @@ export interface Section {
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit, OnDestroy {
-  posts: IPost[];
+  public posts: IPost[];
 
   private sub: Subscription;
 
@@ -28,6 +28,6 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe;
+    this.sub.unsubscribe();
   }
 }

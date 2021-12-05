@@ -1,6 +1,6 @@
 import { ModalService } from '@services/modalService';
 
-import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subscription } from 'rxjs';
 
@@ -11,8 +11,8 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') sidebar: MatDrawer;
-  isShowModal = false;
-  isSideNavOpened = false;
+  public isShowModal = false;
+  public isSideNavOpened = false;
 
   private subModal: Subscription;
   private subSidenav: Subscription;
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subModal.unsubscribe;
+    this.subModal.unsubscribe();
     this.subSidenav.unsubscribe();
   }
 }
