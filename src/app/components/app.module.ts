@@ -1,4 +1,5 @@
-import { PostsService } from './../services/postsService';
+import { ModalService } from '@services/modalService';
+import { PostsService } from '@services/postsService';
 import { MaterialModule } from './material/material.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,6 +15,7 @@ import { ListItemComponent } from './main/list/list-item/list-item.component';
 import { ModalComponent } from './modal/modal.component';
 import { FormComponent } from './form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ListComponent,
     ModalComponent,
     FormComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     ReactiveFormsModule,
   ],
-  providers: [PostsService],
+  providers: [PostsService, ModalService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

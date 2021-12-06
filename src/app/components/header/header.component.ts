@@ -1,6 +1,6 @@
+import { ModalService } from '@services/modalService';
 
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -8,12 +8,15 @@ import { MatDrawer } from '@angular/material/sidenav';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  @Input('sidebar') sidebar: MatDrawer;
-  constructor() {}
+  constructor(private modalService: ModalService) {}
 
   ngOnInit(): void {}
 
   onClick() {
-    this.sidebar.toggle();
+    this.modalService.toggleSidenav();
+  }
+
+  onLogoClick() {
+    this.modalService.closeSidenav();
   }
 }

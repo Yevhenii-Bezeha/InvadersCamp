@@ -1,10 +1,11 @@
 <header class="header">
   <mat-toolbar class="header__nav">
-    <span>My Blog</span>
+    <a mat-button routerLink="/" (click)="onLogoClick()" class="header__logo"
+      >My blog</a
+    >
     <button
       mat-icon-button
       class="example-icon"
-      aria-label="Example icon-button with menu icon"
       (click)="onClick()"
     >
       <mat-icon>menu</mat-icon>

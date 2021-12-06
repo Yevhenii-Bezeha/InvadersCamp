@@ -1,22 +1,30 @@
+import { IPostToAdd } from './../interfaces/IPost';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { IPost } from '../interfaces/IPost';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class PostsService {
+  private postsChanged = new Subject<IPost[]>();
+
+  public postsChanged$ = this.postsChanged.asObservable();
+
   private posts: IPost[] = [
     {
-      id: 1,
+      id: uuidv4(),
+      authorAvatar: 'sentiment_very_satisfied',
       authorName: 'John Dow',
-      date: 'November 2, 2021',
+      date: new Date(),
       title: 'Natural language interface accessibility',
       description: 'Spoken interaction with mobile devices and consumer',
       likes: 0,
     },
     {
-      id: 2,
+      id: uuidv4(),
+      authorAvatar: 'sentiment_very_satisfied',
       authorName: 'John Dow',
-      date: 'November 2, 2021',
+      date: new Date(),
       title: 'Natural language interface accessibility',
       description: 'Spoken interaction with mobile devices and consumer',
       likes: 0,
@@ -27,7 +35,7 @@ export class PostsService {
     return this.posts.slice();
   }
 
-  addLike(id: number) {
+  addLike(id: string) {
     this.posts.map((el) => {
       if (id === el.id) {
         el.likes += 1;
@@ -37,11 +45,11 @@ export class PostsService {
     });
   }
 
-  isShowModalChanged = new Subject<boolean>();
-  isShowModal = false;
-  showModal() {
-    this.isShowModal = !this.isShowModal;
-    this.isShowModalChanged.next(this.isShowModal);
+  addPost(post: IPostToAdd) {
+    const preparedPost = { ...post, id: uuidv4(), date: new Date(), likes: 0 };
+    this.posts.push(preparedPost);
+    this.postsChanged.next(this.posts.slice());
   }
+
   constructor() {}
 }

@@ -1,4 +1,4 @@
-import { PostsService } from './../../../services/postsService';
+import { ModalService } from '@services/modalService';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,11 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar-nav.component.scss'],
 })
 export class SidebarNavComponent implements OnInit {
-  onAddClick() {
-    this.postService.showModal();
-  }
-
-  constructor(private postService: PostsService) {}
+  constructor(private modalService: ModalService) {}
 
   ngOnInit(): void {}
+
+  onAddClick() {
+    this.modalService.showModal();
+  }
+
+  onHomeClick() {
+    this.modalService.closeSidenav();
+  }
 }
