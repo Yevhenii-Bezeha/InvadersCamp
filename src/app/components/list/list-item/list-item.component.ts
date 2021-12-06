@@ -1,6 +1,6 @@
-import { PostsService } from '@services/postsService';
-import { IPost } from '@interfaces/IPost';
 import { Component, Input, OnInit } from '@angular/core';
+import { IPost } from '@interfaces/IPost';
+import { PostsService } from '@services/postsService';
 
 @Component({
   selector: 'app-list-item',
@@ -9,6 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ListItemComponent implements OnInit {
   @Input('post') post: IPost;
+
   constructor(private postService: PostsService) {}
 
   ngOnInit(): void {}

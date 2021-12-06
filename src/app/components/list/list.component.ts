@@ -1,7 +1,7 @@
-import { IPost } from '@interfaces/IPost';
-import { PostsService } from '@services/postsService';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { PostsService } from '@services/postsService';
+import { IPost } from '@interfaces/IPost';
 
 export interface Section {
   name: string;

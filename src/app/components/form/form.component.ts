@@ -2,11 +2,11 @@ import { ModalService } from '@services/modalService';
 import { PostsService } from '@services/postsService';
 import { Component, OnInit } from '@angular/core';
 import {
-  FormControl,
-  Validators,
   FormBuilder,
+  FormControl,
   FormGroupDirective,
   NgForm,
+  Validators,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -39,12 +39,14 @@ export class FormComponent implements OnInit {
     title: ['', Validators.required],
     description: ['', Validators.required],
   });
+  matcher = new MyErrorStateMatcher();
 
   constructor(
     private fb: FormBuilder,
     private postService: PostsService,
     private modalService: ModalService
   ) {}
+
   ngOnInit(): void {}
 
   onSubmit() {
@@ -57,6 +59,4 @@ export class FormComponent implements OnInit {
   onCloseClick() {
     this.modalService.showModal();
   }
-
-  matcher = new MyErrorStateMatcher();
 }

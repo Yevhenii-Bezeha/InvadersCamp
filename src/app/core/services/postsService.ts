@@ -1,7 +1,6 @@
-import { IPostToAdd } from './../interfaces/IPost';
+import { IPost, IPostToAdd } from '../models/IPost';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { IPost } from '../interfaces/IPost';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -31,6 +30,8 @@ export class PostsService {
     },
   ];
 
+  constructor() {}
+
   getPosts() {
     return this.posts.slice();
   }
@@ -50,6 +51,4 @@ export class PostsService {
     this.posts.push(preparedPost);
     this.postsChanged.next(this.posts.slice());
   }
-
-  constructor() {}
 }
