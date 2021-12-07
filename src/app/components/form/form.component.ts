@@ -1,6 +1,6 @@
 import { ModalService } from '@services/modalService';
 import { PostsService } from '@services/postsService';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -29,7 +29,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit {
+export class FormComponent {
   postForm = this.fb.group({
     authorAvatar: ['sentiment_very_satisfied'],
     authorName: [
@@ -45,9 +45,9 @@ export class FormComponent implements OnInit {
     private fb: FormBuilder,
     private postService: PostsService,
     private modalService: ModalService
-  ) {}
+  ) {
+  }
 
-  ngOnInit(): void {}
 
   onSubmit() {
     this.postService.addPost(this.postForm.value);
