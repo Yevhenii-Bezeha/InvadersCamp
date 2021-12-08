@@ -1,8 +1,8 @@
-import { ModalService } from '@services/modalService';
-import { PostsService } from '@services/postsService';
+import { ModalService } from '@services/modal.service';
+import { PostsService } from '@services/posts.service';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { SidebarService } from '@services/sidebarService';
+import { SidebarService } from '@services/sidebar.service';
 
 @Component({
   selector: 'app-article-form',

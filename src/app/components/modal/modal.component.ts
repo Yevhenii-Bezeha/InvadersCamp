@@ -1,6 +1,6 @@
-import { ModalService } from '@services/modalService';
+import { ModalService } from '@services/modal.service';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { SidebarService } from '@services/sidebarService';
+import { SidebarService } from '@services/sidebar.service';
 
 @Component({
   selector: 'app-modal',

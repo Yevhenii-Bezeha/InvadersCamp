@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PostsService } from '@services/postsService';
+import { PostsService } from '@services/posts.service';
 import { IPost } from '@interfaces/IPost';
 
 export interface Section {

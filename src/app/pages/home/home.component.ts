@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subscription } from 'rxjs';
-import { ModalService } from '@services/modalService';
-import { SidebarService } from '@services/sidebarService';
+import { ModalService } from '@services/modal.service';
+import { SidebarService } from '@services/sidebar.service';
 
 @Component({
   selector: 'app-home',
