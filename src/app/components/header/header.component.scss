@@ -1,14 +1,14 @@
 .header {
-  margin-bottom: 30px;
+  margin-bottom: var(--header-margin);
 
   &__nav {
     display: flex;
     justify-content: space-between;
-    background-color: #e1dfdf;
+    background-color: var(--secondary-bg-color);
   }
 
   &__logo {
-    font-size: 25px;
-    font-weight: 700;
+    font-size: var(--secondary-font-size);
+    font-weight: var(--secondary-font-weight);
   }
 }

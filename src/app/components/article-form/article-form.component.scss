@@ -1,16 +1,12 @@
 .form {
   min-width: 150px;
   max-width: 500px;
-  background-color: var(--modal-bg-colour);
-  box-shadow: 0px 8px 30px rgba(212, 20, 67, 0.1);
-  border-radius: 6px;
-  padding-top: 45px;
-  padding-bottom: 25px;
-  padding-left: 15px;
-  padding-right: 15px;
+  background-color: var(--form-bg-color);
+  box-shadow: 0 8px 30px var(--box-shadow-color);
+  border-radius: var(--main-border-radius);
+  padding: 45px 15px 25px;
   position: relative;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin: 0 20px;
 
   &__icon {
     font-size: 45px;
@@ -18,13 +14,13 @@
 
   &__title {
     text-align: center;
-    font-size: 22px;
-    font-weight: 500;
+    font-size: var(--secondary-font-size);
+    font-weight: var(--secondary-font-weight);
     margin-bottom: 20px;
   }
 
   &__text {
-    font-size: 16px;
+    font-size: var(--main-font-size);
   }
 
   &__close {
@@ -46,7 +42,7 @@
   }
 }
 
-.form-container {
+.form-input-container {
   width: 100%;
-  margin-bottom: 5px;
+  margin-bottom: var(--text-margin);
 }

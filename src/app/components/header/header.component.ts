@@ -1,6 +1,7 @@
 import { ModalService } from '@services/modalService';
 
 import { Component } from '@angular/core';
+import { SidebarService } from '@services/sidebarService';
 
 @Component({
   selector: 'app-header',
@@ -8,13 +9,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  constructor(private modalService: ModalService) {}
+  constructor(
+    private _modalService: ModalService,
+    private _sidebarService: SidebarService
+  ) {}
 
   onClick() {
-    this.modalService.toggleSidenav();
+    this._sidebarService.toggleSidenav();
   }
 
   onLogoClick() {
-    this.modalService.closeSidenav();
+    this._sidebarService.closeSidenav();
   }
 }

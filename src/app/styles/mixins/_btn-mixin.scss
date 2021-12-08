@@ -1,0 +1,10 @@
+@mixin general-btn {
+  background-color: inherit;
+  cursor: pointer;
+  padding: 2px 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--secondary-font-size);
+  border-radius: var(--main-border-radius);
+}

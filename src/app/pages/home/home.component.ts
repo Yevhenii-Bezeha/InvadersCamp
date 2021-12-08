@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subscription } from 'rxjs';
 import { ModalService } from '@services/modalService';
+import { SidebarService } from '@services/sidebarService';
 
 @Component({
   selector: 'app-home',
@@ -16,16 +17,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   private subModal: Subscription;
   private subSidenav: Subscription;
 
-  constructor(private modalService: ModalService) {}
+  constructor(
+    private _modalService: ModalService,
+    private _sidebarService: SidebarService
+  ) {}
 
   ngOnInit() {
-    this.isShowModal = this.modalService.isShowModal;
-    this.subModal = this.modalService.isShowModalChanged$.subscribe(
+    this.isShowModal = this._modalService.isShowModal;
+    this.subModal = this._modalService.isShowModalChanged$.subscribe(
       (isShowModal) => (this.isShowModal = isShowModal)
     );
 
-    this.isSideNavOpened = this.modalService.isSidenavOpened;
-    this.subSidenav = this.modalService.isSidenavChanged$.subscribe(
+    this.isSideNavOpened = this._sidebarService.isSidenavOpened;
+    this.subSidenav = this._sidebarService.isSidenavChanged$.subscribe(
       (isSideNavOpened) => {
         this.isSideNavOpened = isSideNavOpened;
       }

@@ -1,36 +1,43 @@
-<form class="form" [formGroup]="postForm" (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit()" [formGroup]="postForm" class="form">
   <p class="form__title">Create a new post</p>
   <button
-    mat-icon-button
-    class="form__close"
     (click)="onCloseClick()"
+    class="form__close"
+    mat-icon-button
     type="button"
   >
     <mat-icon>close</mat-icon>
   </button>
   <p class="form__text">Choose your avatar:</p>
-  <mat-radio-group aria-label="Select an option" class="form__radiogroup"       formControlName="authorAvatar">
-    <mat-radio-button value="sentiment_very_satisfied" class="form__radiobtn">
+  <mat-radio-group
+    aria-label="Select an option"
+    class="form__radiogroup"
+    formControlName="authorAvatar"
+  >
+    <mat-radio-button class="form__radiobtn" value="sentiment_very_satisfied">
       <mat-icon class="form__icon">sentiment_very_satisfied</mat-icon>
     </mat-radio-button>
-    <mat-radio-button value="sentiment_satisfied" class="form__radiobtn">
+    <mat-radio-button class="form__radiobtn" value="sentiment_satisfied">
       <mat-icon class="form__icon">sentiment_satisfied</mat-icon>
     </mat-radio-button>
-    <mat-radio-button value="sentiment_neutral" class="form__radiobtn">
+    <mat-radio-button class="form__radiobtn" value="sentiment_neutral">
       <mat-icon class="form__icon">sentiment_neutral</mat-icon>
     </mat-radio-button>
-    <mat-radio-button value="sentiment_very_dissatisfied" class="form__radiobtn">
+    <mat-radio-button
+      class="form__radiobtn"
+      value="sentiment_very_dissatisfied"
+    >
       <mat-icon class="form__icon">sentiment_very_dissatisfied</mat-icon>
     </mat-radio-button>
   </mat-radio-group>
-  <mat-form-field class="form-container" appearance="outline">
+  <mat-form-field appearance="outline" class="form-input-container">
     <mat-label>Author Name</mat-label>
     <input
-      type="email"
+      autocomplete="off"
+      formControlName="authorName"
       matInput
       placeholder="Ex. John Dow"
-      formControlName="authorName"
-      autocomplete="off"
+      type="email"
     />
     <mat-error *ngIf="postForm.controls['authorName'].hasError('required')">
       Author name is required
@@ -42,32 +49,32 @@
       Max-length is 15
     </mat-error>
   </mat-form-field>
-  <mat-form-field class="form-container" appearance="outline">
+  <mat-form-field appearance="outline" class="form-input-container">
     <mat-label>Title</mat-label>
     <textarea
+      autocomplete="off"
+      formControlName="title"
       matInput
       placeholder="Ex .Natural language interface accessibility"
-      formControlName="title"
-      autocomplete="off"
     ></textarea>
     <mat-error *ngIf="postForm.controls['title'].hasError('required')">
       Title name is required
     </mat-error>
   </mat-form-field>
-  <mat-form-field class="form-container" appearance="outline">
+  <mat-form-field appearance="outline" class="form-input-container">
     <mat-label>Description</mat-label>
     <textarea
+      autocomplete="off"
+      formControlName="description"
       matInput
       placeholder="Ex. Spoken interaction with mobile devices and consumer"
-      formControlName="description"
-      autocomplete="off"
     ></textarea>
     <mat-error *ngIf="postForm.controls['description'].hasError('required')">
       Description name is required
     </mat-error>
   </mat-form-field>
   <div class="form__button">
-    <button mat-raised-button type="submit" [disabled]="!postForm.valid">
+    <button [disabled]="!postForm.valid" mat-raised-button type="submit">
       Create
     </button>
   </div>

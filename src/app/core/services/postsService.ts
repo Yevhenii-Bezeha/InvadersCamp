@@ -5,11 +5,11 @@ import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class PostsService {
-  private postsChanged = new Subject<IPost[]>();
+  private _postsChanged = new Subject<IPost[]>();
 
-  public postsChanged$ = this.postsChanged.asObservable();
+  public postsChanged$ = this._postsChanged.asObservable();
 
-  private posts: IPost[] = [
+  private _posts: IPost[] = [
     {
       id: uuidv4(),
       authorAvatar: 'sentiment_very_satisfied',
@@ -33,11 +33,11 @@ export class PostsService {
   constructor() {}
 
   getPosts() {
-    return this.posts.slice();
+    return [...this._posts];
   }
 
   addLike(id: string) {
-    this.posts.map((el) => {
+    this._posts.map((el) => {
       if (id === el.id) {
         el.likes += 1;
         return el;
@@ -48,7 +48,7 @@ export class PostsService {
 
   addPost(post: IPostToAdd) {
     const preparedPost = { ...post, id: uuidv4(), date: new Date(), likes: 0 };
-    this.posts.push(preparedPost);
-    this.postsChanged.next(this.posts.slice());
+    this._posts.push(preparedPost);
+    this._postsChanged.next([...this._posts]);
   }
 }

@@ -1,5 +1,6 @@
 import { ModalService } from '@services/modalService';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { SidebarService } from '@services/sidebarService';
 
 @Component({
   selector: 'app-modal',
@@ -7,25 +8,29 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit, OnDestroy {
-  constructor(private modalService: ModalService) {}
+  constructor(
+    private _modalService: ModalService,
+    private _sidebarService: SidebarService,
+    @Inject('Window') private _window: Window
+  ) {}
 
   ngOnInit(): void {
-    window.addEventListener('keydown', this.onEsc);
+    this._window.addEventListener('keydown', this.onEsc);
   }
 
   ngOnDestroy() {
-    window.removeEventListener('keydown', this.onEsc);
+    this._window.removeEventListener('keydown', this.onEsc);
   }
 
   handleBackdropClick(e: MouseEvent) {
     if (e.target !== e.currentTarget) return;
-    this.modalService.showModal();
+    this._modalService.toggleModal();
   }
 
   onEsc = (e: KeyboardEvent) => {
     if (e.code === 'Escape') {
-      this.modalService.showModal();
-      this.modalService.closeSidenav();
+      this._modalService.toggleModal();
+      this._sidebarService.closeSidenav();
     }
   };
 }

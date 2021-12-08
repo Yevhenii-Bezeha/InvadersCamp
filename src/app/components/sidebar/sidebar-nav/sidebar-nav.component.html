@@ -1,7 +1,7 @@
 <mat-toolbar class="nav">
-  <a mat-button routerLink="/" class="active" (click)="onHomeClick()">Home</a>
-  <button mat-button class="nav__text" (click)="onAddClick()">
-    <mat-icon mat-list-icon class="icon">add_box</mat-icon>
+  <a (click)="onHomeClick()" class="active" mat-button routerLink="/">Home</a>
+  <button (click)="onAddClick()" class="nav__text" mat-button>
+    <mat-icon mat-list-icon>add_box</mat-icon>
     New Article
   </button>
   <p class="nav__text">User Name</p>

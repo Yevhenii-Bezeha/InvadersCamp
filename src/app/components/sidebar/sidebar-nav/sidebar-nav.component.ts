@@ -1,5 +1,6 @@
 import { ModalService } from '@services/modalService';
 import { Component } from '@angular/core';
+import { SidebarService } from '@services/sidebarService';
 
 @Component({
   selector: 'app-sidebar-nav',
@@ -7,13 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar-nav.component.scss'],
 })
 export class SidebarNavComponent {
-  constructor(private modalService: ModalService) {}
+  constructor(
+    private _modalService: ModalService,
+    private _sidebarService: SidebarService
+  ) {}
 
   onAddClick() {
-    this.modalService.showModal();
+    this._modalService.toggleModal();
   }
 
   onHomeClick() {
-    this.modalService.closeSidenav();
+    this._sidebarService.closeSidenav();
   }
 }
