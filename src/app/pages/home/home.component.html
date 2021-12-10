@@ -1,16 +1,5 @@
-<mat-drawer-container class="example-container">
-  <mat-drawer [opened]="isSideNavOpened" mode="side" position="end">
-    <app-sidebar></app-sidebar>
-  </mat-drawer>
-  <mat-drawer-content>
-    <app-header></app-header>
-    <main>
-      <div class="container">
-        <app-list></app-list>
-      </div>
-    </main>
-  </mat-drawer-content>
-</mat-drawer-container>
-<app-modal *ngIf="isShowModal">
-  <app-article-form></app-article-form>
-</app-modal>
+<main>
+  <div class="container">
+    <app-posts></app-posts>
+  </div>
+</main>

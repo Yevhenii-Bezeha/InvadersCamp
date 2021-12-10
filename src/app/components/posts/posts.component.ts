@@ -9,11 +9,11 @@ export interface Section {
 }
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
+  selector: 'app-posts',
+  templateUrl: './posts.component.html',
+  styleUrls: ['./posts.component.scss'],
 })
-export class ListComponent implements OnInit, OnDestroy {
+export class PostsComponent implements OnInit, OnDestroy {
   public posts: IPost[];
 
   private sub: Subscription;

@@ -34,8 +34,4 @@ export class ArticleFormComponent {
     this._modalService.toggleModal();
     this._sidebarService.closeSidenav();
   }
-
-  onCloseClick() {
-    this._modalService.toggleModal();
-  }
 }

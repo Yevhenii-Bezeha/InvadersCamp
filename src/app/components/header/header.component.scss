@@ -2,13 +2,24 @@
   margin-bottom: var(--header-margin);
 
   &__nav {
-    display: flex;
-    justify-content: space-between;
     background-color: var(--secondary-bg-color);
   }
 
-  &__logo {
+  &__auth-container {
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+
+  &__auth-link {
+    margin-right: 10px;
     font-size: var(--secondary-font-size);
-    font-weight: var(--secondary-font-weight);
+
+    &_active {
+      font-weight: var(--secondary-font-weight);
+    }
+  }
+
+  &__auth-link:first-child {
+    margin-left: 10px;
   }
 }

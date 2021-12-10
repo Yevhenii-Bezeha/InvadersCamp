@@ -1,18 +1,11 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="postForm" class="form">
   <p class="form__title">Create a new post</p>
-  <button
-    (click)="onCloseClick()"
-    class="form__close"
-    mat-icon-button
-    type="button"
-  >
-    <mat-icon>close</mat-icon>
-  </button>
+  <app-close-btn></app-close-btn>
   <p class="form__text">Choose your avatar:</p>
   <mat-radio-group
+    [formControlName]="'authorAvatar'"
     aria-label="Select an option"
     class="form__radiogroup"
-    formControlName="authorAvatar"
   >
     <mat-radio-button class="form__radiobtn" value="sentiment_very_satisfied">
       <mat-icon class="form__icon">sentiment_very_satisfied</mat-icon>
@@ -37,7 +30,6 @@
       formControlName="authorName"
       matInput
       placeholder="Ex. John Dow"
-      type="email"
     />
     <mat-error *ngIf="postForm.controls['authorName'].hasError('required')">
       Author name is required

@@ -1,0 +1,55 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="signupForm" class="form">
+  <p class="form__title">Sign up</p>
+  <mat-form-field appearance="outline" class="form-input-container">
+    <mat-label>User Name</mat-label>
+    <input
+      autocomplete="off"
+      formControlName="userName"
+      matInput
+      placeholder="Ex. John_Dow"
+    />
+    <mat-error *ngIf="signupForm.controls['userName'].hasError('required')">
+      User name is required
+    </mat-error>
+    <mat-error *ngIf="signupForm.controls['userName'].hasError('minlength')">
+      Min-length is 3
+    </mat-error>
+    <mat-error *ngIf="signupForm.controls['userName'].hasError('maxlength')">
+      Max-length is 15
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="form-input-container">
+    <mat-label>Email</mat-label>
+    <input
+      autocomplete="off"
+      email
+      formControlName="email"
+      matInput
+      placeholder="Ex. John_Dow@John_Dow.com"
+    />
+    <mat-error *ngIf="signupForm.controls['email'].hasError('required')">
+      Email is required
+    </mat-error>
+    <mat-error *ngIf="signupForm.controls['email'].hasError('email')">
+      Provide correct email
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="form-input-container">
+    <mat-label>Password</mat-label>
+    <input
+      autocomplete="off"
+      email
+      formControlName="password"
+      matInput
+      placeholder="Ex. 12345678"
+    />
+    <mat-error *ngIf="signupForm.controls['email'].hasError('required')">
+      Password is required
+    </mat-error>
+  </mat-form-field>
+  <div class="form__button">
+    <button [disabled]="!signupForm.valid" mat-raised-button type="submit">
+      Submit
+    </button>
+  </div>
+</form>

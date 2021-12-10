@@ -1,0 +1,9 @@
+@mixin form-container {
+  min-width: 150px;
+  max-width: 500px;
+  background-color: var(--form-bg-color);
+  box-shadow: 0 8px 30px var(--box-shadow-color);
+  border-radius: var(--main-border-radius);
+  padding: 25px 15px;
+  margin: 0 20px;
+}
