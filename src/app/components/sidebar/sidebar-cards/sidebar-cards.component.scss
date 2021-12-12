@@ -1,9 +1,9 @@
 .card {
-  background-color: rgb(226, 223, 223);
-  margin-left: 5px;
-  margin-right: 5px;
+  background-color: var(--sidebar-card-bg-color);
+  margin-left: var(--text-margin);
+  margin-right: var(--text-margin);
 
   &__text {
-    font-weight: 700;
+    font-weight: var(--secondary-font-weight);
   }
 }

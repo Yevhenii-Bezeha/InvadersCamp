@@ -1,18 +1,18 @@
+@import "./src/app/styles/mixins/_flex-center";
+
 .overlay {
   position: absolute;
   top: 0;
   bottom: 0;
   width: 100%;
-  background-color: rgba($color: #000000, $alpha: 0.3);
-  z-index: 100;
+  background-color: var(--modal-bg-color);
+  z-index: var(--zindex-modal-overlay);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
 }
 
-.Modal {
+.modal-wrapper {
   position: absolute;
-  border-radius: 14px;
-  z-index: 999;
+  border-radius: var(--main-border-radius);
+  z-index: var(--zindex-modal-content);
 }

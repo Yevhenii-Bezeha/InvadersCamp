@@ -1,0 +1,37 @@
+@import "./src/app/styles/mixins/_form-container.scss";
+
+.form {
+  @include form-container;
+  position: relative;
+
+  &__icon {
+    font-size: 45px;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: var(--secondary-font-size);
+    font-weight: var(--secondary-font-weight);
+    margin-bottom: 20px;
+  }
+
+  &__text {
+    font-size: var(--main-font-size);
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__radiogroup {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+  }
+}
+
+.form-input-container {
+  width: 100%;
+  margin-bottom: var(--text-margin);
+}

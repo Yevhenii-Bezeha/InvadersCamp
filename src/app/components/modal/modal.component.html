@@ -1,5 +1,5 @@
-<div class="overlay container" (click)="handleBackdropClick($event)">
-  <div class="modal">
-    <app-form></app-form>
+<div (click)="handleBackdropClick($event)" class="overlay container">
+  <div class="modal-wrapper">
+    <ng-content></ng-content>
   </div>
 </div>

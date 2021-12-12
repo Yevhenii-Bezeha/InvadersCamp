@@ -1,22 +1,24 @@
-import { ModalService } from '@services/modalService';
+import { ModalService } from '@services/modal.service';
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { SidebarService } from '@services/sidebar.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
-  constructor(private modalService: ModalService) {}
-
-  ngOnInit(): void {}
+export class HeaderComponent {
+  constructor(
+    private _modalService: ModalService,
+    private _sidebarService: SidebarService
+  ) {}
 
   onClick() {
-    this.modalService.toggleSidenav();
+    this._sidebarService.toggleSidenav();
   }
 
   onLogoClick() {
-    this.modalService.closeSidenav();
+    this._sidebarService.closeSidenav();
   }
 }
