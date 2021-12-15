@@ -14,7 +14,7 @@ export interface Section {
   styleUrls: ['./posts.component.scss'],
 })
 export class PostsComponent implements OnInit, OnDestroy {
-  public posts: IPost[];
+  public posts: IPost[] = [];
 
   private sub: Subscription;
 

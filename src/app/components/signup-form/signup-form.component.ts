@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -6,7 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
   templateUrl: './signup-form.component.html',
   styleUrls: ['./signup-form.component.scss'],
 })
-export class SignupFormComponent implements OnInit {
+export class SignupFormComponent {
   public signupForm = this._fb.group({
     userName: [
       '',
@@ -16,9 +16,10 @@ export class SignupFormComponent implements OnInit {
     password: ['', Validators.required],
   });
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(private _fb: FormBuilder) {
+  }
 
-  ngOnInit(): void {}
 
-  onSubmit() {}
+  onSubmit() {
+  }
 }

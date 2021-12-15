@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ModalService } from '@services/modal.service';
 
 @Component({
@@ -6,10 +6,8 @@ import { ModalService } from '@services/modal.service';
   templateUrl: './close-btn.component.html',
   styleUrls: ['./close-btn.component.scss'],
 })
-export class CloseBtnComponent implements OnInit {
+export class CloseBtnComponent {
   constructor(private _modalService: ModalService) {}
-
-  ngOnInit(): void {}
 
   onCloseClick() {
     this._modalService.toggleModal();

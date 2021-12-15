@@ -1,19 +1,9 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "@services/*": [
-        "./src/app/core/services/*"
-      ],
-      "@interfaces/*": [
-        "./src/app/core/models/*"
-      ],
-      "@components/*": [
-        "./src/app/components/*"
-      ]
-    },
-    "outDir": "./dist/out-tsc",
+    "rootDir": ".",
+    "outDir": "../dist/server",
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
@@ -28,20 +18,20 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2017",
-    "module": "es2020",
+    "module": "commonjs",
     "lib": [
       "es2020",
       "dom"
     ]
   },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
-  },
+  "typeRoots": [
+    "../node_modules/@types",
+    "../node_modules"
+  ],
+  "types": [
+    "node"
+  ],
   "exclude": [
-    "src",
-    "backend"
+    "../node_modules"
   ]
 }
