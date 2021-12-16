@@ -12,13 +12,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.resolve('dist/appName')));
 
-app.use('*', (req: any, res: any, next: any) => {
-  res.sendFile(path.resolve('dist/appName/index.html'));
+app.get('/posts', (req, res) => {
+  res.json('it works');
+  console.log('-----------------------posts');
 });
 
-app.get('/posts', (req, res) => {
-  res.json('respond');
-  console.log('-----------------------posts');
+app.use('*', (req: any, res: any, next: any) => {
+  res.sendFile(path.resolve('dist/appName/index.html'));
 });
 
 app.use((req, res: any) => {

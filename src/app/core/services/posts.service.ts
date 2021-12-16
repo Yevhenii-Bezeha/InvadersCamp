@@ -2,6 +2,7 @@ import { IPost, IPostToAdd } from '../models/IPost';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class PostsService {
@@ -30,7 +31,7 @@ export class PostsService {
     },
   ];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   getPosts() {
     return [...this._posts];
@@ -50,5 +51,9 @@ export class PostsService {
     const preparedPost = { ...post, id: uuidv4(), date: new Date(), likes: 0 };
     this._posts.push(preparedPost);
     this._postsChanged.next([...this._posts]);
+  }
+
+  getFromServer() {
+    return this.http.get('/posts');
   }
 }
