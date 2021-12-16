@@ -13,6 +13,7 @@ export class PostItemComponent {
   constructor(private postService: PostsService) {}
 
   onHeartClick(id: string) {
-    this.postService.addLike(id);
+    console.log(123);
+    // this.postService.addLike(id);
   }
 }

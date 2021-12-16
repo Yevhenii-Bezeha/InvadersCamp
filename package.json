@@ -10,10 +10,10 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "dev": "ts-node-dev --respawn backend/app.ts",
+    "dev": "ts-node-dev --respawn backend/src/app.ts",
     "build:server": "tsc -p backend",
     "watch:server": "tsc -p backend -watch",
-    "start:server": "nodemon dist/server/app.js"
+    "start:server": "nodemon dist/server/bin"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +28,7 @@
     "@angular/platform-browser-dynamic": "~13.0.0",
     "@angular/router": "~13.0.0",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15",

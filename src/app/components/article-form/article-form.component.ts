@@ -28,7 +28,7 @@ export class ArticleFormComponent {
   ) {}
 
   onSubmit() {
-    this._postService.addPost(this.postForm.value);
+    // this._postService.addPost(this.postForm.value);
     console.log(this.postForm.value);
     this.postForm.reset();
     this._modalService.toggleModal();
