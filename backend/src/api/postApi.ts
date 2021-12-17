@@ -1,11 +1,16 @@
 import * as express from 'express';
-import { Request, Response } from 'express';
-import { posts } from '../models/posts';
+import ctrlPosts from '../controllers/postsController';
 
 const router = express.Router();
 
-router.get('/', (req: Request, res: Response) => {
-  res.json(posts);
-});
+router.get('/', ctrlPosts.get);
+
+router.get('/:id', ctrlPosts.getById);
+
+router.post('/', ctrlPosts.create);
+
+router.patch('/:postId', ctrlPosts.update);
+
+router.delete('/:postId', ctrlPosts.remove);
 
 export default router;

@@ -4,6 +4,7 @@ import * as path from 'path';
 import * as logger from 'morgan';
 import * as cors from 'cors';
 import postApi from './api/postApi';
+import errorMiddleware from './middlewares/errorMiddleware';
 
 const app: Application = express();
 
@@ -20,14 +21,6 @@ app.use('*', (req: Request, res: Response) => {
   res.sendFile(path.resolve('dist/appName/index.html'));
 });
 
-app.use((req: Request, res: Response) => {
-  res.status(404).json({ message: 'Not found' });
-});
-
-app.use((err: Error, req: Request, res: Response) => {
-  const { message = 'Server error' } = err;
-  const status: number = 500;
-  res.status(status).json(message);
-});
+app.use(errorMiddleware);
 
 export default app;
