@@ -1,0 +1,18 @@
+@import "../../../styles/mixins/flex-center";
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--modal-bg-color);
+  z-index: var(--zindex-modal-overlay);
+  overflow: hidden;
+  @include flex-center;
+}
+
+.modal-wrapper {
+  position: absolute;
+  border-radius: var(--main-border-radius);
+  z-index: var(--zindex-modal-content);
+}

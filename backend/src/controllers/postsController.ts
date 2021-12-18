@@ -7,8 +7,8 @@ import {
   updatePost,
 } from '../services/postActions';
 import { IPost } from '../models/IPost';
-import PostNotFoundException from '../../exceptions/PostNotFoundException';
-import HttpException from '../../exceptions/HttpException';
+import PostNotFoundException from '../exceptions/PostNotFoundException';
+import HttpException from '../exceptions/HttpException';
 import SuccessResponse from '../models/SuccessResponse';
 
 const get = async (req: Request, res: Response, next: NextFunction) => {

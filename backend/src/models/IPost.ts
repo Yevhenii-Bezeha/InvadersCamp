@@ -5,4 +5,12 @@ export interface IPost {
   title: string;
   description: string;
   likes: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IResponse {
+  status: number;
+  message: string;
+  data: IPost[];
 }

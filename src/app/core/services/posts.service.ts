@@ -1,4 +1,4 @@
-import { IPost } from '../models/IPost';
+import { IPost, IResponse } from '../models/IPost';
 import { Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -11,8 +11,8 @@ export class PostsService {
 
   constructor(private http: HttpClient) {}
 
-  getPosts(): Observable<IPost[]> {
-    return this.http.get<IPost[]>('http://localhost:3000/posts');
+  getPosts(): Observable<IResponse> {
+    return this.http.get<IResponse>('http://localhost:3000/posts');
   }
 
   // addLike(id: string) {
