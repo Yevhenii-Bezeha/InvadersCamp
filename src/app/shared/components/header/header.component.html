@@ -3,18 +3,24 @@
     <a
       class="header__auth-link"
       mat-button
-    >My blog</a
+      routerLink="/posts"
+      routerLinkActive="header__auth-link_active"
+      >My blog</a
     >
     <div class="header__auth-container">
       <a
         class="header__auth-link"
         mat-button
-      >Log in</a
+        routerLink="/login"
+        routerLinkActive="header__auth-link_active"
+        >Log in</a
       >
       <a
         class="header__auth-link"
         mat-button
-      >Get started</a
+        routerLink="/signup"
+        routerLinkActive="header__auth-link_active"
+        >Get started</a
       >
       <button (click)="onClick()" mat-icon-button>
         <mat-icon>menu</mat-icon>

@@ -14,6 +14,7 @@ import { ListPostsModule } from './list-posts/list-posts.module';
 import { PostModule } from './post/post.module';
 import { SidebarModule } from './sidebar/sidebar.module';
 import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app.routing.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,9 +26,10 @@ import { RouterModule } from '@angular/router';
     SharedModule,
     RouterModule,
     AuthModule,
-    ListPostsModule,
     PostModule,
+    ListPostsModule,
     SidebarModule,
+    AppRoutingModule,
   ],
   providers: [
     PostsService,
