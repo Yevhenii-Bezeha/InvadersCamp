@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { IPost } from '@interfaces/IPost';
-import { PostsService } from '@services/posts.service';
 
 @Component({
   selector: 'app-post-item',
@@ -10,7 +9,7 @@ import { PostsService } from '@services/posts.service';
 export class PostItemComponent {
   @Input() post: IPost;
 
-  constructor(private postService: PostsService) {}
+  constructor() {}
 
   onHeartClick(id: string) {
     console.log(123);

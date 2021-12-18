@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IPost, IResponse } from '../core/models/IPost';
+import { IPost } from '@interfaces/IPost';
 import { Subscription } from 'rxjs';
-import { PostsService } from '../core/services/posts.service';
+import { PostsService } from '@services/posts.service';
 
 @Component({
   selector: 'app-list-posts',
@@ -13,13 +13,11 @@ export class ListPostsComponent implements OnInit, OnDestroy {
 
   private sub: Subscription;
 
-  constructor(private postService: PostsService) {}
+  constructor(private _postService: PostsService) {}
 
   ngOnInit(): void {
-    this.postService.getPosts().subscribe((data: IResponse) => {
-      this.posts = data.data;
-    });
-    this.sub = this.postService.postsChanged$.subscribe(
+    this._postService.getPosts();
+    this.sub = this._postService.postsChanged$.subscribe(
       (posts: IPost[]) => (this.posts = posts)
     );
   }

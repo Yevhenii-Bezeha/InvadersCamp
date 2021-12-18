@@ -23,6 +23,7 @@ const post = new Schema(
     likes: {
       type: Number,
       required: [true, 'Set likes'],
+      default: 0,
     },
   },
   { versionKey: false, timestamps: true }
