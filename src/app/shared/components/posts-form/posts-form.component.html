@@ -1,5 +1,7 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="postForm" class="form">
-  <p class="form__title">Create a new post</p>
+  <p class="form__title">
+    {{ isCreateForm ? "Create post" : "Edit post" }}
+  </p>
   <app-close-btn></app-close-btn>
   <p class="form__text">Choose your avatar:</p>
   <mat-radio-group
@@ -68,7 +70,7 @@
   </mat-form-field>
   <div class="form__button">
     <button [disabled]="!postForm.valid" mat-raised-button type="submit">
-      Create
+      {{ isCreateForm ? "Create" : "Edit" }}
     </button>
   </div>
 </form>

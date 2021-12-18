@@ -15,6 +15,7 @@ import { PostModule } from './post/post.module';
 import { SidebarModule } from './sidebar/sidebar.module';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing.module';
+import { FormService } from '@services/form.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +36,7 @@ import { AppRoutingModule } from './app.routing.module';
     PostsService,
     ModalService,
     SidebarService,
+    FormService,
     { provide: 'Window', useValue: window },
   ],
   bootstrap: [AppComponent],

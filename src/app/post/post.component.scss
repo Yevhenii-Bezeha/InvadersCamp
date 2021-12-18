@@ -36,6 +36,10 @@
     font-size: var(--main-font-size);
     color: var(--secondary-text-color);
   }
+
+  &__btn {
+    margin-right: 40px;
+  }
 }
 
 .active {

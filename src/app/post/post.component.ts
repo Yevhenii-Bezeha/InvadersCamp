@@ -1,33 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { PostsService } from '@services/posts.service';
-import { IPost, IResPost } from '@interfaces/IPost';
+import { IPost } from '@interfaces/IPost';
+import { ModalService } from '@services/modal.service';
+import { FormService } from '@services/form.service';
+import { emptyPost } from '@interfaces/emptyPost';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
 })
-export class PostComponent implements OnInit {
-  public post: IPost;
-  private postId: string = '';
+export class PostComponent implements OnInit, OnDestroy {
+  public post: IPost = emptyPost;
+  isShowModal = true;
+  private _postId: string = '';
+  private _sub: Subscription;
 
   constructor(
     private _route: ActivatedRoute,
-    private _postService: PostsService
+    private _postService: PostsService,
+    private _modalService: ModalService,
+    private _formService: FormService
   ) {}
 
   ngOnInit() {
     this._route.params.subscribe((params: Params) => {
-      this.postId = params['id'];
+      this._postId = params['id'];
     });
-    this._postService.getPost(this.postId).subscribe((response: IResPost) => {
-      this.post = response.data;
-      console.log(this.post);
-    });
+    this._postService.getPost(this._postId);
+    this._sub = this._postService.postChanged$.subscribe(
+      (post: IPost) => (this.post = post)
+    );
+  }
+
+  ngOnDestroy() {
+    this._sub.unsubscribe();
   }
 
   onHeartClick(id: string) {
     console.log(id);
+  }
+
+  onEditClick() {
+    this._modalService.toggleModal();
+    this._formService.openEditForm();
   }
 }

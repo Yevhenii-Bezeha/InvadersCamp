@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ModalService {
-  public isShowModal = false;
+  public isShowModal: boolean = false;
   private _isShowModalChanged = new Subject<boolean>();
   public isShowModalChanged$ = this._isShowModalChanged.asObservable();
 

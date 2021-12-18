@@ -22,7 +22,20 @@
       <p class="postItemAdditional__text">
         {{ post.description }}
       </p>
-      <a mat-button routerLink="./{{ post._id }}">Read more...</a>
+      <div>
+        <button class="postItemAdditional__btn" mat-stroked-button>
+          Add comment
+        </button>
+        <button
+          (click)="onEditClick()"
+          class="postItemAdditional__btn"
+          color="primary"
+          mat-stroked-button
+        >
+          Edit
+        </button>
+        <button color="warn" mat-stroked-button>Delete</button>
+      </div>
     </div>
   </div>
 </div>

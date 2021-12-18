@@ -14,8 +14,8 @@ export class AppComponent implements OnInit, OnDestroy {
   public isShowModal = false;
   public isSideNavOpened = false;
 
-  private subModal: Subscription;
-  private subSidenav: Subscription;
+  private _subModal: Subscription;
+  private _subSidenav: Subscription;
 
   constructor(
     private _modalService: ModalService,
@@ -24,12 +24,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isShowModal = this._modalService.isShowModal;
-    this.subModal = this._modalService.isShowModalChanged$.subscribe(
-      (isShowModal) => (this.isShowModal = isShowModal)
+    this._subModal = this._modalService.isShowModalChanged$.subscribe(
+      (isShowModal: boolean) => (this.isShowModal = isShowModal)
     );
 
     this.isSideNavOpened = this._sidebarService.isSidenavOpened;
-    this.subSidenav = this._sidebarService.isSidenavChanged$.subscribe(
+    this._subSidenav = this._sidebarService.isSidenavChanged$.subscribe(
       (isSideNavOpened) => {
         this.isSideNavOpened = isSideNavOpened;
       }
@@ -37,7 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subModal.unsubscribe();
-    this.subSidenav.unsubscribe();
+    this._subModal.unsubscribe();
+    this._subSidenav.unsubscribe();
   }
 }

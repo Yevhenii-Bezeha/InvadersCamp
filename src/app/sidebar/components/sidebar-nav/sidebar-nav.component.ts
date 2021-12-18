@@ -1,6 +1,7 @@
 import { ModalService } from '@services/modal.service';
 import { Component } from '@angular/core';
 import { SidebarService } from '@services/sidebar.service';
+import { FormService } from '@services/form.service';
 
 @Component({
   selector: 'app-sidebar-nav',
@@ -10,10 +11,12 @@ import { SidebarService } from '@services/sidebar.service';
 export class SidebarNavComponent {
   constructor(
     private _modalService: ModalService,
-    private _sidebarService: SidebarService
+    private _sidebarService: SidebarService,
+    private _formService: FormService
   ) {}
 
   onAddClick() {
+    this._formService.openCreateForm();
     this._modalService.toggleModal();
   }
 

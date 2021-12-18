@@ -1,13 +1,16 @@
 import { IPost, IResAllPosts, IResPost } from '../models/IPost';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class PostsService {
+  public post: IPost;
+  private _postChanged = new Subject<IPost>();
+  public postChanged$ = this._postChanged.asObservable();
+
   private _posts: IPost[] = [];
   private _postsChanged = new Subject<IPost[]>();
-
   public postsChanged$ = this._postsChanged.asObservable();
 
   constructor(private http: HttpClient) {}
@@ -21,8 +24,13 @@ export class PostsService {
       });
   }
 
-  getPost(id: string): Observable<IResPost> {
-    return this.http.get<IResPost>(`http://localhost:3000/posts/${id}`);
+  getPost(id: string): void {
+    this.http
+      .get<IResPost>(`http://localhost:3000/posts/${id}`)
+      .subscribe((data: IResPost) => {
+        this.post = data.data;
+        this._postChanged.next({ ...this.post });
+      });
   }
 
   createPost(post: IPost) {
