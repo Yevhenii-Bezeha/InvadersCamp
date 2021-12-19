@@ -60,7 +60,9 @@ export class PostsFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this._postService.createPost(this.postForm.value);
+    this.isCreateForm
+      ? this._postService.createPost(this.postForm.value)
+      : this._postService.updatePost(this.post._id, this.postForm.value);
     this.postForm.reset();
     this._modalService.toggleModal();
     this._sidebarService.closeSidenav();

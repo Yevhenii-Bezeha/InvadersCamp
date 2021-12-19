@@ -25,4 +25,9 @@ export class ListPostsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
+  onPostSelected(post: IPost) {
+    this._postService.addLikes(post._id, { likes: post.likes + 1 });
+    this._postService.getPosts();
+  }
 }

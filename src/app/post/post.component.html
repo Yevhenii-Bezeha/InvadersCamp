@@ -9,7 +9,10 @@
         <p class="postItem__text">{{ post.authorName }}</p>
         <p class="postItem__text">{{ post.createdAt | date }}</p>
       </div>
-      <button (click)="onHeartClick(post._id)" class="postItem__btn">
+      <button
+        (click)="onHeartClick(post._id, post.likes)"
+        class="postItem__btn"
+      >
         <mat-icon *ngIf="post.likes" class="active">favorite</mat-icon>
         <mat-icon *ngIf="!post.likes">favorite_border</mat-icon>
         {{ post.likes }}
@@ -34,7 +37,13 @@
         >
           Edit
         </button>
-        <button color="warn" mat-stroked-button>Delete</button>
+        <button
+          (click)="onDeleteClick(post._id)"
+          color="warn"
+          mat-stroked-button
+        >
+          Delete
+        </button>
       </div>
     </div>
   </div>

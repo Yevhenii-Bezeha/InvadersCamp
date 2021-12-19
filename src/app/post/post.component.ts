@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { PostsService } from '@services/posts.service';
 import { IPost } from '@interfaces/IPost';
 import { ModalService } from '@services/modal.service';
@@ -22,7 +22,8 @@ export class PostComponent implements OnInit, OnDestroy {
     private _route: ActivatedRoute,
     private _postService: PostsService,
     private _modalService: ModalService,
-    private _formService: FormService
+    private _formService: FormService,
+    private _router: Router
   ) {}
 
   ngOnInit() {
@@ -39,12 +40,17 @@ export class PostComponent implements OnInit, OnDestroy {
     this._sub.unsubscribe();
   }
 
-  onHeartClick(id: string) {
-    console.log(id);
+  onHeartClick(id: string, likesCount: number) {
+    this._postService.updatePost(id, { likes: likesCount + 1 });
   }
 
   onEditClick() {
     this._modalService.toggleModal();
     this._formService.openEditForm();
+  }
+
+  onDeleteClick(id: string) {
+    this._postService.deletePost(id);
+    this._router.navigateByUrl('posts').then();
   }
 }

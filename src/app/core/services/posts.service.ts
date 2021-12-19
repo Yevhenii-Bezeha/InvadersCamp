@@ -1,4 +1,4 @@
-import { IPost, IResAllPosts, IResPost } from '../models/IPost';
+import { IPost, IPostUpd, IResAllPosts, IResPost } from '../models/IPost';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -36,5 +36,18 @@ export class PostsService {
   createPost(post: IPost) {
     this.http.post('http://localhost:3000/posts', post).subscribe();
     this.getPosts();
+  }
+
+  updatePost(id: string, post: IPostUpd) {
+    this.http.patch(`http://localhost:3000/posts/${id}`, post).subscribe();
+    this.getPost(id);
+  }
+
+  addLikes(id: string, post: IPostUpd) {
+    this.http.patch(`http://localhost:3000/posts/${id}`, post).subscribe();
+  }
+
+  deletePost(id: string) {
+    this.http.delete(`http://localhost:3000/posts/${id}`).subscribe();
   }
 }
