@@ -1,53 +1,48 @@
 import { IPost, IPostUpd, IResAllPosts, IResPost } from '../models/IPost';
-import { Subject } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { url } from '@interfaces/routes';
 
-@Injectable()
+const basicUrl = 'http://localhost:3000';
+
+@Injectable({ providedIn: 'root' })
 export class PostsService {
-  public post: IPost;
-  private _postChanged = new Subject<IPost>();
-  public postChanged$ = this._postChanged.asObservable();
-
-  private _posts: IPost[] = [];
-  private _postsChanged = new Subject<IPost[]>();
-  public postsChanged$ = this._postsChanged.asObservable();
-
   constructor(private http: HttpClient) {}
 
-  getPosts(): void {
-    this.http
-      .get<IResAllPosts>('http://localhost:3000/posts')
-      .subscribe((data: IResAllPosts) => {
-        this._posts = data.data;
-        this._postsChanged.next([...this._posts]);
-      });
+  getPosts(): Observable<IPost[]> {
+    return this.http
+      .get<IResAllPosts>(`${basicUrl}/${url.posts}`)
+      .pipe(map((data: IResAllPosts) => data.data));
   }
 
-  getPost(id: string): void {
-    this.http
-      .get<IResPost>(`http://localhost:3000/posts/${id}`)
-      .subscribe((data: IResPost) => {
-        this.post = data.data;
-        this._postChanged.next({ ...this.post });
-      });
+  getPost(id: string): Observable<IPost> {
+    return this.http
+      .get<IResPost>(`${basicUrl}/${url.posts}/${id}`)
+      .pipe(map((data: IResPost) => data.data));
   }
 
-  createPost(post: IPost) {
-    this.http.post('http://localhost:3000/posts', post).subscribe();
-    this.getPosts();
+  createPost(post: IPost): Observable<IPost> {
+    return this.http
+      .post<IResPost>(`${basicUrl}/${url.posts}`, post)
+      .pipe(map((data: IResPost) => data.data));
   }
 
   updatePost(id: string, post: IPostUpd) {
-    this.http.patch(`http://localhost:3000/posts/${id}`, post).subscribe();
-    this.getPost(id);
+    return this.http
+      .patch<IResPost>(`${basicUrl}/${url.posts}/${id}`, post)
+      .pipe(
+        map((data: IResPost) => {
+          return data.data;
+        })
+      );
   }
 
-  addLikes(id: string, post: IPostUpd) {
-    this.http.patch(`http://localhost:3000/posts/${id}`, post).subscribe();
-  }
-
-  deletePost(id: string) {
-    this.http.delete(`http://localhost:3000/posts/${id}`).subscribe();
+  deletePost(id: string): Observable<IPost> {
+    return this.http.delete<IResPost>(`${basicUrl}/${url.posts}/${id}`).pipe(
+      map((data: IResPost) => {
+        return data.data;
+      })
+    );
   }
 }

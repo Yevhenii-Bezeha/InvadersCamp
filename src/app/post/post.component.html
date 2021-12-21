@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="post._id && !isFetching && !error">
   <mat-divider></mat-divider>
   <div class="container postItem">
     <div class="postItem__upperPart">
@@ -9,10 +9,7 @@
         <p class="postItem__text">{{ post.authorName }}</p>
         <p class="postItem__text">{{ post.createdAt | date }}</p>
       </div>
-      <button
-        (click)="onHeartClick(post._id, post.likes)"
-        class="postItem__btn"
-      >
+      <button (click)="addLike(post)" class="postItem__btn">
         <mat-icon *ngIf="post.likes" class="active">favorite</mat-icon>
         <mat-icon *ngIf="!post.likes">favorite_border</mat-icon>
         {{ post.likes }}
@@ -48,3 +45,5 @@
     </div>
   </div>
 </div>
+<app-spinner *ngIf="isFetching && !error"></app-spinner>
+<app-error *ngIf="error" [error]="error"></app-error>

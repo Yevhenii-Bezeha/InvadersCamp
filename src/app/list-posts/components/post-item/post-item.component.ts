@@ -13,7 +13,7 @@ export class PostItemComponent {
 
   constructor(private _postService: PostsService) {}
 
-  onHeartClick(id: string, likesCount: number) {
+  onHeartClick(): void {
     this.postSelected.emit();
   }
 }

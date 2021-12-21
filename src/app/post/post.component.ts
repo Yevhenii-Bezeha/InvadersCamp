@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { PostsService } from '@services/posts.service';
 import { IPost } from '@interfaces/IPost';
-import { ModalService } from '@services/modal.service';
 import { FormService } from '@services/form.service';
 import { emptyPost } from '@interfaces/emptyPost';
 import { Subscription } from 'rxjs';
+import { url } from '@interfaces/routes';
 
 @Component({
   selector: 'app-post',
@@ -14,43 +14,73 @@ import { Subscription } from 'rxjs';
 })
 export class PostComponent implements OnInit, OnDestroy {
   public post: IPost = emptyPost;
-  isShowModal = true;
+  public isFetching: boolean = false;
+  public error: string = '';
   private _postId: string = '';
-  private _sub: Subscription;
+  private _subRoute: Subscription;
+  private _subGet: Subscription;
+  private _subUpd: Subscription;
 
   constructor(
     private _route: ActivatedRoute,
     private _postService: PostsService,
-    private _modalService: ModalService,
     private _formService: FormService,
     private _router: Router
   ) {}
 
-  ngOnInit() {
-    this._route.params.subscribe((params: Params) => {
-      this._postId = params['id'];
-    });
-    this._postService.getPost(this._postId);
-    this._sub = this._postService.postChanged$.subscribe(
-      (post: IPost) => (this.post = post)
+  ngOnInit(): void {
+    this.isFetching = true;
+    this.getPosts();
+  }
+
+  ngOnDestroy(): void {
+    this._subRoute.unsubscribe();
+    this._subGet.unsubscribe();
+    if (this._subUpd) {
+      this._subUpd.unsubscribe();
+    }
+  }
+
+  getPosts(): void {
+    this._subRoute = this._route.params.subscribe(
+      (params: Params) => (this._postId = params['id'])
     );
+    this._subGet = this._postService.getPost(this._postId).subscribe({
+      next: (post: IPost) => {
+        this.post = post;
+        this.isFetching = false;
+      },
+      error: (error) => {
+        this.error = error.message;
+        this.isFetching = false;
+      },
+    });
   }
 
-  ngOnDestroy() {
-    this._sub.unsubscribe();
+  addLike(post: IPost): void {
+    this._subUpd = this._postService
+      .updatePost(post._id, { likes: post.likes + 1 })
+      .subscribe({
+        next: (post: IPost) => {
+          this.getPosts();
+        },
+        error: (error) => {
+          this.error = error.message;
+        },
+      });
   }
 
-  onHeartClick(id: string, likesCount: number) {
-    this._postService.updatePost(id, { likes: likesCount + 1 });
+  onEditClick(): void {
+    this._formService.openEditForm(this.post);
   }
 
-  onEditClick() {
-    this._modalService.toggleModal();
-    this._formService.openEditForm();
-  }
-
-  onDeleteClick(id: string) {
-    this._postService.deletePost(id);
-    this._router.navigateByUrl('posts').then();
+  onDeleteClick(id: string): void {
+    this._postService.deletePost(id).subscribe({
+      next: (post: IPost) => {},
+      error: (error) => {
+        this.error = error.message;
+      },
+    });
+    this._router.navigateByUrl(url.posts).then();
   }
 }

@@ -1,21 +1,20 @@
-import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { IPost } from '@interfaces/IPost';
+import { Router } from '@angular/router';
+import { url } from '@interfaces/routes';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FormService {
-  public isCreateForm: boolean = false;
-  private _isCreateFormChanged = new Subject<boolean>();
-  public isCreateFormChanged$ = this._isCreateFormChanged.asObservable();
+  public post: IPost;
 
-  constructor() {}
+  constructor(private _router: Router) {}
 
-  openCreateForm() {
-    this.isCreateForm = true;
-    this._isCreateFormChanged.next(this.isCreateForm);
+  openAddForm() {
+    this._router.navigateByUrl(url.addPost).then();
   }
 
-  openEditForm() {
-    this.isCreateForm = false;
-    this._isCreateFormChanged.next(this.isCreateForm);
+  openEditForm(post: IPost) {
+    this.post = post;
+    this._router.navigateByUrl(url.editPost).then();
   }
 }

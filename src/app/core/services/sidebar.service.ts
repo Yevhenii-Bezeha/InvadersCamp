@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class SidebarService {
   public isSidenavOpened = false;
   private _isSidenavChanged = new Subject<boolean>();

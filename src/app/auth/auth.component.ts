@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { url } from '@interfaces/routes';
 
 @Component({
   selector: 'app-auth',
@@ -7,12 +8,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
-  public href: string = '';
+  public currentHref: string = '';
+  public url = { ...url, login: `/${url.login}`, signup: `/${url.signup}` };
 
   constructor(private route: Router) {}
 
-  ngOnInit() {
-    this.href = this.route.url;
-    console.log(this.route.url);
+  ngOnInit(): void {
+    this.currentHref = this.route.url;
   }
 }

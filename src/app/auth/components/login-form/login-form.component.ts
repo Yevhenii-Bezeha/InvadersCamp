@@ -14,5 +14,5 @@ export class LoginFormComponent {
 
   constructor(private _fb: FormBuilder) {}
 
-  onSubmit() {}
+  onSubmit(): void {}
 }

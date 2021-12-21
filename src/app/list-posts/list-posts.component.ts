@@ -10,24 +10,49 @@ import { PostsService } from '@services/posts.service';
 })
 export class ListPostsComponent implements OnInit, OnDestroy {
   public posts: IPost[] = [];
-
-  private sub: Subscription;
+  public isFetching: boolean = false;
+  public error: string = '';
+  public test: String;
+  private _subGet: Subscription;
+  private _subUpd: Subscription;
 
   constructor(private _postService: PostsService) {}
 
   ngOnInit(): void {
-    this._postService.getPosts();
-    this.sub = this._postService.postsChanged$.subscribe(
-      (posts: IPost[]) => (this.posts = posts)
-    );
+    this.isFetching = true;
+    this.getPosts();
   }
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
+  ngOnDestroy(): void {
+    this._subGet.unsubscribe();
+    if (this._subUpd) {
+      this._subUpd.unsubscribe();
+    }
   }
 
-  onPostSelected(post: IPost) {
-    this._postService.addLikes(post._id, { likes: post.likes + 1 });
-    this._postService.getPosts();
+  getPosts(): void {
+    this._subGet = this._postService.getPosts().subscribe({
+      next: (posts: IPost[]) => {
+        this.posts = posts;
+        this.isFetching = false;
+      },
+      error: (error) => {
+        this.error = error.message;
+        this.isFetching = false;
+      },
+    });
+  }
+
+  addLike(post: IPost): void {
+    this._subUpd = this._postService
+      .updatePost(post._id, { likes: post.likes + 1 })
+      .subscribe({
+        next: (post: IPost) => {
+          this.getPosts();
+        },
+        error: (error) => {
+          this.error = error.message;
+        },
+      });
   }
 }

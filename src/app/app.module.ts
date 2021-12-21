@@ -1,21 +1,16 @@
-import { ModalService } from '@services/modal.service';
-import { PostsService } from '@services/posts.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SidebarService } from '@services/sidebar.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthModule } from './auth/auth.module';
 import { ListPostsModule } from './list-posts/list-posts.module';
-import { PostModule } from './post/post.module';
 import { SidebarModule } from './sidebar/sidebar.module';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing.module';
-import { FormService } from '@services/form.service';
+import { PostModule } from './post/post.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,19 +21,12 @@ import { FormService } from '@services/form.service';
     ReactiveFormsModule,
     SharedModule,
     RouterModule,
-    AuthModule,
+    SidebarModule,
     PostModule,
     ListPostsModule,
-    SidebarModule,
     AppRoutingModule,
   ],
-  providers: [
-    PostsService,
-    ModalService,
-    SidebarService,
-    FormService,
-    { provide: 'Window', useValue: window },
-  ],
+  providers: [{ provide: 'Window', useValue: window }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

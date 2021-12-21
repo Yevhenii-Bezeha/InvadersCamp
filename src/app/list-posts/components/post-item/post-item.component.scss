@@ -3,6 +3,7 @@
 .postItem {
   padding-top: 10px;
   padding-bottom: 10px;
+  box-shadow: 0 8px 30px var(--box-shadow-color);
 
   &__icon {
     transform: scale(1.8);
