@@ -8,9 +8,3 @@ export interface IPost {
   createdAt: Date;
   updatedAt: Date;
 }
-
-export interface IResponse {
-  status: number;
-  message: string;
-  data: IPost[];
-}

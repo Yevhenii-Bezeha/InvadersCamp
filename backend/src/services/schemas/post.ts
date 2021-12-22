@@ -4,14 +4,6 @@ const Schema = mongoose.Schema;
 
 const post = new Schema(
   {
-    authorAvatar: {
-      type: String,
-      required: [true, 'Set authorAvatar'],
-    },
-    authorName: {
-      type: String,
-      required: [true, 'Set authorAvatar'],
-    },
     title: {
       type: String,
       required: [true, 'Set title'],
@@ -20,10 +12,9 @@ const post = new Schema(
       type: String,
       required: [true, 'Set description'],
     },
-    likes: {
-      type: Number,
-      required: [true, 'Set likes'],
-      default: 0,
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: 'users',
     },
   },
   { versionKey: false, timestamps: true }
