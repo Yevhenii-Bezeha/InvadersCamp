@@ -1,0 +1,17 @@
+export const tagCategories = [
+  'Reviews',
+  'Healthcare',
+  'Psychology',
+  'News',
+  'Essays',
+  'Lifestyle',
+  'Question-and-Answer',
+  'History',
+  'Science',
+  'Programming',
+  'Games',
+  'Fashion',
+  'Travel',
+  'Art',
+  'Music',
+];

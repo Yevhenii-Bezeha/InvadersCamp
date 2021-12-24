@@ -1,6 +1,7 @@
 import * as mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
+const ObjectId = mongoose.Types.ObjectId;
 
 const like = new Schema(
   {
@@ -9,12 +10,14 @@ const like = new Schema(
       default: false,
     },
     postId: {
-      type: Schema.Types.ObjectId,
+      type: ObjectId,
       ref: 'posts',
+      required: [true, 'Set postId'],
     },
     userId: {
-      type: Schema.Types.ObjectId,
+      type: ObjectId,
       ref: 'posts',
+      required: [true, 'Set userId'],
     },
   },
   { versionKey: false, timestamps: true }

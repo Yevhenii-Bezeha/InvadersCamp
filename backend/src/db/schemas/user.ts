@@ -6,9 +6,17 @@ const userSchema = new Schema(
   {
     avatar: {
       type: String,
+      enum: [
+        'sentiment_very_satisfied',
+        'sentiment_satisfied',
+        'sentiment_neutral',
+        'sentiment_very_dissatisfied',
+      ],
+      default: 'sentiment_very_satisfied',
     },
     name: {
       type: String,
+      required: [true, 'Name is required'],
     },
     email: {
       type: String,

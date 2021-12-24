@@ -5,6 +5,9 @@ import * as logger from 'morgan';
 import * as cors from 'cors';
 import postApi from './api/postApi';
 import errorMiddleware from './middlewares/errorMiddleware';
+import commentApi from './api/commentApi';
+import likeApi from './api/likeApi';
+import tagApi from './api/tagApi';
 
 const app: Application = express();
 
@@ -16,6 +19,9 @@ app.use(express.json());
 app.use(express.static(path.resolve('dist/appName')));
 
 app.use('/posts', postApi);
+app.use('/posts', likeApi);
+app.use('/posts/:id/comments', commentApi);
+app.use('/posts/:id/tags', tagApi);
 
 app.use('*', (req: Request, res: Response) => {
   res.sendFile(path.resolve('dist/appName/index.html'));
