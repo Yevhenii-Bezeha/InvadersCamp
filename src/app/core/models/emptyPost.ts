@@ -1,12 +1,14 @@
-import { IPost } from './IPost';
+import { IGetPost } from './IPost';
 
-export const emptyPost: IPost = {
+export const emptyPost: IGetPost = {
   _id: '',
-  authorAvatar: '',
-  authorName: '',
   title: '',
   description: '',
-  likes: 0,
+  userId: '',
+  user: [],
+  comments: [],
+  likes: [],
+  tags: [],
   createdAt: new Date(),
   updatedAt: new Date(),
 };

@@ -5,11 +5,12 @@ import { PostComponent } from './post.component';
 
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
-import { PostAddEditComponent } from './post-add-edit/post-add-edit.component';
+import { PostAddEditComponent } from './components/post-add-edit/post-add-edit.component';
 import { PostRoutingModule } from './post.routing.module';
+import { PostItemComponent } from './components/post-item/post-item.component';
 
 @NgModule({
-  declarations: [PostComponent, PostAddEditComponent],
+  declarations: [PostComponent, PostAddEditComponent, PostItemComponent],
   imports: [
     CommonModule,
     MaterialModule,

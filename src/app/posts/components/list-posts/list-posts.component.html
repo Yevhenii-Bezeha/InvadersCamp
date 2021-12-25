@@ -1,0 +1,22 @@
+<mat-list *ngIf="posts.length > 0 && !isFetching && !error">
+  <div>
+    <app-post-template
+      (postSelected)="addLike(post.likes, post._id)"
+      *ngFor="let post of posts"
+      [isSliced]="isSliced"
+      [post]="post"
+    >
+      <a mat-stroked-button routerLink="./{{ post._id }}">Read more...</a>
+    </app-post-template>
+    <mat-paginator
+      (page)="getPaginatorData($event)"
+      [length]="totalCount"
+      [pageSizeOptions]="[5, 10]"
+      [pageSize]="posts.length"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</mat-list>
+<app-spinner *ngIf="isFetching && !error"></app-spinner>
+<app-error *ngIf="error" [error]="error"></app-error>

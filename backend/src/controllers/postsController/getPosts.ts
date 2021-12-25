@@ -3,6 +3,7 @@ import { IPost } from '../../models/IPost';
 import SuccessResponse from '../../models/SuccessResponse';
 import HttpException from '../../exceptions/HttpException';
 import { getAllPosts } from '../../services/postActions/getAllPosts';
+import { getPostsCount } from '../../services/postActions/getPostsCount';
 
 const get = async (
   req: Request,
@@ -10,11 +11,10 @@ const get = async (
   next: NextFunction
 ): Promise<void> => {
   //pagination part
-  const { page = 1, perPage = 5 } = req.query;
+  const { page = 0, perPage = 5 } = req.query;
   let limit: number = parseInt(perPage.toString());
   limit = limit > 10 ? 5 : limit;
-  let skip: number = parseInt(page.toString()) * limit - 5;
-  skip = skip < 1 ? 0 : skip;
+  let skip: number = parseInt(page.toString()) * limit;
 
   //sorting part
   const { sortBy = 'updatedAt', order = -1 } = req.query;
@@ -22,8 +22,9 @@ const get = async (
   const sortOrder: number = parseInt(order.toString());
   const sortObj = { [sortStr]: sortOrder };
   try {
-    const results: IPost[] = await getAllPosts(skip, limit, sortObj);
-    res.json(new SuccessResponse(200, 'Success', results));
+    const posts: IPost[] = await getAllPosts(skip, limit, sortObj);
+    const totalCount = await getPostsCount();
+    res.json(new SuccessResponse(200, 'Success', posts, totalCount));
   } catch (e: any) {
     next(new HttpException(400, e.message));
   }

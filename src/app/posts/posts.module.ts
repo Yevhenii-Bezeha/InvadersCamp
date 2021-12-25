@@ -1,21 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../shared/material/material.module';
-import { ListPostsComponent } from './list-posts.component';
-import { PostItemComponent } from './components/post-item/post-item.component';
+import { PostsComponent } from './posts.component';
+
 import { RouterModule } from '@angular/router';
-import { ListPostsRoutingModule } from './list-posts.routing.module';
+import { PostsRoutingModule } from './posts.routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { ListPostsComponent } from './components/list-posts/list-posts.component';
 
 @NgModule({
-  declarations: [ListPostsComponent, PostItemComponent],
+  declarations: [PostsComponent, ListPostsComponent],
   imports: [
     CommonModule,
     MaterialModule,
     RouterModule,
     SharedModule,
-    ListPostsRoutingModule,
+    PostsRoutingModule,
   ],
-  exports: [ListPostsComponent],
+  exports: [PostsComponent],
 })
-export class ListPostsModule {}
+export class PostsModule {}

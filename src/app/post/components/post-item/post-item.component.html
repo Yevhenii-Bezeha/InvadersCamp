@@ -1,0 +1,30 @@
+<mat-list *ngIf="copyPost._id && !isFetching && !error">
+  <div>
+    <app-post-template
+      (postSelected)="addLike(copyPost.likes, copyPost._id)"
+      *ngFor="let postCopy of post"
+      [post]="postCopy"
+    >
+      <div>
+        <button class="additional-btn" mat-stroked-button>Add comment</button>
+        <button
+          (click)="onEditClick()"
+          class="additional-btn"
+          color="primary"
+          mat-stroked-button
+        >
+          Edit
+        </button>
+        <button
+          (click)="onDeleteClick(copyPost._id)"
+          color="warn"
+          mat-stroked-button
+        >
+          Delete
+        </button>
+      </div>
+    </app-post-template>
+  </div>
+</mat-list>
+<app-spinner *ngIf="isFetching && !error"></app-spinner>
+<app-error *ngIf="error" [error]="error"></app-error>

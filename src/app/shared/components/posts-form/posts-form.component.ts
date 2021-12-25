@@ -1,13 +1,13 @@
-import { PostsService } from '@services/posts.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { IPost } from '@interfaces/IPost';
+import { IGetPost, IPost } from '@interfaces/IPost';
 import { emptyPost } from '@interfaces/emptyPost';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { url } from '@interfaces/routes';
 import { FormService } from '@services/form.service';
+import { PostService } from '../../../post/post.service';
 
 @Component({
   selector: 'app-posts-form',
@@ -16,7 +16,7 @@ import { FormService } from '@services/form.service';
 })
 export class PostsFormComponent implements OnInit, OnDestroy {
   public isCreateForm = true;
-  public post: IPost = emptyPost;
+  public post: IGetPost = emptyPost;
   public postForm: FormGroup;
   public error: string = '';
 
@@ -25,7 +25,7 @@ export class PostsFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private _fb: FormBuilder,
-    private _postService: PostsService,
+    private _postService: PostService,
     private _formService: FormService,
     private _router: Router,
     private _location: Location
@@ -48,15 +48,6 @@ export class PostsFormComponent implements OnInit, OnDestroy {
 
   getFormDone() {
     this.postForm = this._fb.group({
-      authorAvatar: [this.post.authorAvatar || 'sentiment_very_satisfied'],
-      authorName: [
-        this.post.authorName,
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(15),
-        ],
-      ],
       title: [this.post.title, Validators.required],
       description: [this.post.description, Validators.required],
     });
