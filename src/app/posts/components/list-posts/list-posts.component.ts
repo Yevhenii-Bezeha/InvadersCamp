@@ -4,6 +4,7 @@ import { PostsService } from '../../posts.service';
 import { Subscription } from 'rxjs';
 import { LikesService } from '@services/likes.service';
 import { PageEvent } from '@angular/material/paginator';
+import { PostsSubjectsService } from '@services/postsSubjects.service';
 
 @Component({
   selector: 'app-list-posts',
@@ -16,26 +17,27 @@ export class ListPostsComponent implements OnInit, OnDestroy {
   public isFetching: boolean = false;
   public page: string = '0';
   public perPage: string = '5';
-  public error: string = '';
   public isSliced: boolean = true;
   private _subGet: Subscription;
-  private _subUpd: Subscription;
+  private _subInpChanged: Subscription;
 
   constructor(
     private _postsService: PostsService,
-    private _likesService: LikesService
+    private _likesService: LikesService,
+    private _subjectsService: PostsSubjectsService
   ) {}
 
   ngOnInit(): void {
     this.isFetching = true;
     this.getPosts();
+    this._subInpChanged = this._subjectsService._inputChanged.subscribe(() =>
+      this.getPosts()
+    );
   }
 
   ngOnDestroy(): void {
     this._subGet.unsubscribe();
-    if (this._subUpd) {
-      this._subUpd.unsubscribe();
-    }
+    this._subInpChanged.unsubscribe();
   }
 
   getPosts(): void {
@@ -48,7 +50,7 @@ export class ListPostsComponent implements OnInit, OnDestroy {
           this.isFetching = false;
         },
         error: (error) => {
-          this.error = error.message;
+          this._subjectsService._error.next(error);
           this.isFetching = false;
         },
       });
@@ -61,25 +63,9 @@ export class ListPostsComponent implements OnInit, OnDestroy {
         postId: postId,
         isLiked: true,
       };
-      this._subUpd = this._likesService.createLike(like).subscribe({
-        next: (like: ILike) => {
-          this.getPosts();
-        },
-        error: (error) => {
-          this.error = error.message;
-        },
-      });
+      this._likesService.createLike(like);
     } else {
-      this._subUpd = this._likesService
-        .toggleLike(like?._id, { isLiked: like.isLiked })
-        .subscribe({
-          next: (like: ILike) => {
-            this.getPosts();
-          },
-          error: (error) => {
-            this.error = error.message;
-          },
-        });
+      this._likesService.toggleLike(like?._id, { isLiked: like.isLiked });
     }
   }
 

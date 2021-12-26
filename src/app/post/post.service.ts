@@ -9,12 +9,16 @@ import {
 } from '@interfaces/IPost';
 import { url } from '@interfaces/routes';
 import { basicUrl } from '@interfaces/basicUrl';
+import { PostsSubjectsService } from '@services/postsSubjects.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private _subjects: PostsSubjectsService
+  ) {}
 
   getPost(id: string): Observable<IGetPost[]> {
     return this.http
@@ -22,25 +26,43 @@ export class PostService {
       .pipe(map((data: IResAllPosts) => data.data));
   }
 
-  createPost(post: IPost): Observable<IPost> {
-    return this.http
+  createPost(post: IPost) {
+    this.http
       .post<IResCreatePost>(`${basicUrl}/${url.posts}`, post)
-      .pipe(map((data: IResCreatePost) => data.data));
+      .pipe(map((data: IResCreatePost) => data.data))
+      .subscribe({
+        next: (post: IPost) => {},
+        error: (error) => {
+          this._subjects._error.next(error);
+        },
+      });
   }
 
   updatePost(id: string, post: IPost) {
-    return this.http
+    this.http
       .patch<IResCreatePost>(`${basicUrl}/${url.posts}/${id}`, post)
-      .pipe(map((data: IResCreatePost) => data.data));
+      .pipe(map((data: IResCreatePost) => data.data))
+      .subscribe({
+        next: (post: IPost) => {},
+        error: (error) => {
+          this._subjects._error.next(error);
+        },
+      });
   }
 
-  deletePost(id: string): Observable<IPost> {
-    return this.http
+  deletePost(id: string) {
+    this.http
       .delete<IResCreatePost>(`${basicUrl}/${url.posts}/${id}`)
       .pipe(
         map((data: IResCreatePost) => {
           return data.data;
         })
-      );
+      )
+      .subscribe({
+        next: (post: IPost) => {},
+        error: (error) => {
+          this._subjects._error.next(error);
+        },
+      });
   }
 }

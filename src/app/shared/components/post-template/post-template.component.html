@@ -1,8 +1,8 @@
 <div *ngIf="post">
   <mat-divider></mat-divider>
   <div class="container postItem">
-    <mat-chip-list>
-      <span class="postItem__tags">Tags:</span>
+    <mat-chip-list class="postItem__tags">
+      <span class="postItem__tags-text">Tags:</span>
       <mat-chip *ngFor="let tag of tags">
         {{ tag.text }}
       </mat-chip>

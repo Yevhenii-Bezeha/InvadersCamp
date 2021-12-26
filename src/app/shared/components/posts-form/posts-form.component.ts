@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { IGetPost, IPost } from '@interfaces/IPost';
+import { IGetPost } from '@interfaces/IPost';
 import { emptyPost } from '@interfaces/emptyPost';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -14,14 +13,10 @@ import { PostService } from '../../../post/post.service';
   templateUrl: './posts-form.component.html',
   styleUrls: ['./posts-form.component.scss'],
 })
-export class PostsFormComponent implements OnInit, OnDestroy {
+export class PostsFormComponent implements OnInit {
   public isCreateForm = true;
   public post: IGetPost = emptyPost;
   public postForm: FormGroup;
-  public error: string = '';
-
-  private _subCreate: Subscription;
-  private _subUpd: Subscription;
 
   constructor(
     private _fb: FormBuilder,
@@ -37,15 +32,6 @@ export class PostsFormComponent implements OnInit, OnDestroy {
     this.getFormDone();
   }
 
-  ngOnDestroy() {
-    if (this._subCreate) {
-      this._subCreate.unsubscribe();
-    }
-    if (this._subUpd) {
-      this._subUpd.unsubscribe();
-    }
-  }
-
   getFormDone() {
     this.postForm = this._fb.group({
       title: [this.post.title, Validators.required],
@@ -54,25 +40,11 @@ export class PostsFormComponent implements OnInit, OnDestroy {
   }
 
   createPost() {
-    this._subCreate = this._postService
-      .createPost(this.postForm.value)
-      .subscribe({
-        next: (post: IPost) => {},
-        error: (error) => {
-          this.error = error.message;
-        },
-      });
+    this._postService.createPost(this.postForm.value);
   }
 
   updatePost() {
-    this._subUpd = this._postService
-      .updatePost(this.post._id, this.postForm.value)
-      .subscribe({
-        next: (post: IPost) => {},
-        error: (error) => {
-          this.error = error.message;
-        },
-      });
+    this._postService.updatePost(this.post._id, this.postForm.value);
   }
 
   onSubmit() {

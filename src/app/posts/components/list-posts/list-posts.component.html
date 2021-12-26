@@ -1,4 +1,4 @@
-<mat-list *ngIf="posts.length > 0 && !isFetching && !error">
+<mat-list *ngIf="posts.length > 0 && !isFetching">
   <div>
     <app-post-template
       (postSelected)="addLike(post.likes, post._id)"
@@ -6,7 +6,10 @@
       [isSliced]="isSliced"
       [post]="post"
     >
-      <a mat-stroked-button routerLink="./{{ post._id }}">Read more...</a>
+      <a mat-stroked-button routerLink="./{{ post._id }}"> Read more... </a>
+      <mat-icon [matBadge]="post.comments.length" matBadgeColor="warn"
+        >comment
+      </mat-icon>
     </app-post-template>
     <mat-paginator
       (page)="getPaginatorData($event)"
@@ -18,5 +21,4 @@
     </mat-paginator>
   </div>
 </mat-list>
-<app-spinner *ngIf="isFetching && !error"></app-spinner>
-<app-error *ngIf="error" [error]="error"></app-error>
+<app-spinner *ngIf="isFetching"></app-spinner>

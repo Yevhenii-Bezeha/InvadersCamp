@@ -11,6 +11,12 @@ export interface IResCreatePost {
   data: IPost;
 }
 
+export interface IResCreateComment {
+  status: number;
+  message: string;
+  data: IComment;
+}
+
 export interface IResCreateLike {
   status: number;
   message: string;
@@ -53,7 +59,7 @@ export interface IComment {
   readonly _id?: string;
   message: string;
   readonly postId: string;
-  readonly userId: string;
+  readonly userId?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

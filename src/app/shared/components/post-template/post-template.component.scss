@@ -4,8 +4,8 @@
   padding-top: 10px;
   padding-bottom: 10px;
   box-shadow: 0 8px 30px var(--box-shadow-color);
-
-  &__tags {
+    
+  &__tags-text {
     margin-left: 16px;
     font-weight: var(--main-font-weight);
   }
@@ -25,11 +25,13 @@
 
   &__title {
     margin-bottom: var(--text-margin);
+    text-align: center;
   }
 
   &__text {
     font-size: var(--main-font-size);
     color: var(--secondary-text-color);
+    text-align: center;
   }
 }
 

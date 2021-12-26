@@ -8,4 +8,5 @@ export const url = {
   signup: 'signup',
   error: '**',
   like: 'like',
+  comments: 'comments',
 };
