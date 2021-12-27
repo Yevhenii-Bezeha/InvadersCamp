@@ -1,5 +1,5 @@
 export interface IPost {
-  id: string;
+  id?: string;
   authorAvatar: string;
   authorName: string;
   title: string;
@@ -13,11 +13,4 @@ export interface IResponse {
   status: number;
   message: string;
   data: IPost[];
-}
-
-export interface IPostToAdd {
-  authorAvatar: string;
-  authorName: string;
-  title: string;
-  description: string;
 }
