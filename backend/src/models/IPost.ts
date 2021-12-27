@@ -2,6 +2,7 @@ export interface IGetPosts {
   readonly _id: string;
   title: string;
   description: string;
+  tags: string[];
   readonly userId: string;
   user: IUser[];
   comments: IComment[];
@@ -11,9 +12,10 @@ export interface IGetPosts {
 }
 
 export interface IPost {
-  readonly _id: string;
+  readonly _id?: string;
   title: string;
   description: string;
+  tags: string[];
   readonly userId: string;
   createdAt?: Date;
   updatedAt?: Date;

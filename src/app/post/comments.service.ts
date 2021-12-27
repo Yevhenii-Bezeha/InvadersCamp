@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-import {
-  IComment,
-  IPost,
-  IResCreateComment,
-  IResCreatePost,
-} from '@interfaces/IPost';
+import { map } from 'rxjs';
+import { IComment, IResCreateComment } from '@interfaces/IPost';
 import { url } from '@interfaces/routes';
 import { basicUrl } from '@interfaces/basicUrl';
 import { PostsSubjectsService } from '@services/postsSubjects.service';
@@ -37,19 +32,36 @@ export class CommentsService {
       });
   }
 
-  updatePost(id: string, post: IPost) {
-    return this.http
-      .patch<IResCreatePost>(`${basicUrl}/${url.posts}/${id}`, post)
-      .pipe(map((data: IResCreatePost) => data.data));
+  updateComment(comment: IComment, postId: string) {
+    this.http
+      .patch<IResCreateComment>(
+        `${basicUrl}/${url.posts}/${postId}/${url.comments}/${comment._id}`,
+        comment
+      )
+      .pipe(map((data: IResCreateComment) => data.data))
+      .subscribe({
+        next: (comment: IComment) => {
+          this._subjectsService._inputChanged.next();
+        },
+        error: (error) => {
+          this._subjectsService._error.next(error);
+        },
+      });
   }
 
-  deletePost(postId: string): Observable<IPost> {
-    return this.http
-      .delete<IResCreatePost>(`${basicUrl}/${url.posts}/${postId}`)
-      .pipe(
-        map((data: IResCreatePost) => {
-          return data.data;
-        })
-      );
+  deleteComment(commentId: string | undefined, postId: string) {
+    this.http
+      .delete<IResCreateComment>(
+        `${basicUrl}/${url.posts}/${postId}/${url.comments}/${commentId}`
+      )
+      .pipe(map((data: IResCreateComment) => data.data))
+      .subscribe({
+        next: (comment: IComment) => {
+          this._subjectsService._inputChanged.next();
+        },
+        error: (error) => {
+          this._subjectsService._error.next(error);
+        },
+      });
   }
 }

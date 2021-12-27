@@ -34,14 +34,6 @@ export const getPostById = (postId: string): Aggregate<IGetPosts[]> =>
       },
     },
     {
-      $lookup: {
-        from: 'tags',
-        localField: '_id',
-        foreignField: 'postId',
-        as: 'tags',
-      },
-    },
-    {
       $project: {
         'user.password': 0,
         'likes.createdAt': 0,

@@ -13,6 +13,10 @@ const post = new Schema(
       type: String,
       required: [true, 'Set description'],
     },
+    tags: {
+      type: Array,
+      required: [true, 'Set tags'],
+    },
     userId: {
       type: ObjectId,
       ref: 'users',

@@ -7,11 +7,13 @@ import { RouterModule } from '@angular/router';
 import { PostsRoutingModule } from './posts.routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ListPostsComponent } from './components/list-posts/list-posts.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [PostsComponent, ListPostsComponent],
   imports: [
     CommonModule,
+    FormsModule,
     MaterialModule,
     RouterModule,
     SharedModule,

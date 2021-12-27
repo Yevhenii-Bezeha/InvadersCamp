@@ -4,14 +4,14 @@
     <mat-chip-list class="postItem__tags">
       <span class="postItem__tags-text">Tags:</span>
       <mat-chip *ngFor="let tag of tags">
-        {{ tag.text }}
+        {{ tag }}
       </mat-chip>
     </mat-chip-list>
     <div>
       <mat-list-item>
         <mat-icon class="postItem__icon" mat-list-icon>{{
           user.avatar
-        }}</mat-icon>
+          }}</mat-icon>
         <div mat-line>{{ user.name }}</div>
         <div mat-line>{{ post.updatedAt | date }}</div>
         <button (click)="onHeartClick()" class="postItem__btn">

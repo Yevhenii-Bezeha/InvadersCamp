@@ -3,6 +3,14 @@
     {{ isCreateForm ? "Create post" : "Edit post" }}
   </p>
   <app-close-btn></app-close-btn>
+  <mat-form-field appearance="fill" class="form__select">
+    <mat-label>Tags</mat-label>
+    <mat-select formControlName="tags" multiple>
+      <mat-option *ngFor="let tag of tagCategories" [value]="tag">{{
+        tag
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
   <mat-form-field appearance="outline" class="form-input-container">
     <mat-label>Title</mat-label>
     <textarea

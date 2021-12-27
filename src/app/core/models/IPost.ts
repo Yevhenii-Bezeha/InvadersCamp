@@ -27,20 +27,21 @@ export interface IGetPost {
   readonly _id: string;
   title: string;
   description: string;
+  tags: string[];
   readonly userId: string;
   user: IUser[];
   comments: IComment[];
   likes: ILike[];
-  tags: ITag[];
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export interface IPost {
-  readonly _id: string;
+  readonly _id?: string;
   title: string;
   description: string;
-  readonly userId: string;
+  tags: string[];
+  readonly userId?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -69,15 +70,6 @@ export interface ILike {
   isLiked: boolean;
   readonly postId: string;
   readonly userId?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-export interface ITag {
-  _id?: string;
-  text: string;
-  readonly postId: string;
-  readonly userId: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

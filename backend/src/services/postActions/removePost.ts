@@ -2,7 +2,6 @@ import Post from '../../db/schemas/post';
 import * as mongoose from 'mongoose';
 import Like from '../../db/schemas/like';
 import Comment from '../../db/schemas/comment';
-import Tag from '../../db/schemas/tag';
 
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -14,6 +13,3 @@ export const removeLikes = (postId: string) =>
 
 export const removeComments = (postId: string) =>
   Comment.deleteMany({ postId: new ObjectId(postId) });
-
-export const removeTags = (postId: string) =>
-  Tag.deleteMany({ postId: new ObjectId(postId) });

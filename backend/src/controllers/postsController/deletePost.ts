@@ -8,7 +8,6 @@ import {
   removeComments,
   removeLikes,
   removePost,
-  removeTags,
 } from '../../services/postActions/removePost';
 
 const remove = async (
@@ -25,7 +24,6 @@ const remove = async (
       return;
     }
     await removeLikes(postId);
-    await removeTags(postId);
     await removeComments(postId);
     res.json(new SuccessResponse(200, 'Success', result));
   } catch (e: any) {

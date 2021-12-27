@@ -10,6 +10,7 @@ import { PostRoutingModule } from './post.routing.module';
 import { PostItemComponent } from './components/post-item/post-item.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { FormsModule } from '@angular/forms';
+import { CommentComponent } from './components/comments/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     PostAddEditComponent,
     PostItemComponent,
     CommentsComponent,
+    CommentComponent,
   ],
   imports: [
     FormsModule,

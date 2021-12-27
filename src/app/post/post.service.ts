@@ -20,9 +20,9 @@ export class PostService {
     private _subjects: PostsSubjectsService
   ) {}
 
-  getPost(id: string): Observable<IGetPost[]> {
+  getPost(postId: string): Observable<IGetPost[]> {
     return this.http
-      .get<IResAllPosts>(`${basicUrl}/${url.posts}/${id}`)
+      .get<IResAllPosts>(`${basicUrl}/${url.posts}/${postId}`)
       .pipe(map((data: IResAllPosts) => data.data));
   }
 
@@ -38,9 +38,9 @@ export class PostService {
       });
   }
 
-  updatePost(id: string, post: IPost) {
+  updatePost(postId: string, post: IPost) {
     this.http
-      .patch<IResCreatePost>(`${basicUrl}/${url.posts}/${id}`, post)
+      .patch<IResCreatePost>(`${basicUrl}/${url.posts}/${postId}`, post)
       .pipe(map((data: IResCreatePost) => data.data))
       .subscribe({
         next: (post: IPost) => {},
@@ -50,9 +50,9 @@ export class PostService {
       });
   }
 
-  deletePost(id: string) {
+  deletePost(postId: string) {
     this.http
-      .delete<IResCreatePost>(`${basicUrl}/${url.posts}/${id}`)
+      .delete<IResCreatePost>(`${basicUrl}/${url.posts}/${postId}`)
       .pipe(
         map((data: IResCreatePost) => {
           return data.data;

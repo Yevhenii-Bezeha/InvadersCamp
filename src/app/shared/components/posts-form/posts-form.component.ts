@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { url } from '@interfaces/routes';
 import { FormService } from '@services/form.service';
 import { PostService } from '../../../post/post.service';
+import { tagCategories } from '@interfaces/tagCategories';
 
 @Component({
   selector: 'app-posts-form',
@@ -17,6 +18,8 @@ export class PostsFormComponent implements OnInit {
   public isCreateForm = true;
   public post: IGetPost = emptyPost;
   public postForm: FormGroup;
+
+  public tagCategories: string[] = tagCategories;
 
   constructor(
     private _fb: FormBuilder,
@@ -30,12 +33,14 @@ export class PostsFormComponent implements OnInit {
     this.isCreateForm = this._router.url === `/${url.addPost}`;
     this.post = this.isCreateForm ? emptyPost : this._formService.post;
     this.getFormDone();
+    console.log(this.post.tags);
   }
 
   getFormDone() {
     this.postForm = this._fb.group({
       title: [this.post.title, Validators.required],
       description: [this.post.description, Validators.required],
+      tags: [this.post.tags, Validators.required],
     });
   }
 

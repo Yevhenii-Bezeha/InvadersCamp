@@ -1,33 +1,26 @@
-@import "../../../styles/mixins/btn-mixin";
-
-.postItem {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  box-shadow: 0 8px 30px var(--box-shadow-color);
-
-  &__icon {
-    transform: scale(1.8);
-  }
-
-  &__btn {
-    @include general-btn;
-  }
+.list {
 }
 
-.postItemAdditional {
-  padding-left: 16px;
-  font-weight: var(--main-font-weight);
+.upp-container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
-  &__title {
-    margin-bottom: var(--text-margin);
+  &__sort {
+    padding-bottom: 20px;
   }
 
   &__text {
-    font-size: var(--main-font-size);
-    color: var(--secondary-text-color);
+    text-align: center;
+    font-weight: var(--secondary-font-weight);
   }
 }
 
-.active {
-  color: var(--heart-active-color);
+.filter {
+  text-align: center;
+}
+
+.mat-list-base {
+  padding: 0;
 }

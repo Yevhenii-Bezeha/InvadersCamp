@@ -9,12 +9,15 @@ const create = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  if (!req.body.title || !req.body.description) {
+  if (!req.body.title || !req.body.description || !req.body.tags) {
     next(new HttpException(404, 'Provide values'));
     return;
   }
   const [_, userId]: any = req.headers.authorization?.split(' ');
-  const post: IPost = { ...req.body, userId: userId };
+  const post: IPost = {
+    ...req.body,
+    userId: userId,
+  };
   try {
     const result: IPost = await createPost(post);
     res.json(new SuccessResponse(201, 'Success', result));

@@ -3,11 +3,24 @@
     <mat-expansion-panel-header>
       <mat-panel-title> Comments</mat-panel-title>
     </mat-expansion-panel-header>
-    <p *ngFor="let comment of comments">{{ comment.message }}</p>
-    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <app-comment
+      (commentSelected)="onClick(comment, $event)"
+      *ngFor="let comment of comments"
+      [comment]="comment"
+    ></app-comment>
+    <form
+      #f="ngForm"
+      (ngSubmit)="commentToEdit.message ? onSubmitEdit(f) : onSubmitCreate(f)"
+    >
       <mat-form-field appearance="fill" class="comment__input">
         <mat-label>Comment here</mat-label>
-        <input #comment="ngModel" matInput name="message" ngModel="" required />
+        <input
+          #comment="ngModel"
+          [ngModel]="commentToEdit.message"
+          matInput
+          name="message"
+          required
+        />
       </mat-form-field>
       <button
         [disabled]="!f.valid"

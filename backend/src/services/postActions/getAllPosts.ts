@@ -5,9 +5,11 @@ import { Aggregate } from 'mongoose';
 export const getAllPosts = (
   skip: number,
   limit: number,
-  sortObj: any
+  sortObj: any,
+  filter: Object
 ): Aggregate<IGetPosts[]> =>
   Post.aggregate([
+    { $match: filter },
     { $sort: sortObj },
     { $skip: skip },
     { $limit: limit },
@@ -33,14 +35,6 @@ export const getAllPosts = (
         localField: '_id',
         foreignField: 'postId',
         as: 'comments',
-      },
-    },
-    {
-      $lookup: {
-        from: 'tags',
-        localField: '_id',
-        foreignField: 'postId',
-        as: 'tags',
       },
     },
     {

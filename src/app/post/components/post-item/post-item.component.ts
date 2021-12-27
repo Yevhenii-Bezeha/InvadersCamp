@@ -8,6 +8,7 @@ import { PostService } from '../../post.service';
 import { LikesService } from '@services/likes.service';
 import { emptyPost } from '@interfaces/emptyPost';
 import { PostsSubjectsService } from '@services/postsSubjects.service';
+import { userId } from '@interfaces/userId';
 
 @Component({
   selector: 'app-post-item',
@@ -18,6 +19,7 @@ export class PostItemComponent implements OnInit, OnDestroy {
   public post: IGetPost[] = [];
   public copyPost: IGetPost = emptyPost;
   public isFetching: boolean = false;
+  public canEditPost: boolean = false;
   private _postId: string = '';
   private _subRoute: Subscription;
   private _subGet: Subscription;
@@ -54,6 +56,7 @@ export class PostItemComponent implements OnInit, OnDestroy {
       next: (post: IGetPost[]) => {
         this.post = post;
         this.copyPost = post[0];
+        this.canEditPost = this.post[0].userId === userId;
         this.isFetching = false;
       },
       error: (error) => {

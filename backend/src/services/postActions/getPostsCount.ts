@@ -1,3 +1,3 @@
 import Post from '../../db/schemas/post';
 
-export const getPostsCount = () => Post.countDocuments();
+export const getPostsCount = (filter: Object) => Post.countDocuments(filter);

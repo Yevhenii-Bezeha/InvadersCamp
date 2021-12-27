@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { LikesService } from '@services/likes.service';
 import { PageEvent } from '@angular/material/paginator';
 import { PostsSubjectsService } from '@services/postsSubjects.service';
+import { debounce } from 'debounce';
+import { MatButtonToggleChange } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-list-posts',
@@ -18,14 +20,19 @@ export class ListPostsComponent implements OnInit, OnDestroy {
   public page: string = '0';
   public perPage: string = '5';
   public isSliced: boolean = true;
+  public filterStr: string = '';
   private _subGet: Subscription;
   private _subInpChanged: Subscription;
+  private _sortBy: string = 'updatedAt';
+  private _order: number = -1;
 
   constructor(
     private _postsService: PostsService,
     private _likesService: LikesService,
     private _subjectsService: PostsSubjectsService
-  ) {}
+  ) {
+    this.onInputChange = debounce(this.onInputChange, 500);
+  }
 
   ngOnInit(): void {
     this.isFetching = true;
@@ -42,7 +49,13 @@ export class ListPostsComponent implements OnInit, OnDestroy {
 
   getPosts(): void {
     this._subGet = this._postsService
-      .getPosts(this.page, this.perPage)
+      .getPosts(
+        this.page,
+        this.perPage,
+        this.filterStr,
+        this._sortBy,
+        this._order
+      )
       .subscribe({
         next: (data: IResAllPosts) => {
           this.posts = data.data;
@@ -72,6 +85,21 @@ export class ListPostsComponent implements OnInit, OnDestroy {
   getPaginatorData(event: PageEvent) {
     this.page = event.pageIndex.toString();
     this.perPage = event.pageSize.toString();
+    this.getPosts();
+  }
+
+  onInputChange(): void {
+    this.getPosts();
+  }
+
+  onSort(event: MatButtonToggleChange): void {
+    if (event.value === 'date') {
+      this._sortBy = 'updatedAt';
+      this._order = -1;
+    } else {
+      this._sortBy = event.value;
+      this._order = 1;
+    }
     this.getPosts();
   }
 }

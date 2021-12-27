@@ -1,0 +1,17 @@
+.comment {
+  margin-bottom: 20px;
+
+  &__item {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__text {
+    margin-left: 20px;
+  }
+
+  &__btn {
+    margin-left: 10px;
+  }
+}

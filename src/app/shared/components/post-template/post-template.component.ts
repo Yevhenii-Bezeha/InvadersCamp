@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IGetPost, ILike, ITag, IUser } from '@interfaces/IPost';
+import { IGetPost, ILike, IUser } from '@interfaces/IPost';
 import { userId } from '@interfaces/userId';
 
 @Component({
@@ -16,7 +16,7 @@ export class PostTemplateComponent implements OnInit {
   public countComment: number = 0;
   public likesCount: number;
   public userLike: ILike | undefined;
-  public tags: ITag[];
+  public tags: string[] = [];
 
   constructor() {}
 
@@ -27,6 +27,7 @@ export class PostTemplateComponent implements OnInit {
   prepareData(): void {
     this.user = this.post.user[0];
     this.countComment = this.post.comments.length;
+    this.tags = this.post.tags;
     const likedArr: ILike[] = this.post.likes.filter((el: ILike) => el.isLiked);
     this.likesCount = likedArr.length;
     this.userLike = this.post.likes.find((el: ILike) => {
@@ -35,7 +36,6 @@ export class PostTemplateComponent implements OnInit {
       }
       return undefined;
     });
-    this.tags = this.post.tags;
   }
 
   onHeartClick(): void {

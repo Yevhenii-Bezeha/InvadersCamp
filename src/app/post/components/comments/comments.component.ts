@@ -12,6 +12,7 @@ export class CommentsComponent implements OnInit {
   @Input() post: IGetPost;
   public comments: IComment[];
   public error: string = '';
+  public commentToEdit: IComment = { message: '', postId: '' };
 
   constructor(private _commentsService: CommentsService) {}
 
@@ -23,12 +24,30 @@ export class CommentsComponent implements OnInit {
     this.comments = this.post.comments;
   }
 
-  onSubmit(form: NgForm): void {
+  onSubmitCreate(form: NgForm): void {
     const comment: IComment = {
       message: form.value.message,
       postId: this.post._id,
     };
     this._commentsService.createComment(comment, this.post._id);
     form.onReset();
+  }
+
+  onSubmitEdit(form: NgForm): void {
+    const comment: IComment = {
+      ...this.commentToEdit,
+      message: form.value.message,
+    };
+    this._commentsService.updateComment(comment, this.post._id);
+    this.commentToEdit = { message: '', postId: '' };
+    form.onReset();
+  }
+
+  onClick(comment: IComment, action: 'delete' | 'edit'): void {
+    if (action === 'delete') {
+      this._commentsService.deleteComment(comment._id, this.post._id);
+      return;
+    }
+    this.commentToEdit = comment;
   }
 }
