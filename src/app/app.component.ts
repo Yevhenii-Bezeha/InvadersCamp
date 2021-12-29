@@ -3,6 +3,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { Subscription } from 'rxjs';
 import { SidebarService } from '@services/sidebar.service';
 import { PostsSubjectsService } from '@services/postsSubjects.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,18 +18,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private _sidebarService: SidebarService,
-    private _subjectsService: PostsSubjectsService
+    private _subjectsService: PostsSubjectsService,
+    private _route: Router
   ) {}
 
   ngOnInit(): void {
-    this.isSideNavOpened = this._sidebarService.isSidenavOpened;
     this._subSidenav = this._sidebarService.isSidenavChanged$.subscribe(
       (isSideNavOpened: boolean) => {
         this.isSideNavOpened = isSideNavOpened;
       }
     );
-    this._subjectsService._error.subscribe((error: string) => {
-      this.error = error;
+    this._subjectsService._error.subscribe((error: any) => {
+      this.error = error.message || error;
       console.log(this.error);
     });
   }
@@ -39,5 +40,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onClose(): void {
     this.error = '';
+    this._route.navigateByUrl('/').then();
   }
 }

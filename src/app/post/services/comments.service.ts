@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
-import { IComment, IResCreateComment } from '@interfaces/IPost';
-import { url } from '@interfaces/routes';
-import { basicUrl } from '@interfaces/basicUrl';
-import { PostsSubjectsService } from '@services/postsSubjects.service';
+import { IComment, IResCreateComment } from '../../core/models/IPost';
+import { url } from '../../core/models/routes';
+import { basicUrl } from '../../core/models/basicUrl';
+import { PostsSubjectsService } from '../../core/services/postsSubjects.service';
 
 @Injectable({
   providedIn: 'root',

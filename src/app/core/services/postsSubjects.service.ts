@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class PostsSubjectsService {
-  public _error = new Subject<string>();
+  public _error = new Subject<any>();
   public _inputChanged = new Subject<void>();
 
   constructor() {}

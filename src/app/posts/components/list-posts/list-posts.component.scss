@@ -1,24 +1,8 @@
-.list {
-}
-
 .upp-container {
   margin-top: 10px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-
-  &__sort {
-    padding-bottom: 20px;
-  }
-
-  &__text {
-    text-align: center;
-    font-weight: var(--secondary-font-weight);
-  }
-}
-
-.filter {
-  text-align: center;
 }
 
 .mat-list-base {

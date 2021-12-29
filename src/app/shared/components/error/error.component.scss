@@ -1,7 +1,7 @@
 .error {
   width: 100%;
   padding: 20px;
-  background-color: #c68585;
+  background-color: var(--error-bg-colour);
   display: flex;
   flex-direction: column;
   justify-content: center;

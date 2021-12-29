@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { url } from '@interfaces/routes';
 import { FormService } from '@services/form.service';
-import { PostService } from '../../../post/post.service';
+import { PostService } from '../../../post/services/post.service';
 import { tagCategories } from '@interfaces/tagCategories';
 
 @Component({
@@ -18,7 +18,6 @@ export class PostsFormComponent implements OnInit {
   public isCreateForm = true;
   public post: IGetPost = emptyPost;
   public postForm: FormGroup;
-
   public tagCategories: string[] = tagCategories;
 
   constructor(

@@ -8,9 +8,18 @@ import { PostsRoutingModule } from './posts.routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ListPostsComponent } from './components/list-posts/list-posts.component';
 import { FormsModule } from '@angular/forms';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { SortComponent } from './components/sort/sort.component';
+import { FilterComponent } from './components/filter/filter.component';
 
 @NgModule({
-  declarations: [PostsComponent, ListPostsComponent],
+  declarations: [
+    PostsComponent,
+    ListPostsComponent,
+    PaginatorComponent,
+    SortComponent,
+    FilterComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,

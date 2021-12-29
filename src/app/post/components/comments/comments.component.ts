@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IComment, IGetPost } from '@interfaces/IPost';
-import { CommentsService } from '../../comments.service';
+import { CommentsService } from '../../services/comments.service';
 
 @Component({
   selector: 'app-comments',
@@ -11,7 +11,6 @@ import { CommentsService } from '../../comments.service';
 export class CommentsComponent implements OnInit {
   @Input() post: IGetPost;
   public comments: IComment[];
-  public error: string = '';
   public commentToEdit: IComment = { message: '', postId: '' };
 
   constructor(private _commentsService: CommentsService) {}

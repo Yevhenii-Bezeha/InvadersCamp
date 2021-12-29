@@ -1,35 +1,7 @@
 <div>
   <div class="upp-container">
-    <div class="upp-container__sort">
-      <p class="upp-container__text">Sort by</p>
-      <mat-button-toggle-group
-        (change)="onSort($event)"
-        aria-label="Font Style"
-        name="fontStyle"
-      >
-        <mat-button-toggle checked="true" value="date">Date</mat-button-toggle>
-        <mat-button-toggle value="title">Title</mat-button-toggle>
-      </mat-button-toggle-group>
-    </div>
-    <mat-form-field appearance="fill" class="filter">
-      <mat-label>Filter</mat-label>
-      <input
-        #filter
-        (input)="onInputChange()"
-        [(ngModel)]="filterStr"
-        matInput
-        type="text"
-      />
-      <button
-        (click)="filterStr = ''"
-        *ngIf="filterStr"
-        aria-label="Clear"
-        mat-icon-button
-        matSuffix
-      >
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field>
+    <app-sort (getSortData)="onSort($event)"></app-sort>
+    <app-filter (getFilterData)="onInputChange($event)"></app-filter>
   </div>
   <mat-list *ngIf="posts.length > 0 && !isFetching" class="list">
     <div>
@@ -44,14 +16,11 @@
           >comment
         </mat-icon>
       </app-post-template>
-      <mat-paginator
-        (page)="getPaginatorData($event)"
-        [length]="totalCount"
-        [pageSizeOptions]="[5, 10]"
-        [pageSize]="posts.length"
-        aria-label="Select page"
-      >
-      </mat-paginator>
+      <app-paginator
+        (getPaginatorData)="getPaginatorData($event)"
+        [postsCountOnPage]="posts.length"
+        [totalCount]="totalCount"
+      ></app-paginator>
     </div>
   </mat-list>
 </div>

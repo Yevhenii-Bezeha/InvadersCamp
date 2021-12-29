@@ -4,7 +4,7 @@ import { IGetPost, ILike } from '@interfaces/IPost';
 import { FormService } from '@services/form.service';
 import { Subscription } from 'rxjs';
 import { url } from '@interfaces/routes';
-import { PostService } from '../../post.service';
+import { PostService } from '../../services/post.service';
 import { LikesService } from '@services/likes.service';
 import { emptyPost } from '@interfaces/emptyPost';
 import { PostsSubjectsService } from '@services/postsSubjects.service';

@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IGetPost, ILike, IResAllPosts } from '@interfaces/IPost';
-import { PostsService } from '../../posts.service';
+import { PostsService } from '../../services/posts.service';
 import { Subscription } from 'rxjs';
 import { LikesService } from '@services/likes.service';
-import { PageEvent } from '@angular/material/paginator';
 import { PostsSubjectsService } from '@services/postsSubjects.service';
-import { debounce } from 'debounce';
-import { MatButtonToggleChange } from '@angular/material/button-toggle';
+import { IPaginatorData } from '@interfaces/IPaginatorData';
+import { ISortData } from '@interfaces/ISortData';
 
 @Component({
   selector: 'app-list-posts',
@@ -17,10 +16,10 @@ export class ListPostsComponent implements OnInit, OnDestroy {
   public posts: IGetPost[] = [];
   public totalCount: number | undefined = 0;
   public isFetching: boolean = false;
-  public page: string = '0';
-  public perPage: string = '5';
   public isSliced: boolean = true;
-  public filterStr: string = '';
+  private _filterStr: string = '';
+  private _page: string = '0';
+  private _perPage: string = '5';
   private _subGet: Subscription;
   private _subInpChanged: Subscription;
   private _sortBy: string = 'updatedAt';
@@ -30,9 +29,7 @@ export class ListPostsComponent implements OnInit, OnDestroy {
     private _postsService: PostsService,
     private _likesService: LikesService,
     private _subjectsService: PostsSubjectsService
-  ) {
-    this.onInputChange = debounce(this.onInputChange, 500);
-  }
+  ) {}
 
   ngOnInit(): void {
     this.isFetching = true;
@@ -50,9 +47,9 @@ export class ListPostsComponent implements OnInit, OnDestroy {
   getPosts(): void {
     this._subGet = this._postsService
       .getPosts(
-        this.page,
-        this.perPage,
-        this.filterStr,
+        this._page,
+        this._perPage,
+        this._filterStr,
         this._sortBy,
         this._order
       )
@@ -82,24 +79,20 @@ export class ListPostsComponent implements OnInit, OnDestroy {
     }
   }
 
-  getPaginatorData(event: PageEvent) {
-    this.page = event.pageIndex.toString();
-    this.perPage = event.pageSize.toString();
+  getPaginatorData(event: IPaginatorData) {
+    this._page = event.page.toString();
+    this._perPage = event.perPage.toString();
     this.getPosts();
   }
 
-  onInputChange(): void {
+  onInputChange(event: string): void {
+    this._filterStr = event;
     this.getPosts();
   }
 
-  onSort(event: MatButtonToggleChange): void {
-    if (event.value === 'date') {
-      this._sortBy = 'updatedAt';
-      this._order = -1;
-    } else {
-      this._sortBy = event.value;
-      this._order = 1;
-    }
+  onSort(event: ISortData): void {
+    this._sortBy = event.sortBy;
+    this._order = event.order;
     this.getPosts();
   }
 }

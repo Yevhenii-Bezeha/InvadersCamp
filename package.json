@@ -10,7 +10,6 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "dev": "ts-node-dev --respawn backend/src/app.ts",
     "build:server": "tsc -p backend",
     "watch:server": "tsc -p backend -watch",
     "start:server": "nodemon dist/server/bin"
@@ -33,11 +32,9 @@
     "express": "^4.17.1",
     "mongoose": "^6.1.2",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.15",
     "normalize.css": "^8.0.1",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
-    "uuid": "^8.3.2",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -65,6 +62,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.4.3"
+    "typescript": "~4.4.3",
+    "nodemon": "^2.0.15"
   }
 }

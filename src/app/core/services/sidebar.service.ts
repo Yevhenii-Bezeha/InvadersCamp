@@ -9,11 +9,6 @@ export class SidebarService {
 
   constructor() {}
 
-  showSidenav() {
-    this.isSidenavOpened = true;
-    this._isSidenavChanged.next(this.isSidenavOpened);
-  }
-
   closeSidenav() {
     this.isSidenavOpened = false;
     this._isSidenavChanged.next(this.isSidenavOpened);

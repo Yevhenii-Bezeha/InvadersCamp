@@ -28,11 +28,11 @@ export class PostTemplateComponent implements OnInit {
     this.user = this.post.user[0];
     this.countComment = this.post.comments.length;
     this.tags = this.post.tags;
-    const likedArr: ILike[] = this.post.likes.filter((el: ILike) => el.isLiked);
-    this.likesCount = likedArr.length;
+    const likesArr: ILike[] = this.post.likes.filter((el: ILike) => el.isLiked);
+    this.likesCount = likesArr.length;
     this.userLike = this.post.likes.find((el: ILike) => {
       if (el.userId === userId) {
-        return el.isLiked;
+        return el;
       }
       return undefined;
     });

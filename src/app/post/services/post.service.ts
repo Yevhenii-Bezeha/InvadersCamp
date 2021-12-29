@@ -6,7 +6,7 @@ import {
   IPost,
   IResAllPosts,
   IResCreatePost,
-} from '@interfaces/IPost';
+} from '../../core/models/IPost';
 import { url } from '@interfaces/routes';
 import { basicUrl } from '@interfaces/basicUrl';
 import { PostsSubjectsService } from '@services/postsSubjects.service';
