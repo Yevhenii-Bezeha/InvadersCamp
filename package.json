@@ -5,14 +5,14 @@
   "type": "commonjs",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --o",
+    "start": "nodemon dist/server/src/app.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
     "build:server": "tsc -p backend",
     "watch:server": "tsc -p backend -watch",
-    "start:server": "nodemon dist/server/bin"
+    "start:server": "nodemon dist/server/src/app.js"
   },
   "private": true,
   "dependencies": {

@@ -4,9 +4,8 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class PostsSubjectsService {
-  public _error = new Subject<any>();
-  public _inputChanged = new Subject<void>();
+export class ErrorsService {
+  public error = new Subject<any>();
 
   constructor() {}
 }

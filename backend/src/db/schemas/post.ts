@@ -26,6 +26,6 @@ const post = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-const Post = mongoose.model('posts', post);
+const PostSch = mongoose.model('posts', post);
 
-export default Post;
+export default PostSch;

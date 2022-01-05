@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
-import { ISortData } from '@interfaces/ISortData';
+import { SortData } from '@interfaces/SortData';
 
 @Component({
   selector: 'app-sort',
@@ -8,21 +8,21 @@ import { ISortData } from '@interfaces/ISortData';
   styleUrls: ['./sort.component.scss'],
 })
 export class SortComponent {
-  @Output() getSortData = new EventEmitter<ISortData>();
-  private _sortBy: string;
-  private _order: number;
+  @Output() getSortData = new EventEmitter<SortData>();
+  private sortBy: string;
+  private order: number;
 
   constructor() {}
 
   onSort(event: MatButtonToggleChange): void {
     if (event.value === 'date') {
       console.log(123);
-      this._sortBy = 'updatedAt';
-      this._order = -1;
+      this.sortBy = 'updatedAt';
+      this.order = -1;
     } else {
-      this._sortBy = event.value;
-      this._order = 1;
+      this.sortBy = event.value;
+      this.order = 1;
     }
-    this.getSortData.emit({ sortBy: this._sortBy, order: this._order });
+    this.getSortData.emit({ sortBy: this.sortBy, order: this.order });
   }
 }

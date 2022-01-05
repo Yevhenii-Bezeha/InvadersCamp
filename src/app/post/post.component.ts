@@ -7,9 +7,9 @@ import { Location } from '@angular/common';
   styleUrls: ['./post.component.scss'],
 })
 export class PostComponent {
-  constructor(private _location: Location) {}
+  constructor(private location: Location) {}
 
   onClickBack(): void {
-    this._location.back();
+    this.location.back();
   }
 }

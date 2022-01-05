@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { IPaginatorData } from '@interfaces/IPaginatorData';
+import { PaginatorData } from '@interfaces/PaginatorData';
 
 @Component({
   selector: 'app-paginator',
@@ -12,7 +12,7 @@ export class PaginatorComponent {
   public perPage: string;
   @Input() totalCount: number | undefined;
   @Input() postsCountOnPage: number;
-  @Output() getPaginatorData = new EventEmitter<IPaginatorData>();
+  @Output() getPaginatorData = new EventEmitter<PaginatorData>();
 
   constructor() {}
 

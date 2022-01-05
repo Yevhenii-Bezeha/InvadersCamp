@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { ILike } from '../../models/IPost';
+import { Like } from '../../models/types';
 import SuccessResponse from '../../models/SuccessResponse';
 import HttpException from '../../exceptions/HttpException';
 import NotFoundException from '../../exceptions/NotFoundException';
@@ -17,7 +17,7 @@ const toggle = async (
   const { likeId } = req.params;
   const { isLiked } = req.body;
   try {
-    const result: ILike = await toggleLike(likeId, !isLiked);
+    const result: Like = await toggleLike(likeId, !isLiked);
     result
       ? res.json(new SuccessResponse(200, 'Success', result))
       : next(new NotFoundException('Like', likeId));

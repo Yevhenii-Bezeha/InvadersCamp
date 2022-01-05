@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { IPost } from '../../models/IPost';
+import { Post } from '../../models/types';
 import SuccessResponse from '../../models/SuccessResponse';
 import NotFoundException from '../../exceptions/NotFoundException';
 import HttpException from '../../exceptions/HttpException';
@@ -15,9 +15,9 @@ const update = async (
     return;
   }
   const { postId } = req.params;
-  const post: IPost = req.body;
+  const post: Post = req.body;
   try {
-    const result: IPost = await updatePost(postId, post);
+    const result: Post = await updatePost(postId, post);
     result
       ? res.json(new SuccessResponse(200, 'Success', result))
       : next(new NotFoundException('Post', postId));

@@ -1,59 +1,63 @@
-export interface IGetPosts {
+export interface ResPosts {
+  status: number;
+  message: string;
+  data: [];
+  totalCount?: number;
+}
+
+export interface Res {
+  status: number;
+  message: string;
+  data: {};
+}
+
+export interface PostInf {
   readonly _id: string;
   title: string;
   description: string;
   tags: string[];
   readonly userId: string;
-  user: IUser[];
-  comments: IComment[];
-  likes: ILike[];
+  user: User[];
+  comments: Comment[];
+  likes: Like[];
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export interface IPost {
+export interface Post {
   readonly _id?: string;
   title: string;
   description: string;
   tags: string[];
-  readonly userId: string;
+  readonly userId?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export interface IUser {
+export interface User {
   readonly _id?: string;
   avatar: string;
   name: string;
   email: string;
-  password: string;
+  password?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export interface IComment {
+export interface Comment {
   readonly _id?: string;
   message: string;
   readonly postId: string;
-  readonly userId: string;
+  readonly userId?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export interface ILike {
+export interface Like {
   _id?: string;
   isLiked: boolean;
   readonly postId: string;
-  readonly userId: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-export interface ITag {
-  _id?: string;
-  text: string;
-  readonly postId: string;
-  readonly userId: string;
+  readonly userId?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

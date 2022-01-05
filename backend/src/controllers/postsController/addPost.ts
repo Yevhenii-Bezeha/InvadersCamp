@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { IPost } from '../../models/IPost';
+import { Post } from '../../models/types';
 import SuccessResponse from '../../models/SuccessResponse';
 import HttpException from '../../exceptions/HttpException';
 import { createPost } from '../../services/postActions/createPost';
@@ -14,12 +14,12 @@ const create = async (
     return;
   }
   const [_, userId]: any = req.headers.authorization?.split(' ');
-  const post: IPost = {
+  const post: Post = {
     ...req.body,
     userId: userId,
   };
   try {
-    const result: IPost = await createPost(post);
+    const result: Post = await createPost(post);
     res.json(new SuccessResponse(201, 'Success', result));
   } catch (e: any) {
     next(new HttpException(400, e.message));

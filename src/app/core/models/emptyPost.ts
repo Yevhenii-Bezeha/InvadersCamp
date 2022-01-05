@@ -1,6 +1,6 @@
-import { IGetPost } from './IPost';
+import { PostInf } from './postRelatedTypes';
 
-export const emptyPost: IGetPost = {
+export const emptyPost: PostInf = {
   _id: '',
   title: '',
   description: '',

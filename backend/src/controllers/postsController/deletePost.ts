@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { IPost } from '../../models/IPost';
+import { Post } from '../../models/types';
 
 import SuccessResponse from '../../models/SuccessResponse';
 import HttpException from '../../exceptions/HttpException';
@@ -18,7 +18,7 @@ const remove = async (
   const { postId } = req.params;
   const [_, userId]: any = req.headers.authorization?.split(' ');
   try {
-    const result: IPost = await removePost(postId);
+    const result: Post = await removePost(postId);
     if (!result) {
       next(new NotFoundException('Post', postId));
       return;

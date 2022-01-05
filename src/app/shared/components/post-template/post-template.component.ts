@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IGetPost, ILike, IUser } from '@interfaces/IPost';
+import { Like, PostInf, User } from '@interfaces/postRelatedTypes';
 import { userId } from '@interfaces/userId';
 
 @Component({
@@ -8,14 +8,14 @@ import { userId } from '@interfaces/userId';
   styleUrls: ['./post-template.component.scss'],
 })
 export class PostTemplateComponent implements OnInit {
-  @Input() public post: IGetPost;
+  @Input() public post: PostInf;
   @Input() public isSliced: boolean = false;
   @Output() public postSelected: EventEmitter<void> = new EventEmitter();
-  public newPost: IGetPost;
-  public user: IUser;
+  public newPost: PostInf;
+  public user: User;
   public countComment: number = 0;
   public likesCount: number;
-  public userLike: ILike | undefined;
+  public userLike: Like | undefined;
   public tags: string[] = [];
 
   constructor() {}
@@ -28,9 +28,9 @@ export class PostTemplateComponent implements OnInit {
     this.user = this.post.user[0];
     this.countComment = this.post.comments.length;
     this.tags = this.post.tags;
-    const likesArr: ILike[] = this.post.likes.filter((el: ILike) => el.isLiked);
+    const likesArr: Like[] = this.post.likes.filter((el: Like) => el.isLiked);
     this.likesCount = likesArr.length;
-    this.userLike = this.post.likes.find((el: ILike) => {
+    this.userLike = this.post.likes.find((el: Like) => {
       if (el.userId === userId) {
         return el;
       }

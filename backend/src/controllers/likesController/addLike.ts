@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { ILike } from '../../models/IPost';
+import { Like } from '../../models/types';
 import SuccessResponse from '../../models/SuccessResponse';
 import HttpException from '../../exceptions/HttpException';
 import { createLike } from '../../services/likeActions';
@@ -14,9 +14,9 @@ const create = async (
     return;
   }
   const [_, userId]: any = req.headers.authorization?.split(' ');
-  const like: ILike = { ...req.body, userId: userId };
+  const like: Like = { ...req.body, userId: userId };
   try {
-    const result: ILike = await createLike(like);
+    const result: Like = await createLike(like);
     res.json(new SuccessResponse(201, 'Success', result));
   } catch (e: any) {
     next(new HttpException(400, e.message));

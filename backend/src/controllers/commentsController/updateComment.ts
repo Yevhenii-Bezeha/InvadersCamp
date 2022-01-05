@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { IComment } from '../../models/IPost';
+import { Comment } from '../../models/types';
 import SuccessResponse from '../../models/SuccessResponse';
 import HttpException from '../../exceptions/HttpException';
 import { updateComment } from '../../services/commentActions';
@@ -15,9 +15,9 @@ const update = async (
     return;
   }
   const { commentId } = req.params;
-  const comment: IComment = req.body;
+  const comment: Comment = req.body;
   try {
-    const result: IComment = await updateComment(commentId, comment);
+    const result: Comment = await updateComment(commentId, comment);
     result
       ? res.json(new SuccessResponse(200, 'Success', result))
       : next(new NotFoundException('Comment', commentId));

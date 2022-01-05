@@ -8,27 +8,27 @@ import { Location } from '@angular/common';
 })
 export class ModalComponent implements OnInit, OnDestroy {
   constructor(
-    private _location: Location,
-    @Inject('Window') private _window: Window
+    private location: Location,
+    @Inject('Window') private window: Window
   ) {}
 
   ngOnInit(): void {
-    this._window.addEventListener('keydown', this.onEsc.bind(this));
+    this.window.addEventListener('keydown', this.onEsc.bind(this));
   }
 
   ngOnDestroy(): void {
-    this._window.removeEventListener('keydown', this.onEsc);
+    this.window.removeEventListener('keydown', this.onEsc);
   }
 
   handleBackdropClick(e: MouseEvent): void {
     if (e.target === e.currentTarget) {
-      this._location.back();
+      this.location.back();
     }
   }
 
   onEsc(e: KeyboardEvent): void {
     if (e.code === 'Escape') {
-      this._location.back();
+      this.location.back();
     }
   }
 }

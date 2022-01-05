@@ -7,6 +7,9 @@ import postApi from './api/postApi';
 import errorMiddleware from './middlewares/errorMiddleware';
 import commentApi from './api/commentApi';
 import likeApi from './api/likeApi';
+import db from './db';
+
+const PORT: string = process.env['PORT'] || '3000';
 
 const app: Application = express();
 
@@ -27,4 +30,9 @@ app.use('*', (req: Request, res: Response) => {
 
 app.use(errorMiddleware);
 
-export default app;
+const connect = async () => {
+  await db.initConnection();
+  app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
+};
+
+connect();

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IComment } from '@interfaces/IPost';
+import { Comment } from '@interfaces/postRelatedTypes';
 import { userId } from '@interfaces/userId';
 
 @Component({
@@ -8,7 +8,7 @@ import { userId } from '@interfaces/userId';
   styleUrls: ['./comment.component.scss'],
 })
 export class CommentComponent implements OnInit {
-  @Input() public comment: IComment = { message: '', postId: '' };
+  @Input() public comment: Comment = { message: '', postId: '' };
   @Output() public commentSelected: EventEmitter<'delete' | 'edit'> =
     new EventEmitter();
   userCommented: boolean = false;

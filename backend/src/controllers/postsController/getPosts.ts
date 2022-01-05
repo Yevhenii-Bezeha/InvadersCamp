@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { IPost } from '../../models/IPost';
+import { Post, PostInf } from '../../models/types';
 import SuccessResponse from '../../models/SuccessResponse';
 import HttpException from '../../exceptions/HttpException';
 import { getAllPosts } from '../../services/postActions/getAllPosts';
@@ -30,7 +30,7 @@ const get = async (
     filter = {};
   }
   try {
-    const posts: IPost[] = await getAllPosts(skip, limit, sortObj, filter);
+    const posts: PostInf[] = await getAllPosts(skip, limit, sortObj, filter);
     const totalCount = await getPostsCount(filter);
     res.json(new SuccessResponse(200, 'Success', posts, totalCount));
   } catch (e: any) {

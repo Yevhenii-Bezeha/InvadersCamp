@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
-import { IComment, IResCreateComment } from '../../core/models/IPost';
-import { url } from '../../core/models/routes';
-import { basicUrl } from '../../core/models/basicUrl';
-import { PostsSubjectsService } from '../../core/services/postsSubjects.service';
+import { catchError, map } from 'rxjs';
+import { Comment, Res } from '@interfaces/postRelatedTypes';
+import { url } from '@interfaces/routes';
+import { basicUrl } from '@interfaces/basicUrl';
+import { ErrorsService } from '@services/errors.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,56 +12,47 @@ import { PostsSubjectsService } from '../../core/services/postsSubjects.service'
 export class CommentsService {
   constructor(
     private http: HttpClient,
-    private _subjectsService: PostsSubjectsService
+    private subjectsService: ErrorsService
   ) {}
 
-  createComment(comment: IComment, postId: string) {
-    this.http
-      .post<IResCreateComment>(
-        `${basicUrl}/${url.posts}/${postId}/${url.comments}`,
-        comment
-      )
-      .pipe(map((data: IResCreateComment) => data.data))
-      .subscribe({
-        next: (comment: IComment) => {
-          this._subjectsService._inputChanged.next();
-        },
-        error: (error) => {
-          this._subjectsService._error.next(error);
-        },
-      });
+  createComment(comment: Comment, postId: string) {
+    return this.http
+      .post<any>(`${basicUrl}/${url.posts}/${postId}/${url.comments}`, comment)
+      .pipe(
+        catchError((err) => {
+          this.subjectsService.error.next(err);
+          return err;
+        }),
+        map((data: Res) => data.data)
+      );
   }
 
-  updateComment(comment: IComment, postId: string) {
-    this.http
-      .patch<IResCreateComment>(
+  updateComment(comment: Comment, postId: string) {
+    return this.http
+      .patch<any>(
         `${basicUrl}/${url.posts}/${postId}/${url.comments}/${comment._id}`,
         comment
       )
-      .pipe(map((data: IResCreateComment) => data.data))
-      .subscribe({
-        next: (comment: IComment) => {
-          this._subjectsService._inputChanged.next();
-        },
-        error: (error) => {
-          this._subjectsService._error.next(error);
-        },
-      });
+      .pipe(
+        catchError((err) => {
+          this.subjectsService.error.next(err);
+          return err;
+        }),
+        map((data: Res) => data.data)
+      );
   }
 
   deleteComment(commentId: string | undefined, postId: string) {
-    this.http
-      .delete<IResCreateComment>(
+    return this.http
+      .delete<any>(
         `${basicUrl}/${url.posts}/${postId}/${url.comments}/${commentId}`
       )
-      .pipe(map((data: IResCreateComment) => data.data))
-      .subscribe({
-        next: (comment: IComment) => {
-          this._subjectsService._inputChanged.next();
-        },
-        error: (error) => {
-          this._subjectsService._error.next(error);
-        },
-      });
+      .pipe(
+        catchError((err) => {
+          this.subjectsService.error.next(err);
+          return err;
+        }),
+        map((data: Res) => data.data)
+      );
   }
 }

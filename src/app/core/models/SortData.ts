@@ -1,4 +1,4 @@
-export interface ISortData {
+export interface SortData {
   sortBy: string;
   order: number;
 }

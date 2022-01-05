@@ -1,3 +1,3 @@
-import Post from '../../db/schemas/post';
+import PostSch from '../../db/schemas/post';
 
-export const getPostsCount = (filter: Object) => Post.countDocuments(filter);
+export const getPostsCount = (filter: Object) => PostSch.countDocuments(filter);

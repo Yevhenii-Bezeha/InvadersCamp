@@ -7,9 +7,9 @@ import { Location } from '@angular/common';
   styleUrls: ['./close-btn.component.scss'],
 })
 export class CloseBtnComponent {
-  constructor(private _location: Location) {}
+  constructor(private location: Location) {}
 
   onCloseClick() {
-    this._location.back();
+    this.location.back();
   }
 }

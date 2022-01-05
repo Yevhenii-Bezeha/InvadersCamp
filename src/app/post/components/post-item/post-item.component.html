@@ -25,5 +25,9 @@
     </app-post-template>
   </div>
 </mat-list>
-<app-comments *ngFor="let postCopy of post" [post]="postCopy"></app-comments>
+<app-comments
+  (commentsChanged)="commentsChanged()"
+  *ngFor="let postCopy of post"
+  [post]="postCopy"
+></app-comments>
 <app-spinner *ngIf="isFetching"></app-spinner>

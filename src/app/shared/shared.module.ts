@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorComponent } from './components/error/error.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { PostTemplateComponent } from './components/post-template/post-template.component';
+import { BaseComponent } from './classes/BaseComponent';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PostTemplateComponent } from './components/post-template/post-template.
     ErrorComponent,
     SpinnerComponent,
     PostTemplateComponent,
+    BaseComponent,
   ],
   imports: [CommonModule, MaterialModule, RouterModule, ReactiveFormsModule],
   exports: [
@@ -34,6 +36,7 @@ import { PostTemplateComponent } from './components/post-template/post-template.
     SpinnerComponent,
     ErrorComponent,
     PostTemplateComponent,
+    BaseComponent,
   ],
 })
 export class SharedModule {}

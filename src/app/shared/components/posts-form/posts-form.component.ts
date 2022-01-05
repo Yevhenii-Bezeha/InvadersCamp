@@ -1,42 +1,52 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IGetPost } from '@interfaces/IPost';
+import { PostInf } from '@interfaces/postRelatedTypes';
 import { emptyPost } from '@interfaces/emptyPost';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { url } from '@interfaces/routes';
 import { FormService } from '@services/form.service';
-import { PostService } from '../../../post/services/post.service';
-import { tagCategories } from '@interfaces/tagCategories';
+import { tagsEnum } from '@interfaces/tagsEnum';
+import { PostHttpService } from '../../../post/services/post-http.service';
+import { BaseComponent } from '../../classes/BaseComponent';
 
 @Component({
   selector: 'app-posts-form',
   templateUrl: './posts-form.component.html',
   styleUrls: ['./posts-form.component.scss'],
 })
-export class PostsFormComponent implements OnInit {
+export class PostsFormComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy
+{
   public isCreateForm = true;
-  public post: IGetPost = emptyPost;
+  public post: PostInf = emptyPost;
   public postForm: FormGroup;
-  public tagCategories: string[] = tagCategories;
+  public tagCategories: string[] = Object.keys(tagsEnum);
 
   constructor(
-    private _fb: FormBuilder,
-    private _postService: PostService,
-    private _formService: FormService,
-    private _router: Router,
-    private _location: Location
-  ) {}
+    private fb: FormBuilder,
+    private postService: PostHttpService,
+    private formService: FormService,
+    private router: Router,
+    private location: Location
+  ) {
+    super();
+  }
 
   ngOnInit() {
-    this.isCreateForm = this._router.url === `/${url.addPost}`;
-    this.post = this.isCreateForm ? emptyPost : this._formService.post;
+    this.isCreateForm = this.router.url === `/${url.addPost}`;
+    this.post = this.isCreateForm ? emptyPost : this.formService.post;
     this.getFormDone();
     console.log(this.post.tags);
   }
 
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
   getFormDone() {
-    this.postForm = this._fb.group({
+    this.postForm = this.fb.group({
       title: [this.post.title, Validators.required],
       description: [this.post.description, Validators.required],
       tags: [this.post.tags, Validators.required],
@@ -44,16 +54,22 @@ export class PostsFormComponent implements OnInit {
   }
 
   createPost() {
-    this._postService.createPost(this.postForm.value);
+    super.addObserver(
+      this.postService.createPost(this.postForm.value).subscribe()
+    );
   }
 
   updatePost() {
-    this._postService.updatePost(this.post._id, this.postForm.value);
+    super.addObserver(
+      this.postService
+        .updatePost(this.post._id, this.postForm.value)
+        .subscribe()
+    );
   }
 
   onSubmit() {
     this.isCreateForm ? this.createPost() : this.updatePost();
     this.postForm.reset();
-    this._location.back();
+    this.location.back();
   }
 }

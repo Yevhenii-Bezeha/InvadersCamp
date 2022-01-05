@@ -1,98 +1,101 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IGetPost, ILike, IResAllPosts } from '@interfaces/IPost';
 import { PostsService } from '../../services/posts.service';
-import { Subscription } from 'rxjs';
 import { LikesService } from '@services/likes.service';
-import { PostsSubjectsService } from '@services/postsSubjects.service';
-import { IPaginatorData } from '@interfaces/IPaginatorData';
-import { ISortData } from '@interfaces/ISortData';
+import { PaginatorData } from '@interfaces/PaginatorData';
+import { SortData } from '@interfaces/SortData';
+import { BaseComponent } from '../../../shared/classes/BaseComponent';
+import { Like, PostInf, ResPosts } from '@interfaces/postRelatedTypes';
 
 @Component({
   selector: 'app-list-posts',
   templateUrl: './list-posts.component.html',
   styleUrls: ['./list-posts.component.scss'],
 })
-export class ListPostsComponent implements OnInit, OnDestroy {
-  public posts: IGetPost[] = [];
+export class ListPostsComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy
+{
+  public posts: PostInf[] = [];
   public totalCount: number | undefined = 0;
   public isFetching: boolean = false;
   public isSliced: boolean = true;
-  private _filterStr: string = '';
-  private _page: string = '0';
-  private _perPage: string = '5';
-  private _subGet: Subscription;
-  private _subInpChanged: Subscription;
-  private _sortBy: string = 'updatedAt';
-  private _order: number = -1;
+  private filterStr: string = '';
+  private page: string = '0';
+  private perPage: string = '5';
+  private sortBy: string = 'updatedAt';
+  private order: number = -1;
 
   constructor(
-    private _postsService: PostsService,
-    private _likesService: LikesService,
-    private _subjectsService: PostsSubjectsService
-  ) {}
+    private postsService: PostsService,
+    private likesService: LikesService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.isFetching = true;
     this.getPosts();
-    this._subInpChanged = this._subjectsService._inputChanged.subscribe(() =>
-      this.getPosts()
-    );
   }
 
-  ngOnDestroy(): void {
-    this._subGet.unsubscribe();
-    this._subInpChanged.unsubscribe();
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 
   getPosts(): void {
-    this._subGet = this._postsService
-      .getPosts(
-        this._page,
-        this._perPage,
-        this._filterStr,
-        this._sortBy,
-        this._order
-      )
-      .subscribe({
-        next: (data: IResAllPosts) => {
+    super.addObserver(
+      this.postsService
+        .getPosts(
+          this.page,
+          this.perPage,
+          this.filterStr,
+          this.sortBy,
+          this.order
+        )
+        .subscribe((data: ResPosts) => {
           this.posts = data.data;
           this.totalCount = data.totalCount;
           this.isFetching = false;
-        },
-        error: (error) => {
-          this._subjectsService._error.next(error);
-          this.isFetching = false;
-        },
-      });
+        })
+    );
   }
 
-  addLike(likes: ILike[], postId: string): void {
-    const like: ILike | undefined = this._likesService.isUserLiked(likes);
+  addLike(likesArr: Like[], postId: string): void {
+    const like: Like | undefined = this.likesService.isUserLiked(likesArr);
     if (!like) {
-      const like: ILike = {
+      const like: Like = {
         postId: postId,
         isLiked: true,
       };
-      this._likesService.createLike(like);
+      super.addObserver(
+        this.likesService.createLike(like, postId).subscribe((data) => {
+          this.getPosts();
+        })
+      );
     } else {
-      this._likesService.toggleLike(like?._id, { isLiked: like.isLiked });
+      super.addObserver(
+        this.likesService
+          .toggleLike(like?._id, { isLiked: like.isLiked }, postId)
+          .subscribe((data) => {
+            this.getPosts();
+          })
+      );
     }
   }
 
-  getPaginatorData(event: IPaginatorData) {
-    this._page = event.page.toString();
-    this._perPage = event.perPage.toString();
+  getPaginatorData(event: PaginatorData) {
+    this.page = event.page.toString();
+    this.perPage = event.perPage.toString();
     this.getPosts();
   }
 
   onInputChange(event: string): void {
-    this._filterStr = event;
+    this.filterStr = event;
     this.getPosts();
   }
 
-  onSort(event: ISortData): void {
-    this._sortBy = event.sortBy;
-    this._order = event.order;
+  onSort(event: SortData): void {
+    this.sortBy = event.sortBy;
+    this.order = event.order;
     this.getPosts();
   }
 }

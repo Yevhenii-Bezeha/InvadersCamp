@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { IComment } from '../../models/IPost';
+import { Comment } from '../../models/types';
 import SuccessResponse from '../../models/SuccessResponse';
 import HttpException from '../../exceptions/HttpException';
 import { removeComment } from '../../services/commentActions';
@@ -12,7 +12,7 @@ const remove = async (
 ): Promise<void> => {
   const { commentId } = req.params;
   try {
-    const result: IComment = await removeComment(commentId);
+    const result: Comment = await removeComment(commentId);
     result
       ? res.json(new SuccessResponse(200, 'Success', result))
       : next(new NotFoundException('Comment', commentId));

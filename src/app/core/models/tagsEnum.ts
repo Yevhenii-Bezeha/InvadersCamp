@@ -1,0 +1,17 @@
+export enum tagsEnum {
+  Reviews = 'Reviews',
+  Healthcare = 'Healthcare',
+  Psychology = 'Psychology',
+  News = 'News',
+  Essays = 'Essays',
+  Lifestyle = 'Lifestyle',
+  QuestionAndAnswer = 'Question-and-Answer',
+  History = 'History',
+  Science = 'Science',
+  Programming = 'Programming',
+  Games = 'Games',
+  Fashion = 'Fashion',
+  Travel = 'Travel',
+  Art = 'Art',
+  Music = 'Music',
+}

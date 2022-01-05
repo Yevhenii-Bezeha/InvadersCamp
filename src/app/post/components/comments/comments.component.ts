@@ -1,22 +1,40 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { IComment, IGetPost } from '@interfaces/IPost';
+import { Comment, PostInf } from '@interfaces/postRelatedTypes';
 import { CommentsService } from '../../services/comments.service';
+import { BaseComponent } from '../../../shared/classes/BaseComponent';
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss'],
 })
-export class CommentsComponent implements OnInit {
-  @Input() post: IGetPost;
-  public comments: IComment[];
-  public commentToEdit: IComment = { message: '', postId: '' };
+export class CommentsComponent
+  extends BaseComponent
+  implements OnInit, OnDestroy
+{
+  @Input() post: PostInf;
+  @Output() commentsChanged = new EventEmitter<void>();
+  public comments: Comment[] = [];
+  public commentToEdit: Comment = { message: '', postId: '' };
 
-  constructor(private _commentsService: CommentsService) {}
+  constructor(private commentsService: CommentsService) {
+    super();
+  }
 
   ngOnInit(): void {
     this.dataPrepare();
+  }
+
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 
   dataPrepare(): void {
@@ -24,27 +42,45 @@ export class CommentsComponent implements OnInit {
   }
 
   onSubmitCreate(form: NgForm): void {
-    const comment: IComment = {
+    const comment: Comment = {
       message: form.value.message,
       postId: this.post._id,
     };
-    this._commentsService.createComment(comment, this.post._id);
+    super.addObserver(
+      this.commentsService
+        .createComment(comment, this.post._id)
+        .subscribe((data) => {
+          this.commentsChanged.emit();
+        })
+    );
     form.onReset();
   }
 
   onSubmitEdit(form: NgForm): void {
-    const comment: IComment = {
+    const comment: Comment = {
       ...this.commentToEdit,
       message: form.value.message,
     };
-    this._commentsService.updateComment(comment, this.post._id);
+    super.addObserver(
+      this.commentsService
+        .updateComment(comment, this.post._id)
+        .subscribe((data) => {
+          this.commentsChanged.emit();
+        })
+    );
     this.commentToEdit = { message: '', postId: '' };
     form.onReset();
   }
 
-  onClick(comment: IComment, action: 'delete' | 'edit'): void {
+  onClick(comment: Comment, action: 'delete' | 'edit'): void {
     if (action === 'delete') {
-      this._commentsService.deleteComment(comment._id, this.post._id);
+      super.addObserver(
+        this.commentsService
+          .deleteComment(comment._id, this.post._id)
+          .subscribe((data) => {
+            this.commentsChanged.emit();
+          })
+      );
       return;
     }
     this.commentToEdit = comment;

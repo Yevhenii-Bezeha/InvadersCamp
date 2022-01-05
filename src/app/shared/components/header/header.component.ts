@@ -10,13 +10,13 @@ import { url } from '@interfaces/routes';
 export class HeaderComponent {
   public url = { ...url };
 
-  constructor(private _sidebarService: SidebarService) {}
+  constructor(private sidebarService: SidebarService) {}
 
   onClick(): void {
-    this._sidebarService.toggleSidenav();
+    this.sidebarService.toggleSidenav();
   }
 
   onLogoClick(): void {
-    this._sidebarService.closeSidenav();
+    this.sidebarService.closeSidenav();
   }
 }

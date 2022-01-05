@@ -1,12 +1,12 @@
-import Post from '../../db/schemas/post';
-import { IGetPosts } from '../../models/IPost';
+import PostSch from '../../db/schemas/post';
+import { PostInf } from '../../models/types';
 import * as mongoose from 'mongoose';
 import { Aggregate } from 'mongoose';
 
 const ObjectId = mongoose.Types.ObjectId;
 
-export const getPostById = (postId: string): Aggregate<IGetPosts[]> =>
-  Post.aggregate([
+export const getPostById = (postId: string): Aggregate<PostInf[]> =>
+  PostSch.aggregate([
     { $match: { _id: new ObjectId(postId) } },
     { $limit: 1 },
     {
