@@ -1,0 +1,39 @@
+<mat-accordion class="comment">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Comments</mat-panel-title>
+    </mat-expansion-panel-header>
+    <app-comment
+      (commentSelected)="onClick(comment, $event)"
+      *ngFor="let comment of comments"
+      [comment]="comment"
+    ></app-comment>
+    <form
+      #f="ngForm"
+      (ngSubmit)="commentToEdit.message ? onSubmitEdit(f) : onSubmitCreate(f)"
+    >
+      <mat-form-field appearance="fill" class="comment__input">
+        <mat-label>Comment here</mat-label>
+        <input
+          #comment="ngModel"
+          [ngModel]="commentToEdit.message"
+          matInput
+          name="message"
+          required
+        />
+      </mat-form-field>
+      <button
+        [disabled]="!f.valid"
+        aria-label="Submit comment"
+        color="warn"
+        mat-fab
+        type="submit"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-error *ngIf="!comment.valid && comment.touched">
+        Please enter a comment
+      </mat-error>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>

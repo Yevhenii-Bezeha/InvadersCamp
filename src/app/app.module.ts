@@ -5,12 +5,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
-import { ListPostsModule } from './list-posts/list-posts.module';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { PostsModule } from './posts/posts.module';
 import { SidebarModule } from './sidebar/sidebar.module';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing.module';
 import { PostModule } from './post/post.module';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,10 +24,17 @@ import { PostModule } from './post/post.module';
     RouterModule,
     SidebarModule,
     PostModule,
-    ListPostsModule,
+    PostsModule,
     AppRoutingModule,
   ],
-  providers: [{ provide: 'Window', useValue: window }],
+  providers: [
+    { provide: 'Window', useValue: window },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

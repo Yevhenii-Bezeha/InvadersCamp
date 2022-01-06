@@ -1,0 +1,27 @@
+<div>
+  <div class="upp-container">
+    <app-sort (getSortData)="onSort($event)"></app-sort>
+    <app-filter (getFilterData)="onInputChange($event)"></app-filter>
+  </div>
+  <mat-list *ngIf="posts.length > 0 && !isFetching" class="list">
+    <div>
+      <app-post-template
+        (postSelected)="addLike(post.likes, post._id)"
+        *ngFor="let post of posts"
+        [isSliced]="isSliced"
+        [post]="post"
+      >
+        <a mat-stroked-button routerLink="./{{ post._id }}"> Read more... </a>
+        <mat-icon [matBadge]="post.comments.length" matBadgeColor="warn"
+          >comment
+        </mat-icon>
+      </app-post-template>
+      <app-paginator
+        (getPaginatorData)="getPaginatorData($event)"
+        [postsCountOnPage]="posts.length"
+        [totalCount]="totalCount"
+      ></app-paginator>
+    </div>
+  </mat-list>
+</div>
+<app-spinner *ngIf="isFetching"></app-spinner>

@@ -1,0 +1,34 @@
+<mat-list class="comment">
+  <mat-list-item *ngIf="userCommented" class="comment__item">
+    <div>
+      <button
+        (click)="onDelete()"
+        aria-label="delete"
+        color="accent"
+        mat-mini-fab
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button
+        (click)="onEdit()"
+        aria-label="edit"
+        class="comment__btn"
+        color="basic"
+        mat-mini-fab
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+    <p class="author-block__text">{{ comment.message }}</p>
+  </mat-list-item>
+  <mat-list-item *ngIf="!userCommented">
+    <div>
+      <p>
+        <mat-icon matBadgeColor="warn">person</mat-icon>
+        <span>{{ author }}</span>
+      </p>
+      <p class="author-block__text">{{ comment.message }}</p>
+    </div>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+</mat-list>

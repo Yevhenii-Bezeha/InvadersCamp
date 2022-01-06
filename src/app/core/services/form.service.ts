@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { IPost } from '@interfaces/IPost';
+import { PostInf } from '@interfaces/postRelatedTypes';
 import { Router } from '@angular/router';
 import { url } from '@interfaces/routes';
 
 @Injectable({ providedIn: 'root' })
 export class FormService {
-  public post: IPost;
+  public post: PostInf;
 
-  constructor(private _router: Router) {}
+  constructor(private router: Router) {}
 
   openAddForm() {
-    this._router.navigateByUrl(url.addPost).then();
+    this.router.navigateByUrl(url.addPost).then();
   }
 
-  openEditForm(post: IPost) {
+  openEditForm(post: PostInf) {
     this.post = post;
-    this._router.navigateByUrl(url.editPost).then();
+    this.router.navigateByUrl(url.editPost).then();
   }
 }

@@ -3,11 +3,11 @@ import { Application, Request, Response } from 'express';
 import * as path from 'path';
 import * as logger from 'morgan';
 import * as cors from 'cors';
-import postApi from './api/postApi';
 import errorMiddleware from './middlewares/errorMiddleware';
-import commentApi from './api/commentApi';
-import likeApi from './api/likeApi';
-import tagApi from './api/tagApi';
+import db from './db';
+import apiRouter from './api';
+
+const PORT: string = process.env['PORT'] || '3000';
 
 const app: Application = express();
 
@@ -16,12 +16,10 @@ const formatsLogger: 'dev' | 'short' =
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
+
 app.use(express.static(path.resolve('dist/appName')));
 
-app.use('/posts', postApi);
-app.use('/posts', likeApi);
-app.use('/posts/:id/comments', commentApi);
-app.use('/posts/:id/tags', tagApi);
+app.use('/api', apiRouter);
 
 app.use('*', (req: Request, res: Response) => {
   res.sendFile(path.resolve('dist/appName/index.html'));
@@ -29,4 +27,9 @@ app.use('*', (req: Request, res: Response) => {
 
 app.use(errorMiddleware);
 
-export default app;
+const connect = async () => {
+  await db.initConnection();
+  app.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
+};
+
+connect();

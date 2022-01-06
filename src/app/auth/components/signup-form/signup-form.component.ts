@@ -7,7 +7,7 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./signup-form.component.scss'],
 })
 export class SignupFormComponent {
-  public signupForm = this._fb.group({
+  public signupForm = this.fb.group({
     userName: [
       '',
       [Validators.required, Validators.minLength(3), Validators.maxLength(15)],
@@ -16,7 +16,7 @@ export class SignupFormComponent {
     password: ['', Validators.required],
   });
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {}
 
   onSubmit(): void {}
 }

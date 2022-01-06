@@ -3,45 +3,13 @@
     {{ isCreateForm ? "Create post" : "Edit post" }}
   </p>
   <app-close-btn></app-close-btn>
-  <p class="form__text">Choose your avatar:</p>
-  <mat-radio-group
-    [formControlName]="'authorAvatar'"
-    aria-label="Select an option"
-    class="form__radiogroup"
-  >
-    <mat-radio-button class="form__radiobtn" value="sentiment_very_satisfied">
-      <mat-icon class="form__icon">sentiment_very_satisfied</mat-icon>
-    </mat-radio-button>
-    <mat-radio-button class="form__radiobtn" value="sentiment_satisfied">
-      <mat-icon class="form__icon">sentiment_satisfied</mat-icon>
-    </mat-radio-button>
-    <mat-radio-button class="form__radiobtn" value="sentiment_neutral">
-      <mat-icon class="form__icon">sentiment_neutral</mat-icon>
-    </mat-radio-button>
-    <mat-radio-button
-      class="form__radiobtn"
-      value="sentiment_very_dissatisfied"
-    >
-      <mat-icon class="form__icon">sentiment_very_dissatisfied</mat-icon>
-    </mat-radio-button>
-  </mat-radio-group>
-  <mat-form-field appearance="outline" class="form-input-container">
-    <mat-label>Author Name</mat-label>
-    <input
-      autocomplete="off"
-      formControlName="authorName"
-      matInput
-      placeholder="Ex. John Dow"
-    />
-    <mat-error *ngIf="postForm.controls['authorName'].hasError('required')">
-      Author name is required
-    </mat-error>
-    <mat-error *ngIf="postForm.controls['authorName'].hasError('minlength')">
-      Min-length is 3
-    </mat-error>
-    <mat-error *ngIf="postForm.controls['authorName'].hasError('maxlength')">
-      Max-length is 15
-    </mat-error>
+  <mat-form-field appearance="fill" class="form__select">
+    <mat-label>Tags</mat-label>
+    <mat-select formControlName="tags" multiple>
+      <mat-option *ngFor="let tag of tagCategories" [value]="tag">{{
+        tag
+      }}</mat-option>
+    </mat-select>
   </mat-form-field>
   <mat-form-field appearance="outline" class="form-input-container">
     <mat-label>Title</mat-label>

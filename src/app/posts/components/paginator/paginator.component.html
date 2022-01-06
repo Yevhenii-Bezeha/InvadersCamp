@@ -1,0 +1,8 @@
+<mat-paginator
+  (page)="getPageInf($event)"
+  [length]="totalCount"
+  [pageSizeOptions]="[5, 10]"
+  [pageSize]="postsCountOnPage"
+  aria-label="Select page"
+>
+</mat-paginator>

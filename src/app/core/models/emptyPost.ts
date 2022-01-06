@@ -1,12 +1,14 @@
-import { IPost } from './IPost';
+import { PostInf } from './postRelatedTypes';
 
-export const emptyPost: IPost = {
+export const emptyPost: PostInf = {
   _id: '',
-  authorAvatar: '',
-  authorName: '',
   title: '',
   description: '',
-  likes: 0,
+  userId: '',
+  user: [],
+  comments: [],
+  likes: [],
+  tags: [],
   createdAt: new Date(),
   updatedAt: new Date(),
 };

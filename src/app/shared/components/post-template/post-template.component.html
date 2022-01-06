@@ -1,0 +1,37 @@
+<div *ngIf="post">
+  <mat-divider></mat-divider>
+  <div class="container postItem">
+    <mat-chip-list class="postItem__tags">
+      <span class="postItem__tags-text">Tags:</span>
+      <mat-chip *ngFor="let tag of tags">
+        {{ tag }}
+      </mat-chip>
+    </mat-chip-list>
+    <div>
+      <mat-list-item>
+        <mat-icon class="postItem__icon" mat-list-icon>{{
+          user.avatar
+          }}</mat-icon>
+        <div mat-line>{{ user.name }}</div>
+        <div mat-line>{{ post.updatedAt | date }}</div>
+        <button (click)="onHeartClick()" class="postItem__btn">
+          <mat-icon *ngIf="userLike?.isLiked" class="active">favorite</mat-icon>
+          <mat-icon *ngIf="!userLike?.isLiked">favorite_border</mat-icon>
+          {{ likesCount }}
+        </button>
+      </mat-list-item>
+      <div class="postItemAdditional">
+        <p class="mat-display-1 postItemAdditional__title">
+          {{ post.title | uppercase }}
+        </p>
+        <p *ngIf="isSliced" class="postItemAdditional__text">
+          {{ post.description | slice: 0:100 }}...
+        </p>
+        <p *ngIf="!isSliced" class="postItemAdditional__text">
+          {{ post.description }}
+        </p>
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+</div>

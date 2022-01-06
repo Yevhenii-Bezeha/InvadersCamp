@@ -1,14 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
-import { IPost } from '../../models/IPost';
+import { Post } from '../../utils/types';
 
-import SuccessResponse from '../../models/SuccessResponse';
-import HttpException from '../../exceptions/HttpException';
-import NotFoundException from '../../exceptions/NotFoundException';
+import SuccessResponse from '../../utils/SuccessResponse';
+import HttpException from '../../utils/exceptions/HttpException';
+import NotFoundException from '../../utils/exceptions/NotFoundException';
 import {
   removeComments,
   removeLikes,
   removePost,
-  removeTags,
 } from '../../services/postActions/removePost';
 
 const remove = async (
@@ -19,13 +18,12 @@ const remove = async (
   const { postId } = req.params;
   const [_, userId]: any = req.headers.authorization?.split(' ');
   try {
-    const result: IPost = await removePost(postId);
+    const result: Post = await removePost(postId);
     if (!result) {
       next(new NotFoundException('Post', postId));
       return;
     }
     await removeLikes(postId);
-    await removeTags(postId);
     await removeComments(postId);
     res.json(new SuccessResponse(200, 'Success', result));
   } catch (e: any) {

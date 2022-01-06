@@ -1,13 +1,15 @@
-import Post from '../../db/schemas/post';
-import { IGetPosts } from '../../models/IPost';
+import PostModel from '../../db/schemas/post';
+import { PostInf } from '../../utils/types';
 import { Aggregate } from 'mongoose';
 
 export const getAllPosts = (
   skip: number,
   limit: number,
-  sortObj: any
-): Aggregate<IGetPosts[]> =>
-  Post.aggregate([
+  sortObj: any,
+  filter: Object
+): Aggregate<PostInf[]> =>
+  PostModel.aggregate([
+    { $match: filter },
     { $sort: sortObj },
     { $skip: skip },
     { $limit: limit },
@@ -33,14 +35,6 @@ export const getAllPosts = (
         localField: '_id',
         foreignField: 'postId',
         as: 'comments',
-      },
-    },
-    {
-      $lookup: {
-        from: 'tags',
-        localField: '_id',
-        foreignField: 'postId',
-        as: 'tags',
       },
     },
     {

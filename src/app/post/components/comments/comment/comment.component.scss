@@ -1,0 +1,22 @@
+.comment {
+  margin-bottom: 20px;
+
+  &__item {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__btn {
+    margin-left: 10px;
+  }
+}
+
+.author-block {
+  margin-left: 10px;
+
+  &__text {
+    margin-left: 10px;
+    max-width: 500px;
+  }
+}

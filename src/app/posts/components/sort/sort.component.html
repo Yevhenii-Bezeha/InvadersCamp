@@ -1,0 +1,11 @@
+<div class="sort">
+  <p class="sort__text">Sort by</p>
+  <mat-button-toggle-group
+    (change)="onSort($event)"
+    aria-label="Font Style"
+    name="fontStyle"
+  >
+    <mat-button-toggle checked="true" value="date">Date</mat-button-toggle>
+    <mat-button-toggle value="title">Title</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>

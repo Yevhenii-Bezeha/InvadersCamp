@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { ILike } from '../../models/IPost';
-import SuccessResponse from '../../models/SuccessResponse';
-import HttpException from '../../exceptions/HttpException';
-import NotFoundException from '../../exceptions/NotFoundException';
+import { Like } from '../../utils/types';
+import SuccessResponse from '../../utils/SuccessResponse';
+import HttpException from '../../utils/exceptions/HttpException';
+import NotFoundException from '../../utils/exceptions/NotFoundException';
 import { toggleLike } from '../../services/likeActions';
 
 const toggle = async (
@@ -17,7 +17,7 @@ const toggle = async (
   const { likeId } = req.params;
   const { isLiked } = req.body;
   try {
-    const result: ILike = await toggleLike(likeId, !isLiked);
+    const result: Like = await toggleLike(likeId, !isLiked);
     result
       ? res.json(new SuccessResponse(200, 'Success', result))
       : next(new NotFoundException('Like', likeId));

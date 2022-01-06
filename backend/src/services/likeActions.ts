@@ -1,13 +1,13 @@
-import { ILike } from '../models/IPost';
+import { Like } from '../utils/types';
 import * as mongoose from 'mongoose';
-import Like from '../db/schemas/like';
+import LikeModel from '../db/schemas/like';
 
 const ObjectId = mongoose.Types.ObjectId;
 
-const createLike = (like: ILike): Promise<ILike> => Like.create(like);
+const createLike = (like: Like): Promise<Like> => LikeModel.create(like);
 
 const toggleLike = (likeId: string, isLiked: boolean) =>
-  Like.findOneAndUpdate(
+  LikeModel.findOneAndUpdate(
     { _id: new ObjectId(likeId) },
     {
       $set: { isLiked: isLiked },

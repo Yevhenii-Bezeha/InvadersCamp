@@ -13,6 +13,10 @@ const post = new Schema(
       type: String,
       required: [true, 'Set description'],
     },
+    tags: {
+      type: Array,
+      required: [true, 'Set tags'],
+    },
     userId: {
       type: ObjectId,
       ref: 'users',
@@ -22,6 +26,6 @@ const post = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-const Post = mongoose.model('posts', post);
+const PostModel = mongoose.model('posts', post);
 
-export default Post;
+export default PostModel;

@@ -7,12 +7,12 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent {
-  public loginForm = this._fb.group({
+  public loginForm = this.fb.group({
     email: ['', Validators.required, Validators.email],
     password: ['', Validators.required],
   });
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {}
 
   onSubmit(): void {}
 }

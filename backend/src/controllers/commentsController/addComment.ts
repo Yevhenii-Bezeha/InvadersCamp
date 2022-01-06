@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { IComment } from '../../models/IPost';
-import SuccessResponse from '../../models/SuccessResponse';
-import HttpException from '../../exceptions/HttpException';
+import { Comment } from '../../utils/types';
+import SuccessResponse from '../../utils/SuccessResponse';
+import HttpException from '../../utils/exceptions/HttpException';
 import { createComment } from '../../services/commentActions';
 
 const create = async (
@@ -14,9 +14,9 @@ const create = async (
     return;
   }
   const [_, userId]: any = req.headers.authorization?.split(' ');
-  const comment: IComment = { ...req.body, userId: userId };
+  const comment: Comment = { ...req.body, userId: userId };
   try {
-    const result: IComment = await createComment(comment);
+    const result: Comment = await createComment(comment);
     res.json(new SuccessResponse(201, 'Success', result));
   } catch (e: any) {
     next(new HttpException(400, e.message));

@@ -10,6 +10,8 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ErrorComponent } from './components/error/error.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { PostTemplateComponent } from './components/post-template/post-template.component';
+import { BaseComponent } from './classes/BaseComponent';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     ModalComponent,
     ErrorComponent,
     SpinnerComponent,
+    PostTemplateComponent,
+    BaseComponent,
   ],
   imports: [CommonModule, MaterialModule, RouterModule, ReactiveFormsModule],
   exports: [
@@ -31,6 +35,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     ModalComponent,
     SpinnerComponent,
     ErrorComponent,
+    PostTemplateComponent,
+    BaseComponent,
   ],
 })
 export class SharedModule {}
