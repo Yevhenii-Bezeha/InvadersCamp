@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { PostInf } from '../../utils/types';
-import SuccessResponse from '../../utils/SuccessResponse';
 import { getAllPosts } from '../../dao/postDao/getAllPosts';
 import { getPostsCount } from '../../dao/postDao/getPostsCount';
 import { BadRequest } from 'http-errors';
+import SuccessResponse from '../../utils/SuccessResponse';
 
 const get = async (
   req: Request,
@@ -22,17 +22,29 @@ const get = async (
   const sortOrder: number = parseInt(order.toString());
   const sortObj = { [sortStr]: sortOrder };
 
-  //filter part
-  let { filter } = req.query;
-  if (filter) {
-    filter = { title: filter };
-  } else {
-    filter = {};
-  }
+  //filterByTitle part
+  let { filterByTitle = '' } = req.query;
+  const filterByTitleStr: string = filterByTitle.toString();
+
+  //filterByTags part
+  let { filterByTags = '' } = req.query;
+  const filterByTagsStr: string = filterByTags.toString();
+
   try {
-    const posts: PostInf[] = await getAllPosts(skip, limit, sortObj, filter);
-    const totalCount = await getPostsCount(filter);
-    res.json(new SuccessResponse(200, 'Success', posts, totalCount));
+    const posts: PostInf[] = await getAllPosts(
+      skip,
+      limit,
+      sortObj,
+      filterByTitleStr,
+      filterByTagsStr
+    );
+    const [postsCountObj] = await getPostsCount(
+      filterByTitleStr,
+      filterByTagsStr
+    );
+    const postsCount: number = postsCountObj ? postsCountObj.count : 0;
+
+    res.json(new SuccessResponse(200, 'Success', posts, postsCount));
   } catch (error: any) {
     next(new BadRequest(error.message));
   }

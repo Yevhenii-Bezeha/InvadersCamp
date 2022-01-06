@@ -14,7 +14,7 @@ const create = async (
     if (!req.headers.authorization) {
       throw new Unauthorized('Not authorized');
     }
-
+    console.log(req.body);
     const { error } = joiSchemaLike.validate(req.body);
     if (error) {
       throw new BadRequest(error.message);

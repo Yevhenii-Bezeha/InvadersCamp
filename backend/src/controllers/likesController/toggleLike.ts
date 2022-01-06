@@ -14,7 +14,8 @@ const toggle = async (
       throw new Unauthorized('Not authorized');
     }
 
-    if (!req.body.isLiked) {
+    console.log(req.body);
+    if (Object.keys(req.body).length === 0) {
       throw new BadRequest('Provide values');
     }
 

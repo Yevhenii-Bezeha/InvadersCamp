@@ -6,10 +6,12 @@ export const getAllPosts = (
   skip: number,
   limit: number,
   sortObj: any,
-  filter: Object
+  filterByTitle: string,
+  filterByTag: string
 ): Aggregate<PostInf[]> =>
   PostModel.aggregate([
-    { $match: filter },
+    { $match: { tags: { $regex: filterByTag } } },
+    { $match: { title: { $regex: filterByTitle } } },
     { $sort: sortObj },
     { $skip: skip },
     { $limit: limit },
