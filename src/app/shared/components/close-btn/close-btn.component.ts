@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ModalService } from '../../../core/services/modal.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-close-btn',
@@ -7,9 +7,9 @@ import { ModalService } from '../../../core/services/modal.service';
   styleUrls: ['./close-btn.component.scss'],
 })
 export class CloseBtnComponent {
-  constructor(private _modalService: ModalService) {}
+  constructor(private _location: Location) {}
 
   onCloseClick() {
-    this._modalService.toggleModal();
+    this._location.back();
   }
 }

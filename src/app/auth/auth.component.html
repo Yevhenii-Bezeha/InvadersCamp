@@ -1,2 +1,2 @@
-<app-login-form></app-login-form>
-<app-signup-form></app-signup-form>
+<app-login-form *ngIf="currentHref === url.login"></app-login-form>
+<app-signup-form *ngIf="currentHref === url.signup"></app-signup-form>

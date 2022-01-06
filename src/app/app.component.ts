@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subscription } from 'rxjs';
-import { ModalService } from '@services/modal.service';
 import { SidebarService } from '@services/sidebar.service';
 
 @Component({
@@ -11,33 +10,22 @@ import { SidebarService } from '@services/sidebar.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') sidebar: MatDrawer;
-  public isShowModal = false;
-  public isSideNavOpened = false;
+  public isSideNavOpened: boolean = false;
 
-  private subModal: Subscription;
-  private subSidenav: Subscription;
+  private _subSidenav: Subscription;
 
-  constructor(
-    private _modalService: ModalService,
-    private _sidebarService: SidebarService
-  ) {}
+  constructor(private _sidebarService: SidebarService) {}
 
-  ngOnInit() {
-    this.isShowModal = this._modalService.isShowModal;
-    this.subModal = this._modalService.isShowModalChanged$.subscribe(
-      (isShowModal) => (this.isShowModal = isShowModal)
-    );
-
+  ngOnInit(): void {
     this.isSideNavOpened = this._sidebarService.isSidenavOpened;
-    this.subSidenav = this._sidebarService.isSidenavChanged$.subscribe(
-      (isSideNavOpened) => {
+    this._subSidenav = this._sidebarService.isSidenavChanged$.subscribe(
+      (isSideNavOpened: boolean) => {
         this.isSideNavOpened = isSideNavOpened;
       }
     );
   }
 
-  ngOnDestroy() {
-    this.subModal.unsubscribe();
-    this.subSidenav.unsubscribe();
+  ngOnDestroy(): void {
+    this._subSidenav.unsubscribe();
   }
 }

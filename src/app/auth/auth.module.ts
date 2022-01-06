@@ -5,10 +5,18 @@ import { AuthComponent } from './auth.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { SignupFormComponent } from './components/signup-form/signup-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { AuthRoutingModule } from './auth.routing.module';
 
 @NgModule({
   declarations: [AuthComponent, LoginFormComponent, SignupFormComponent],
-  imports: [CommonModule, MaterialModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    RouterModule,
+    AuthRoutingModule,
+  ],
   exports: [],
 })
 export class AuthModule {}

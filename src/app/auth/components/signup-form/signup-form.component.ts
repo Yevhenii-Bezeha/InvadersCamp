@@ -16,10 +16,7 @@ export class SignupFormComponent {
     password: ['', Validators.required],
   });
 
-  constructor(private _fb: FormBuilder) {
-  }
+  constructor(private _fb: FormBuilder) {}
 
-
-  onSubmit() {
-  }
+  onSubmit(): void {}
 }

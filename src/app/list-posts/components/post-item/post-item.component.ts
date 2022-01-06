@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { IPost } from '../../../core/models/IPost';
-import { PostsService } from '../../../core/services/posts.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IPost } from '@interfaces/IPost';
+import { PostsService } from '@services/posts.service';
 
 @Component({
   selector: 'app-post-item',
@@ -9,11 +9,11 @@ import { PostsService } from '../../../core/services/posts.service';
 })
 export class PostItemComponent {
   @Input() post: IPost;
+  @Output() postSelected: EventEmitter<void> = new EventEmitter();
 
-  constructor(private postService: PostsService) {}
+  constructor(private _postService: PostsService) {}
 
-  onHeartClick(id: string) {
-    console.log(123);
-    // this.postService.addLike(id);
+  onHeartClick(): void {
+    this.postSelected.emit();
   }
 }

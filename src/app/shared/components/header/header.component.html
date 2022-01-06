@@ -1,20 +1,27 @@
 <header class="header">
   <mat-toolbar class="header__nav">
     <a
+      (click)="onLogoClick()"
+      [routerLink]="url.posts"
       class="header__auth-link"
       mat-button
-    >My blog</a
+      routerLinkActive="header__auth-link_active"
+      >My blog</a
     >
     <div class="header__auth-container">
       <a
+        [routerLink]="url.login"
         class="header__auth-link"
         mat-button
-      >Log in</a
+        routerLinkActive="header__auth-link_active"
+        >Log in</a
       >
       <a
+        [routerLink]="url.signup"
         class="header__auth-link"
         mat-button
-      >Get started</a
+        routerLinkActive="header__auth-link_active"
+        >Get started</a
       >
       <button (click)="onClick()" mat-icon-button>
         <mat-icon>menu</mat-icon>

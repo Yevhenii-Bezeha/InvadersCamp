@@ -1,36 +1,92 @@
-import { ModalService } from '../../../core/services/modal.service';
-import { PostsService } from '../../../core/services/posts.service';
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { SidebarService } from '../../../core/services/sidebar.service';
+import { PostsService } from '@services/posts.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { IPost } from '@interfaces/IPost';
+import { emptyPost } from '@interfaces/emptyPost';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { url } from '@interfaces/routes';
+import { FormService } from '@services/form.service';
 
 @Component({
   selector: 'app-posts-form',
   templateUrl: './posts-form.component.html',
   styleUrls: ['./posts-form.component.scss'],
 })
-export class PostsFormComponent {
-  public postForm = this._fb.group({
-    authorAvatar: ['sentiment_very_satisfied'],
-    authorName: [
-      '',
-      [Validators.required, Validators.minLength(3), Validators.maxLength(15)],
-    ],
-    title: ['', Validators.required],
-    description: ['', Validators.required],
-  });
+export class PostsFormComponent implements OnInit, OnDestroy {
+  public isCreateForm = true;
+  public post: IPost = emptyPost;
+  public postForm: FormGroup;
+  public error: string = '';
+
+  private _subCreate: Subscription;
+  private _subUpd: Subscription;
 
   constructor(
     private _fb: FormBuilder,
     private _postService: PostsService,
-    private _modalService: ModalService,
-    private _sidebarService: SidebarService
+    private _formService: FormService,
+    private _router: Router,
+    private _location: Location
   ) {}
 
+  ngOnInit() {
+    this.isCreateForm = this._router.url === `/${url.addPost}`;
+    this.post = this.isCreateForm ? emptyPost : this._formService.post;
+    this.getFormDone();
+  }
+
+  ngOnDestroy() {
+    if (this._subCreate) {
+      this._subCreate.unsubscribe();
+    }
+    if (this._subUpd) {
+      this._subUpd.unsubscribe();
+    }
+  }
+
+  getFormDone() {
+    this.postForm = this._fb.group({
+      authorAvatar: [this.post.authorAvatar || 'sentiment_very_satisfied'],
+      authorName: [
+        this.post.authorName,
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(15),
+        ],
+      ],
+      title: [this.post.title, Validators.required],
+      description: [this.post.description, Validators.required],
+    });
+  }
+
+  createPost() {
+    this._subCreate = this._postService
+      .createPost(this.postForm.value)
+      .subscribe({
+        next: (post: IPost) => {},
+        error: (error) => {
+          this.error = error.message;
+        },
+      });
+  }
+
+  updatePost() {
+    this._subUpd = this._postService
+      .updatePost(this.post._id, this.postForm.value)
+      .subscribe({
+        next: (post: IPost) => {},
+        error: (error) => {
+          this.error = error.message;
+        },
+      });
+  }
+
   onSubmit() {
-    console.log(this.postForm.value);
+    this.isCreateForm ? this.createPost() : this.updatePost();
     this.postForm.reset();
-    this._modalService.toggleModal();
-    this._sidebarService.closeSidenav();
+    this._location.back();
   }
 }

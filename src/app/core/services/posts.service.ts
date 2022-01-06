@@ -1,33 +1,48 @@
-import { IPost, IResponse } from '../models/IPost';
-import { Observable, Subject } from 'rxjs';
+import { IPost, IPostUpd, IResAllPosts, IResPost } from '../models/IPost';
+import { map, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { url } from '@interfaces/routes';
 
-@Injectable()
+const basicUrl = 'http://localhost:3000';
+
+@Injectable({ providedIn: 'root' })
 export class PostsService {
-  private _postsChanged = new Subject<IPost[]>();
-
-  public postsChanged$ = this._postsChanged.asObservable();
-
   constructor(private http: HttpClient) {}
 
-  getPosts(): Observable<IResponse> {
-    return this.http.get<IResponse>('http://localhost:3000/posts');
+  getPosts(): Observable<IPost[]> {
+    return this.http
+      .get<IResAllPosts>(`${basicUrl}/${url.posts}`)
+      .pipe(map((data: IResAllPosts) => data.data));
   }
 
-  // addLike(id: string) {
-  //   this._posts.map((el) => {
-  //     if (id === el.id) {
-  //       el.likes += 1;
-  //       return el;
-  //     }
-  //     return el;
-  //   });
-  // }
-  //
-  // addPost(post: IPostToAdd) {
-  //   const preparedPost = { ...post, id: uuidv4(), date: new Date(), likes: 0 };
-  //   this._posts.push(preparedPost);
-  //   this._postsChanged.next([...this._posts]);
-  // }
+  getPost(id: string): Observable<IPost> {
+    return this.http
+      .get<IResPost>(`${basicUrl}/${url.posts}/${id}`)
+      .pipe(map((data: IResPost) => data.data));
+  }
+
+  createPost(post: IPost): Observable<IPost> {
+    return this.http
+      .post<IResPost>(`${basicUrl}/${url.posts}`, post)
+      .pipe(map((data: IResPost) => data.data));
+  }
+
+  updatePost(id: string, post: IPostUpd) {
+    return this.http
+      .patch<IResPost>(`${basicUrl}/${url.posts}/${id}`, post)
+      .pipe(
+        map((data: IResPost) => {
+          return data.data;
+        })
+      );
+  }
+
+  deletePost(id: string): Observable<IPost> {
+    return this.http.delete<IResPost>(`${basicUrl}/${url.posts}/${id}`).pipe(
+      map((data: IResPost) => {
+        return data.data;
+      })
+    );
+  }
 }

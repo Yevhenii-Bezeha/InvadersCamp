@@ -7,7 +7,7 @@
       }}</mat-icon>
       <div mat-line>{{ post.authorName }}</div>
       <div mat-line>{{ post.createdAt | date }}</div>
-      <button (click)="onHeartClick(post.id)" class="postItem__btn">
+      <button (click)="onHeartClick()" class="postItem__btn">
         <mat-icon *ngIf="post.likes" class="active">favorite</mat-icon>
         <mat-icon *ngIf="!post.likes">favorite_border</mat-icon>
         {{ post.likes }}
@@ -18,9 +18,9 @@
         {{ post.title | uppercase }}
       </p>
       <p class="postItemAdditional__text">
-        {{ post.description }}
+        {{ post.description | slice: 0:100 }}...
       </p>
-      <a mat-button>Read more...</a>
+      <a mat-stroked-button routerLink="./{{ post._id }}">Read more...</a>
     </div>
   </div>
 </div>

@@ -1,17 +1,10 @@
 import * as mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
+const ObjectId = mongoose.Types.ObjectId;
 
 const post = new Schema(
   {
-    authorAvatar: {
-      type: String,
-      required: [true, 'Set authorAvatar'],
-    },
-    authorName: {
-      type: String,
-      required: [true, 'Set authorAvatar'],
-    },
     title: {
       type: String,
       required: [true, 'Set title'],
@@ -20,9 +13,10 @@ const post = new Schema(
       type: String,
       required: [true, 'Set description'],
     },
-    likes: {
-      type: Number,
-      required: [true, 'Set likes'],
+    userId: {
+      type: ObjectId,
+      ref: 'users',
+      required: [true, 'Set userId'],
     },
   },
   { versionKey: false, timestamps: true }
