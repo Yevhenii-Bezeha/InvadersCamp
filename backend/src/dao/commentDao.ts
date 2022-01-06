@@ -1,7 +1,7 @@
 import { Comment } from '../utils/types';
 import * as mongoose from 'mongoose';
 import { Aggregate } from 'mongoose';
-import CommentModel from '../db/schemas/comment';
+import { CommentModel } from '../models/comment';
 
 const ObjectId = mongoose.Types.ObjectId;
 

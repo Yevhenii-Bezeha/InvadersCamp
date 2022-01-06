@@ -1,7 +1,7 @@
-import PostModel from '../../db/schemas/post';
+import { PostModel } from '../../models/post';
 import * as mongoose from 'mongoose';
-import LikeModel from '../../db/schemas/like';
-import CommentModel from '../../db/schemas/comment';
+import { LikeModel } from '../../models/like';
+import { CommentModel } from '../../models/comment';
 
 const ObjectId = mongoose.Types.ObjectId;
 

@@ -1,4 +1,4 @@
-import PostModel from '../../db/schemas/post';
+import { PostModel } from '../../models/post';
 
 export const getPostsCount = (filter: Object) =>
   PostModel.countDocuments(filter);

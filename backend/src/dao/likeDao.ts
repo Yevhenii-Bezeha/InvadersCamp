@@ -1,6 +1,6 @@
 import { Like } from '../utils/types';
 import * as mongoose from 'mongoose';
-import LikeModel from '../db/schemas/like';
+import { LikeModel } from '../models/like';
 
 const ObjectId = mongoose.Types.ObjectId;
 

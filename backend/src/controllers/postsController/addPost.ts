@@ -1,28 +1,34 @@
 import { NextFunction, Request, Response } from 'express';
 import { Post } from '../../utils/types';
 import SuccessResponse from '../../utils/SuccessResponse';
-import HttpException from '../../utils/exceptions/HttpException';
-import { createPost } from '../../services/postActions/createPost';
+import { createPost } from '../../dao/postDao/createPost';
+import { joiSchemaPost } from '../../models/post';
+import { BadRequest, Unauthorized } from 'http-errors';
 
 const create = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  if (!req.body.title || !req.body.description || !req.body.tags) {
-    next(new HttpException(404, 'Provide values'));
-    return;
-  }
-  const [_, userId]: any = req.headers.authorization?.split(' ');
-  const post: Post = {
-    ...req.body,
-    userId: userId,
-  };
   try {
+    if (!req.headers.authorization) {
+      throw new Unauthorized('Not authorized');
+    }
+
+    const { error } = joiSchemaPost.validate(req.body);
+    if (error) {
+      throw new BadRequest(error.message);
+    }
+
+    const [_, userId]: string[] = req.headers.authorization.split(' ');
+    const post: Post = {
+      ...req.body,
+      userId: userId,
+    };
     const result: Post = await createPost(post);
     res.json(new SuccessResponse(201, 'Success', result));
-  } catch (e: any) {
-    next(new HttpException(400, e.message));
+  } catch (error: any) {
+    next(error);
   }
 };
 

@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { PostInf } from '../../utils/types';
 import SuccessResponse from '../../utils/SuccessResponse';
-import HttpException from '../../utils/exceptions/HttpException';
-import { getAllPosts } from '../../services/postActions/getAllPosts';
-import { getPostsCount } from '../../services/postActions/getPostsCount';
+import { getAllPosts } from '../../dao/postDao/getAllPosts';
+import { getPostsCount } from '../../dao/postDao/getPostsCount';
+import { BadRequest } from 'http-errors';
 
 const get = async (
   req: Request,
@@ -33,8 +33,8 @@ const get = async (
     const posts: PostInf[] = await getAllPosts(skip, limit, sortObj, filter);
     const totalCount = await getPostsCount(filter);
     res.json(new SuccessResponse(200, 'Success', posts, totalCount));
-  } catch (e: any) {
-    next(new HttpException(400, e.message));
+  } catch (error: any) {
+    next(new BadRequest(error.message));
   }
 };
 

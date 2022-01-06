@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import * as Joi from 'joi';
 
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
@@ -23,6 +24,10 @@ const comment = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-const CommentModel = mongoose.model('comments', comment);
+export const joiSchemaComment = Joi.object({
+  message: Joi.string().min(2).required(),
+  postId: Joi.string().required(),
+});
 
-export default CommentModel;
+export const CommentModel = mongoose.model('comments', comment);
+

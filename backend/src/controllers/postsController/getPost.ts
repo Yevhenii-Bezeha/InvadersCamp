@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { PostInf } from '../../utils/types';
 import SuccessResponse from '../../utils/SuccessResponse';
-import NotFoundException from '../../utils/exceptions/NotFoundException';
-import { getPostById } from '../../services/postActions/getPostById';
-import { getComments } from '../../services/commentActions';
+import { getPostById } from '../../dao/postDao/getPostById';
+import { getComments } from '../../dao/commentDao';
+import { NotFound } from 'http-errors';
 
 const getById = async (
   req: Request,
@@ -16,7 +16,7 @@ const getById = async (
     result[0].comments = await getComments(postId);
     res.json(new SuccessResponse(200, 'Success', result));
   } catch (e: unknown) {
-    next(new NotFoundException('Post', postId));
+    next(new NotFound());
   }
 };
 

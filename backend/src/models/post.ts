@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import * as Joi from 'joi';
 
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
@@ -26,6 +27,10 @@ const post = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-const PostModel = mongoose.model('posts', post);
+export const joiSchemaPost = Joi.object({
+  title: Joi.string().min(2).required(),
+  description: Joi.string().min(2).required(),
+  tags: Joi.array().required(),
+});
 
-export default PostModel;
+export const PostModel = mongoose.model('posts', post);
