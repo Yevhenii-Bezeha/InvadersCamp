@@ -18,7 +18,7 @@ export interface PostInf {
   tags: string[];
   readonly userId: string;
   user: User[];
-  comments: Comment[];
+  comments: [];
   likes: Like[];
   createdAt?: Date;
   updatedAt?: Date;
@@ -47,6 +47,7 @@ export interface User {
 export interface Comment {
   readonly _id?: string;
   message: string;
+  user: User[];
   readonly postId: string;
   readonly userId?: string;
   createdAt?: Date;

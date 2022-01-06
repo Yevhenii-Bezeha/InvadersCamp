@@ -1,6 +1,6 @@
 <mat-list class="comment">
   <mat-list-item *ngIf="userCommented" class="comment__item">
-    <div class="comment__btn-group">
+    <div>
       <button
         (click)="onDelete()"
         aria-label="delete"
@@ -19,8 +19,16 @@
         <mat-icon>edit</mat-icon>
       </button>
     </div>
-    <p class="comment__text">{{ comment.message }}</p>
+    <p class="author-block__text">{{ comment.message }}</p>
   </mat-list-item>
-  <mat-list-item *ngIf="!userCommented">{{ comment.message }}</mat-list-item>
+  <mat-list-item *ngIf="!userCommented">
+    <div>
+      <p>
+        <mat-icon matBadgeColor="warn">person</mat-icon>
+        <span>{{ author }}</span>
+      </p>
+      <p class="author-block__text">{{ comment.message }}</p>
+    </div>
+  </mat-list-item>
   <mat-divider></mat-divider>
 </mat-list>

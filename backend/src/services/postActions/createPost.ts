@@ -1,4 +1,4 @@
-import PostSch from '../../db/schemas/post';
-import { Post } from '../../models/types';
+import PostModel from '../../db/schemas/post';
+import { Post } from '../../utils/types';
 
-export const createPost = (post: Post): Promise<Post> => PostSch.create(post);
+export const createPost = (post: Post): Promise<Post> => PostModel.create(post);

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { Like } from '../../models/types';
-import SuccessResponse from '../../models/SuccessResponse';
-import HttpException from '../../exceptions/HttpException';
+import { Like } from '../../utils/types';
+import SuccessResponse from '../../utils/SuccessResponse';
+import HttpException from '../../utils/exceptions/HttpException';
 import { createLike } from '../../services/likeActions';
 
 const create = async (

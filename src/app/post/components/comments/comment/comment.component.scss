@@ -7,11 +7,16 @@
     justify-content: flex-end;
   }
 
-  &__text {
-    margin-left: 20px;
-  }
-
   &__btn {
     margin-left: 10px;
+  }
+}
+
+.author-block {
+  margin-left: 10px;
+
+  &__text {
+    margin-left: 10px;
+    max-width: 500px;
   }
 }

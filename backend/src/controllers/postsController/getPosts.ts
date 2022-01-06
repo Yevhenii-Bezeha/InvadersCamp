@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { Post, PostInf } from '../../models/types';
-import SuccessResponse from '../../models/SuccessResponse';
-import HttpException from '../../exceptions/HttpException';
+import { PostInf } from '../../utils/types';
+import SuccessResponse from '../../utils/SuccessResponse';
+import HttpException from '../../utils/exceptions/HttpException';
 import { getAllPosts } from '../../services/postActions/getAllPosts';
 import { getPostsCount } from '../../services/postActions/getPostsCount';
 

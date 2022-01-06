@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { Post } from '../../models/types';
-import SuccessResponse from '../../models/SuccessResponse';
-import HttpException from '../../exceptions/HttpException';
+import { Post } from '../../utils/types';
+import SuccessResponse from '../../utils/SuccessResponse';
+import HttpException from '../../utils/exceptions/HttpException';
 import { createPost } from '../../services/postActions/createPost';
 
 const create = async (

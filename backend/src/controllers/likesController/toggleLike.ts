@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { Like } from '../../models/types';
-import SuccessResponse from '../../models/SuccessResponse';
-import HttpException from '../../exceptions/HttpException';
-import NotFoundException from '../../exceptions/NotFoundException';
+import { Like } from '../../utils/types';
+import SuccessResponse from '../../utils/SuccessResponse';
+import HttpException from '../../utils/exceptions/HttpException';
+import NotFoundException from '../../utils/exceptions/NotFoundException';
 import { toggleLike } from '../../services/likeActions';
 
 const toggle = async (

@@ -1,5 +1,5 @@
-import PostSch from '../../db/schemas/post';
-import { PostInf } from '../../models/types';
+import PostModel from '../../db/schemas/post';
+import { PostInf } from '../../utils/types';
 import { Aggregate } from 'mongoose';
 
 export const getAllPosts = (
@@ -8,7 +8,7 @@ export const getAllPosts = (
   sortObj: any,
   filter: Object
 ): Aggregate<PostInf[]> =>
-  PostSch.aggregate([
+  PostModel.aggregate([
     { $match: filter },
     { $sort: sortObj },
     { $skip: skip },

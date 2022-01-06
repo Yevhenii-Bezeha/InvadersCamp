@@ -23,7 +23,7 @@ export class CommentsComponent
   @Input() post: PostInf;
   @Output() commentsChanged = new EventEmitter<void>();
   public comments: Comment[] = [];
-  public commentToEdit: Comment = { message: '', postId: '' };
+  public commentToEdit: Comment = { message: '', postId: '', user: [] };
 
   constructor(private commentsService: CommentsService) {
     super();
@@ -42,7 +42,7 @@ export class CommentsComponent
   }
 
   onSubmitCreate(form: NgForm): void {
-    const comment: Comment = {
+    const comment: any = {
       message: form.value.message,
       postId: this.post._id,
     };
@@ -68,7 +68,7 @@ export class CommentsComponent
           this.commentsChanged.emit();
         })
     );
-    this.commentToEdit = { message: '', postId: '' };
+    this.commentToEdit = { message: '', postId: '', user: [] };
     form.onReset();
   }
 

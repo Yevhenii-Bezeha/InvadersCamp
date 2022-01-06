@@ -1,14 +1,28 @@
-import { Comment } from '../models/types';
+import { Comment } from '../utils/types';
 import * as mongoose from 'mongoose';
-import CommentSch from '../db/schemas/comment';
+import { Aggregate } from 'mongoose';
+import CommentModel from '../db/schemas/comment';
 
 const ObjectId = mongoose.Types.ObjectId;
 
+const getComments = (postId: string): Aggregate<Array<any>> =>
+  CommentModel.aggregate([
+    { $match: { postId: new ObjectId(postId) } },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'userId',
+        foreignField: '_id',
+        as: 'user',
+      },
+    },
+  ]);
+
 const createComment = (comment: Comment): Promise<Comment> =>
-  CommentSch.create(comment);
+  CommentModel.create(comment);
 
 const updateComment = (commentId: string, { message }: Comment) =>
-  CommentSch.findOneAndUpdate(
+  CommentModel.findOneAndUpdate(
     { _id: new ObjectId(commentId) },
     {
       $set: { message },
@@ -16,6 +30,6 @@ const updateComment = (commentId: string, { message }: Comment) =>
   );
 
 const removeComment = (commentId: string) =>
-  CommentSch.findByIdAndRemove({ _id: new ObjectId(commentId) });
+  CommentModel.findByIdAndRemove({ _id: new ObjectId(commentId) });
 
-export { createComment, updateComment, removeComment };
+export { getComments, createComment, updateComment, removeComment };
