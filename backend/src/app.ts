@@ -6,7 +6,9 @@ import * as cors from 'cors';
 import errorMiddleware from './middlewares/errorMiddleware';
 import db from './db';
 import apiRouter from './api';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 const PORT: string = process.env['PORT'] || '3000';
 
 const app: Application = express();
