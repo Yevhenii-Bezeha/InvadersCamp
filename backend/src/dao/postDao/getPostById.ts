@@ -5,6 +5,8 @@ import { Aggregate } from 'mongoose';
 
 const ObjectId = mongoose.Types.ObjectId;
 
+export const findPost = (postId: string) => PostModel.find({ _id: postId });
+
 export const getPostById = (postId: string): Aggregate<PostInf[]> =>
   PostModel.aggregate([
     { $match: { _id: new ObjectId(postId) } },

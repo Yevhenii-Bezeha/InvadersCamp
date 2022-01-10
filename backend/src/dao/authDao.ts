@@ -6,15 +6,17 @@ const ObjectId = mongoose.Types.ObjectId;
 
 const createUser = (user: User): Promise<User> => UserModel.create(user);
 
-const saveToken = (userId: string | undefined, token: string) =>
+const saveToken = (userId: string | undefined, refreshToken: string) =>
   UserModel.findOneAndUpdate(
     { _id: new ObjectId(userId) },
     {
-      $set: { token },
+      $set: { refreshToken },
     },
     { projection: { password: 0 } }
   );
 
-const findUser = (email: string) => UserModel.find({ email: email });
+const findUserByEmail = (email: string) => UserModel.find({ email: email });
 
-export { createUser, saveToken, findUser };
+const findUserById = (id: string) => UserModel.find({ _id: id });
+
+export { createUser, saveToken, findUserByEmail, findUserById };

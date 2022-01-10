@@ -7,6 +7,7 @@ import errorMiddleware from './middlewares/errorMiddleware';
 import db from './db';
 import apiRouter from './api';
 import * as dotenv from 'dotenv';
+import * as cookieParser from 'cookie-parser';
 
 dotenv.config();
 const PORT: string = process.env['PORT'] || '3000';
@@ -17,6 +18,7 @@ const formatsLogger: 'dev' | 'short' =
   app.get('env') === 'development' ? 'dev' : 'short';
 app.use(logger(formatsLogger));
 app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 
 app.use(express.static(path.resolve('dist/appName')));

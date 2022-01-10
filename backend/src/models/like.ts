@@ -17,7 +17,7 @@ const like = new Schema(
     },
     userId: {
       type: ObjectId,
-      ref: 'posts',
+      ref: 'users',
       required: [true, 'Set userId'],
     },
   },
@@ -30,5 +30,3 @@ export const joiSchemaLike = Joi.object({
 });
 
 export const LikeModel = mongoose.model('likes', like);
-
-

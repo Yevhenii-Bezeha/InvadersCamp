@@ -5,6 +5,9 @@ import { CommentModel } from '../models/comment';
 
 const ObjectId = mongoose.Types.ObjectId;
 
+const findComment = (commentId: string) =>
+  CommentModel.find({ _id: commentId });
+
 const getComments = (postId: string): Aggregate<Array<any>> =>
   CommentModel.aggregate([
     { $match: { postId: new ObjectId(postId) } },
@@ -32,4 +35,10 @@ const updateComment = (commentId: string, { message }: Comment) =>
 const removeComment = (commentId: string) =>
   CommentModel.findByIdAndRemove({ _id: new ObjectId(commentId) });
 
-export { getComments, createComment, updateComment, removeComment };
+export {
+  getComments,
+  createComment,
+  updateComment,
+  removeComment,
+  findComment,
+};

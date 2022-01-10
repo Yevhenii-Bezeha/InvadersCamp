@@ -4,6 +4,8 @@ import { LikeModel } from '../models/like';
 
 const ObjectId = mongoose.Types.ObjectId;
 
+const findLike = (likeId: string) => LikeModel.find({ _id: likeId });
+
 const createLike = (like: Like): Promise<Like> => LikeModel.create(like);
 
 const toggleLike = (likeId: string, isLiked: boolean) =>
@@ -14,4 +16,4 @@ const toggleLike = (likeId: string, isLiked: boolean) =>
     }
   );
 
-export { createLike, toggleLike };
+export { createLike, toggleLike, findLike };

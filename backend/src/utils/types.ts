@@ -27,7 +27,8 @@ export interface User {
   name: string;
   email: string;
   password?: string;
-  token?: string;
+  accessToken?: string;
+  refreshToken?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

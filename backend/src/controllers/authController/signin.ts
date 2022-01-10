@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import SuccessResponse from '../../utils/SuccessResponse';
 import { BadRequest } from 'http-errors';
-import { joiSigninSchema } from '../../models/user';
-import { findUser, saveToken } from '../../dao/authDao';
+import { findUserByEmail, saveToken } from '../../dao/authDao';
 import { comparePassword } from '../../drivers/password';
-import { createToken } from '../../drivers/token';
+import { createAccessToken, createRefreshToken } from '../../drivers/token';
 import { User } from '../../utils/types';
+import { UserDto } from '../../dtos/userDto';
 
 const signin = async (
   req: Request,
@@ -13,36 +13,43 @@ const signin = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { error } = joiSigninSchema.validate(req.body);
-    if (error) {
-      throw new BadRequest(error.message);
-    }
+    const [user] = await findUserByEmail(req.body.email);
 
-    const user = await findUser(req.body.email);
-
-    if (user.length === 0) {
+    if (!user) {
       throw new BadRequest('This email does not exist');
     }
 
     const isPasswordCorrect = await comparePassword(
       req.body.password,
-      user[0].password
+      user.password
     );
 
     if (!isPasswordCorrect) {
       throw new BadRequest('This password is not correct');
     }
 
-    const token = createToken({ _id: user[0]._id });
+    const accessToken = createAccessToken({ _id: user._id });
+    const refreshToken = createRefreshToken({ _id: user._id });
 
-    const { _id }: User = await saveToken(user[0]._id, token);
+    const { avatar, name, email }: User = await saveToken(
+      user._id,
+      refreshToken
+    );
 
-    const result = {
-      _id: _id,
-      token: token,
+    const userDto: UserDto = {
+      _id: user._id,
+      avatar: avatar,
+      name: name,
+      email: email,
+      accessToken: accessToken,
     };
 
-    res.json(new SuccessResponse(201, 'Success', result));
+    res.cookie('refreshToken', refreshToken, {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+    });
+
+    res.json(new SuccessResponse(201, 'Success', userDto));
   } catch (error: any) {
     next(error);
   }
