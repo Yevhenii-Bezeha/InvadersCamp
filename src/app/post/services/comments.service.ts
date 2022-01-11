@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs';
 import { Comment, Res } from '@interfaces/postRelatedTypes';
-import { url } from '@interfaces/routes';
+import { url } from '@interfaces/url';
 import { basicUrl } from '@interfaces/basicUrl';
 import { ErrorsService } from '@services/errors.service';
 

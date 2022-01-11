@@ -2,12 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Like, PostInf } from '@interfaces/postRelatedTypes';
 import { FormService } from '@services/form.service';
-import { url } from '@interfaces/routes';
+import { url } from '@interfaces/url';
 import { LikesService } from '@services/likes.service';
 import { emptyPost } from '@interfaces/emptyPost';
-import { userId } from '@interfaces/userId';
 import { PostHttpService } from '../../services/post-http.service';
 import { BaseComponent } from '../../../shared/classes/BaseComponent';
+import { LocalStorageService } from '@services/localStorage.service';
+import { AuthService } from '@services/auth.service';
 
 @Component({
   selector: 'app-post-item',
@@ -22,6 +23,7 @@ export class PostItemComponent
   public copyPost: PostInf = emptyPost;
   public isFetching: boolean = false;
   public canEditPost: boolean = false;
+  public isAuthenticated: boolean = false;
   private postId: string = '';
 
   constructor(
@@ -29,7 +31,9 @@ export class PostItemComponent
     private postService: PostHttpService,
     private likesService: LikesService,
     private formService: FormService,
-    private router: Router
+    private router: Router,
+    private localStorageService: LocalStorageService,
+    private authService: AuthService
   ) {
     super();
   }
@@ -37,6 +41,7 @@ export class PostItemComponent
   ngOnInit(): void {
     this.isFetching = true;
     this.getPost();
+    this.checkAuth();
   }
 
   override ngOnDestroy(): void {
@@ -49,6 +54,8 @@ export class PostItemComponent
         (params: Params) => (this.postId = params['id'])
       )
     );
+    const user = this.localStorageService.getUser();
+    const userId = user._id;
     super.addObserver(
       this.postService.getPost(this.postId).subscribe((post: PostInf[]) => {
         this.post = post;
@@ -59,8 +66,19 @@ export class PostItemComponent
     );
   }
 
+  checkAuth(): void {
+    super.addObserver(
+      this.authService.Auth$.subscribe((isAuthenticated) => {
+        this.isAuthenticated = isAuthenticated;
+      })
+    );
+  }
+
   addLike(likesArr: Like[], postId: string): void {
-    console.log(123);
+    if (!this.isAuthenticated) {
+      this.router.navigateByUrl(url.signin).then();
+      return;
+    }
     const like: Like | undefined = this.likesService.isUserLiked(likesArr);
     if (!like) {
       const like: Like = {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PostInf } from '@interfaces/postRelatedTypes';
 import { Router } from '@angular/router';
-import { url } from '@interfaces/routes';
+import { url } from '@interfaces/url';
 
 @Injectable({ providedIn: 'root' })
 export class FormService {

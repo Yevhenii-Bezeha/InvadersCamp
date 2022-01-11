@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { url } from '@interfaces/routes';
+import { url } from '../core/models/url';
 
 @Component({
   selector: 'app-auth',
@@ -9,7 +9,7 @@ import { url } from '@interfaces/routes';
 })
 export class AuthComponent implements OnInit {
   public currentHref: string = '';
-  public url = { ...url, login: `/${url.login}`, signup: `/${url.signup}` };
+  public url = { ...url, login: `/${url.signin}`, signup: `/${url.signup}` };
 
   constructor(private route: Router) {}
 

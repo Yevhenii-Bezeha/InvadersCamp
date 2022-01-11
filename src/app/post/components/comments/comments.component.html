@@ -11,6 +11,7 @@
     <form
       #f="ngForm"
       (ngSubmit)="commentToEdit.message ? onSubmitEdit(f) : onSubmitCreate(f)"
+      *ngIf="isAuthenticated"
     >
       <mat-form-field appearance="fill" class="comment__input">
         <mat-label>Comment here</mat-label>

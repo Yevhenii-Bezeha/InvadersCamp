@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PostsComponent } from './posts/posts.component';
-import { url } from '@interfaces/routes';
+import { url } from '@interfaces/url';
 
 const appRoutes: Routes = [
   { path: url.home, redirectTo: url.posts, pathMatch: 'full' },
@@ -14,7 +14,7 @@ const appRoutes: Routes = [
     loadChildren: () => import('./post/post.module').then((m) => m.PostModule),
   },
   {
-    path: url.login,
+    path: url.signin,
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {

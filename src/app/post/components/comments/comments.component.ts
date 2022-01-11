@@ -21,6 +21,7 @@ export class CommentsComponent
   implements OnInit, OnDestroy
 {
   @Input() post: PostInf;
+  @Input() isAuthenticated: boolean = false;
   @Output() commentsChanged = new EventEmitter<void>();
   public comments: Comment[] = [];
   public commentToEdit: Comment = { message: '', postId: '', user: [] };

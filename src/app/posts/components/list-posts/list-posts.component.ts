@@ -5,6 +5,9 @@ import { PaginatorData } from '@interfaces/PaginatorData';
 import { SortData } from '@interfaces/SortData';
 import { BaseComponent } from '../../../shared/classes/BaseComponent';
 import { Like, PostInf, ResPosts } from '@interfaces/postRelatedTypes';
+import { AuthService } from '@services/auth.service';
+import { Router } from '@angular/router';
+import { url } from '@interfaces/url';
 
 @Component({
   selector: 'app-list-posts',
@@ -24,10 +27,13 @@ export class ListPostsComponent
   private perPage: string = '5';
   private sortBy: string = 'updatedAt';
   private order: number = -1;
+  private isAuthenticated: boolean = false;
 
   constructor(
     private postsService: PostsService,
-    private likesService: LikesService
+    private likesService: LikesService,
+    private authService: AuthService,
+    private route: Router
   ) {
     super();
   }
@@ -35,6 +41,7 @@ export class ListPostsComponent
   ngOnInit(): void {
     this.isFetching = true;
     this.getPosts();
+    this.checkAuth();
   }
 
   override ngOnDestroy(): void {
@@ -59,7 +66,19 @@ export class ListPostsComponent
     );
   }
 
+  checkAuth(): void {
+    super.addObserver(
+      this.authService.Auth$.subscribe((isAuthenticated) => {
+        this.isAuthenticated = isAuthenticated;
+      })
+    );
+  }
+
   addLike(likesArr: Like[], postId: string): void {
+    if (!this.isAuthenticated) {
+      this.route.navigateByUrl(url.signin).then();
+      return;
+    }
     const like: Like | undefined = this.likesService.isUserLiked(likesArr);
     if (!like) {
       const like: Like = {

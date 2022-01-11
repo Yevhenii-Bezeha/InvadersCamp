@@ -9,6 +9,10 @@
     margin-left: auto;
   }
 
+  &__public-container {
+    display: inline-block;
+  }
+
   &__auth-link {
     margin-right: 10px;
     font-size: var(--secondary-font-size);

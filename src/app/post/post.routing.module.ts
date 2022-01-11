@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PostAddEditComponent } from './components/post-add-edit/post-add-edit.component';
-import { url } from '@interfaces/routes';
+import { url } from '@interfaces/url';
 import { PostComponent } from './post.component';
 
 const appRoutes: Routes = [

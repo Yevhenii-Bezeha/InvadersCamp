@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Like, PostInf, User } from '@interfaces/postRelatedTypes';
-import { userId } from '@interfaces/userId';
+import { LocalStorageService } from '@services/localStorage.service';
 
 @Component({
   selector: 'app-post-template',
@@ -18,7 +18,7 @@ export class PostTemplateComponent implements OnInit {
   public userLike: Like | undefined;
   public tags: string[] = [];
 
-  constructor() {}
+  constructor(private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
     this.prepareData();
@@ -30,6 +30,8 @@ export class PostTemplateComponent implements OnInit {
     this.tags = this.post.tags;
     const likesArr: Like[] = this.post.likes.filter((el: Like) => el.isLiked);
     this.likesCount = likesArr.length;
+    const user = this.localStorageService.getUser();
+    const userId = user._id;
     this.userLike = this.post.likes.find((el: Like) => {
       if (el.userId === userId) {
         return el;

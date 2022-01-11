@@ -4,7 +4,7 @@ import { PostInf } from '@interfaces/postRelatedTypes';
 import { emptyPost } from '@interfaces/emptyPost';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { url } from '@interfaces/routes';
+import { url } from '@interfaces/url';
 import { FormService } from '@services/form.service';
 import { tagsEnum } from '@interfaces/tagsEnum';
 import { PostHttpService } from '../../../post/services/post-http.service';
@@ -38,7 +38,6 @@ export class PostsFormComponent
     this.isCreateForm = this.router.url === `/${url.addPost}`;
     this.post = this.isCreateForm ? emptyPost : this.formService.post;
     this.getFormDone();
-    console.log(this.post.tags);
   }
 
   override ngOnDestroy(): void {
