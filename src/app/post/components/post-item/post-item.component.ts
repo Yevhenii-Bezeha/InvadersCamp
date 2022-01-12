@@ -106,8 +106,11 @@ export class PostItemComponent
   }
 
   onDeleteClick(id: string): void {
-    super.addObserver(this.postService.deletePost(id).subscribe());
-    this.router.navigateByUrl(url.posts).then();
+    super.addObserver(
+      this.postService.deletePost(id).subscribe(() => {
+        this.router.navigateByUrl(url.posts).then();
+      })
+    );
   }
 
   commentsChanged() {

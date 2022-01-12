@@ -52,7 +52,6 @@ export class HeaderComponent
   }
 
   onLogoutClick(): void {
-    console.log(123);
     this.httpAuthService.logout().subscribe();
     this.localStorageService.deleteItems();
     this.authService.removeAuth();

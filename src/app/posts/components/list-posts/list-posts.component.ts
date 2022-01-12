@@ -22,7 +22,8 @@ export class ListPostsComponent
   public totalCount: number | undefined = 0;
   public isFetching: boolean = false;
   public isSliced: boolean = true;
-  private filterStr: string = '';
+  private filterByTitleStr: string = '';
+  private filterByTagStr: string = '';
   private page: string = '0';
   private perPage: string = '5';
   private sortBy: string = 'updatedAt';
@@ -54,7 +55,8 @@ export class ListPostsComponent
         .getPosts(
           this.page,
           this.perPage,
-          this.filterStr,
+          this.filterByTitleStr,
+          this.filterByTagStr,
           this.sortBy,
           this.order
         )
@@ -107,8 +109,13 @@ export class ListPostsComponent
     this.getPosts();
   }
 
-  onInputChange(event: string): void {
-    this.filterStr = event;
+  onInputTitleChange(event: string): void {
+    this.filterByTitleStr = event;
+    this.getPosts();
+  }
+
+  onInputTagChange(event: string): void {
+    this.filterByTagStr = event;
     this.getPosts();
   }
 
