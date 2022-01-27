@@ -55,7 +55,7 @@ export class PostItemComponent
       )
     );
     const user = this.localStorageService.getUser();
-    const userId = user._id;
+    const userId = user?._id;
     super.addObserver(
       this.postService.getPost(this.postId).subscribe((post: PostInf[]) => {
         this.post = post;

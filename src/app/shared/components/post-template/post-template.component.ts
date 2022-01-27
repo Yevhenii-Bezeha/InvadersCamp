@@ -31,7 +31,7 @@ export class PostTemplateComponent implements OnInit {
     const likesArr: Like[] = this.post.likes.filter((el: Like) => el.isLiked);
     this.likesCount = likesArr.length;
     const user = this.localStorageService.getUser();
-    const userId = user._id;
+    const userId = user?._id;
     this.userLike = this.post.likes.find((el: Like) => {
       if (el.userId === userId) {
         return el;

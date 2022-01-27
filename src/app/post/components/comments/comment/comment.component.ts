@@ -13,6 +13,7 @@ export class CommentComponent implements OnInit {
     new EventEmitter();
   userCommented: boolean = false;
   author: string | undefined = '';
+  ё;
 
   constructor(private localStorageService: LocalStorageService) {}
 
@@ -22,7 +23,7 @@ export class CommentComponent implements OnInit {
 
   dataPrepare(): void {
     const user = this.localStorageService.getUser();
-    const userId = user._id;
+    const userId = user?._id;
     this.userCommented = this.comment.userId === userId;
     this.author = this.comment.user[0].name;
   }
