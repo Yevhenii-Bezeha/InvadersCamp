@@ -13,6 +13,6 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "myBlog.v1.0" #Must be unique in Heroku
+          heroku_app_name: "nameless-anchorage-78678" #Must be unique in Heroku
           heroku_email: "bezegajenja0305@gmail.com"
           usedocker: false
