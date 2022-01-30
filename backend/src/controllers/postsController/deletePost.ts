@@ -1,33 +1,35 @@
 import { NextFunction, Request, Response } from 'express';
 import { Post } from '../../utils/types';
-
 import SuccessResponse from '../../utils/SuccessResponse';
-import HttpException from '../../utils/exceptions/HttpException';
-import NotFoundException from '../../utils/exceptions/NotFoundException';
 import {
   removeComments,
   removeLikes,
   removePost,
-} from '../../services/postActions/removePost';
+} from '../../dao/postDao/removePost';
+import { NotFound, Unauthorized } from 'http-errors';
 
 const remove = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { postId } = req.params;
-  const [_, userId]: any = req.headers.authorization?.split(' ');
   try {
+    if (!req.headers.authorization) {
+      throw new Unauthorized('Not authorized');
+    }
+
+    const { postId } = req.params;
+
     const result: Post = await removePost(postId);
+
     if (!result) {
-      next(new NotFoundException('Post', postId));
-      return;
+      throw new NotFound();
     }
     await removeLikes(postId);
     await removeComments(postId);
     res.json(new SuccessResponse(200, 'Success', result));
-  } catch (e: any) {
-    next(new HttpException(400, e.message));
+  } catch (error: any) {
+    next(error);
   }
 };
 

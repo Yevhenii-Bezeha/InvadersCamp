@@ -3,8 +3,8 @@ import ctrlLikes from '../controllers/likesController';
 
 const router = express.Router();
 
-router.post('/:postId/like', ctrlLikes.create);
+router.post('', ctrlLikes.create);
 
-router.patch('/:postId/like/:likeId', ctrlLikes.toggle);
+router.patch('/:likeId', ctrlLikes.toggle);
 
 export default router;

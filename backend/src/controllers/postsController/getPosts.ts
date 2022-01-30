@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { PostInf } from '../../utils/types';
+import { getAllPosts } from '../../dao/postDao/getAllPosts';
+import { getPostsCount } from '../../dao/postDao/getPostsCount';
+import { BadRequest } from 'http-errors';
 import SuccessResponse from '../../utils/SuccessResponse';
-import HttpException from '../../utils/exceptions/HttpException';
-import { getAllPosts } from '../../services/postActions/getAllPosts';
-import { getPostsCount } from '../../services/postActions/getPostsCount';
 
 const get = async (
   req: Request,
@@ -22,19 +22,31 @@ const get = async (
   const sortOrder: number = parseInt(order.toString());
   const sortObj = { [sortStr]: sortOrder };
 
-  //filter part
-  let { filter } = req.query;
-  if (filter) {
-    filter = { title: filter };
-  } else {
-    filter = {};
-  }
+  //filterByTitle part
+  let { filterByTitle = '' } = req.query;
+  const filterByTitleStr: string = filterByTitle.toString();
+
+  //filterByTags part
+  let { filterByTags = '' } = req.query;
+  const filterByTagsStr: string = filterByTags.toString();
+
   try {
-    const posts: PostInf[] = await getAllPosts(skip, limit, sortObj, filter);
-    const totalCount = await getPostsCount(filter);
-    res.json(new SuccessResponse(200, 'Success', posts, totalCount));
-  } catch (e: any) {
-    next(new HttpException(400, e.message));
+    const posts: PostInf[] = await getAllPosts(
+      skip,
+      limit,
+      sortObj,
+      filterByTitleStr,
+      filterByTagsStr
+    );
+    const [postsCountObj] = await getPostsCount(
+      filterByTitleStr,
+      filterByTagsStr
+    );
+    const postsCount: number = postsCountObj ? postsCountObj.count : 0;
+
+    res.json(new SuccessResponse(200, 'Success', posts, postsCount));
+  } catch (error: any) {
+    next(new BadRequest(error.message));
   }
 };
 

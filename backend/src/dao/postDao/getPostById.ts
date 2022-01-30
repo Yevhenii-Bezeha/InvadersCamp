@@ -1,4 +1,4 @@
-import PostModel from '../../db/schemas/post';
+import { PostModel } from '../../models/post';
 import { PostInf } from '../../utils/types';
 import * as mongoose from 'mongoose';
 import { Aggregate } from 'mongoose';

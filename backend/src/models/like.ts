@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import * as Joi from 'joi';
 
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
@@ -23,6 +24,11 @@ const like = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-const LikeModel = mongoose.model('likes', like);
+export const joiSchemaLike = Joi.object({
+  isLiked: Joi.boolean().required(),
+  postId: Joi.string().required(),
+});
 
-export default LikeModel;
+export const LikeModel = mongoose.model('likes', like);
+
+
