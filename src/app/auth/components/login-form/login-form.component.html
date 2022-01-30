@@ -1,3 +1,8 @@
+<app-error *ngIf="error" [error]="error">
+  <button (click)="onClose()" color="warn" mat-raised-button>
+    Ok, close it
+  </button>
+</app-error>
 <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="form">
   <p class="form__title">Log in</p>
   <mat-form-field appearance="outline" class="form-input-container">
@@ -12,7 +17,7 @@
     <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
       Email is required
     </mat-error>
-    <mat-error *ngIf="loginForm.controls['email'].hasError('email')">
+    <mat-error *ngIf="loginForm.controls['email'].hasError('pattern')">
       Provide correct email
     </mat-error>
   </mat-form-field>
@@ -20,13 +25,15 @@
     <mat-label>Password</mat-label>
     <input
       autocomplete="off"
-      email
       formControlName="password"
       matInput
       placeholder="Ex. 12345678"
     />
-    <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+    <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
       Password is required
+    </mat-error>
+    <mat-error *ngIf="loginForm.controls['password'].hasError('minlength')">
+      Min-length is 6
     </mat-error>
   </mat-form-field>
   <div class="form__button">

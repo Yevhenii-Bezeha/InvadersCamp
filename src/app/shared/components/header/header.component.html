@@ -9,19 +9,23 @@
       >My blog</a
     >
     <div class="header__auth-container">
+      <div *ngIf="!isPrivate" class="header__public-container">
+        <a
+          *ngFor="let route of publicRoutes"
+          [routerLink]="route.path"
+          class="header__auth-link"
+          mat-button
+          routerLinkActive="header__auth-link_active"
+          >{{ route.name }}</a
+        >
+      </div>
       <a
-        [routerLink]="url.login"
+        (click)="onLogoutClick()"
+        *ngIf="isPrivate"
         class="header__auth-link"
         mat-button
         routerLinkActive="header__auth-link_active"
-        >Log in</a
-      >
-      <a
-        [routerLink]="url.signup"
-        class="header__auth-link"
-        mat-button
-        routerLinkActive="header__auth-link_active"
-        >Get started</a
+        >Logout</a
       >
       <button (click)="onClick()" mat-icon-button>
         <mat-icon>menu</mat-icon>

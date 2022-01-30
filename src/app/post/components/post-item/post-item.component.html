@@ -28,6 +28,7 @@
 <app-comments
   (commentsChanged)="commentsChanged()"
   *ngFor="let postCopy of post"
+  [isAuthenticated]="isAuthenticated"
   [post]="postCopy"
 ></app-comments>
 <app-spinner *ngIf="isFetching"></app-spinner>

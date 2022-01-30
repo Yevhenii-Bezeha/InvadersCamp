@@ -1,18 +1,30 @@
-<mat-form-field appearance="fill" class="filter">
-  <mat-label>Filter</mat-label>
-  <input
-    (input)="onInputChange()"
-    [(ngModel)]="filterStr"
-    matInput
-    type="text"
-  />
-  <button
-    (click)="onClick()"
-    *ngIf="filterStr"
-    aria-label="Clear"
-    mat-icon-button
-    matSuffix
-  >
-    <mat-icon>close</mat-icon>
-  </button>
-</mat-form-field>
+<div class="filter">
+  <mat-form-field appearance="fill" class="filterByTitle">
+    <mat-label>Filter</mat-label>
+    <input
+      (input)="onInputTitleChange()"
+      [(ngModel)]="filterByTitleStr"
+      matInput
+      type="text"
+    />
+    <button
+      (click)="onClick()"
+      *ngIf="filterByTitleStr"
+      aria-label="Clear"
+      mat-icon-button
+      matSuffix
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+  <form [formGroup]="tagForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Tags</mat-label>
+      <mat-select formControlName="tags" multiple>
+        <mat-option *ngFor="let tag of tagCategories" [value]="tag">{{
+          tag
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>

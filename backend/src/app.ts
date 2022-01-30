@@ -38,7 +38,12 @@ const app: Application = express();
 const formatsLogger: 'dev' | 'short' =
   app.get('env') === 'development' ? 'dev' : 'short';
 app.use(logger(formatsLogger));
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env['CLIENT_URL'] || 'http://localhost:4200',
+  })
+);
 app.use(cookieParser());
 app.use(express.json());
 

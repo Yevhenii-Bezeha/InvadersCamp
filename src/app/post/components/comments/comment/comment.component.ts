@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Comment } from '@interfaces/postRelatedTypes';
-import { userId } from '@interfaces/userId';
+import { LocalStorageService } from '@services/localStorage.service';
 
 @Component({
   selector: 'app-comment',
@@ -13,14 +13,17 @@ export class CommentComponent implements OnInit {
     new EventEmitter();
   userCommented: boolean = false;
   author: string | undefined = '';
+  ё;
 
-  constructor() {}
+  constructor(private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
     this.dataPrepare();
   }
 
   dataPrepare(): void {
+    const user = this.localStorageService.getUser();
+    const userId = user?._id;
     this.userCommented = this.comment.userId === userId;
     this.author = this.comment.user[0].name;
   }

@@ -5,6 +5,9 @@ import { PaginatorData } from '@interfaces/PaginatorData';
 import { SortData } from '@interfaces/SortData';
 import { BaseComponent } from '../../../shared/classes/BaseComponent';
 import { Like, PostInf, ResPosts } from '@interfaces/postRelatedTypes';
+import { AuthService } from '@services/auth.service';
+import { Router } from '@angular/router';
+import { url } from '@interfaces/url';
 
 @Component({
   selector: 'app-list-posts',
@@ -19,15 +22,19 @@ export class ListPostsComponent
   public totalCount: number | undefined = 0;
   public isFetching: boolean = false;
   public isSliced: boolean = true;
-  private filterStr: string = '';
+  private filterByTitleStr: string = '';
+  private filterByTagStr: string = '';
   private page: string = '0';
   private perPage: string = '5';
   private sortBy: string = 'updatedAt';
   private order: number = -1;
+  private isAuthenticated: boolean = false;
 
   constructor(
     private postsService: PostsService,
-    private likesService: LikesService
+    private likesService: LikesService,
+    private authService: AuthService,
+    private route: Router
   ) {
     super();
   }
@@ -35,6 +42,7 @@ export class ListPostsComponent
   ngOnInit(): void {
     this.isFetching = true;
     this.getPosts();
+    this.checkAuth();
   }
 
   override ngOnDestroy(): void {
@@ -47,7 +55,8 @@ export class ListPostsComponent
         .getPosts(
           this.page,
           this.perPage,
-          this.filterStr,
+          this.filterByTitleStr,
+          this.filterByTagStr,
           this.sortBy,
           this.order
         )
@@ -59,7 +68,19 @@ export class ListPostsComponent
     );
   }
 
+  checkAuth(): void {
+    super.addObserver(
+      this.authService.Auth$.subscribe((isAuthenticated) => {
+        this.isAuthenticated = isAuthenticated;
+      })
+    );
+  }
+
   addLike(likesArr: Like[], postId: string): void {
+    if (!this.isAuthenticated) {
+      this.route.navigateByUrl(url.signin).then();
+      return;
+    }
     const like: Like | undefined = this.likesService.isUserLiked(likesArr);
     if (!like) {
       const like: Like = {
@@ -88,8 +109,13 @@ export class ListPostsComponent
     this.getPosts();
   }
 
-  onInputChange(event: string): void {
-    this.filterStr = event;
+  onInputTitleChange(event: string): void {
+    this.filterByTitleStr = event;
+    this.getPosts();
+  }
+
+  onInputTagChange(event: string): void {
+    this.filterByTagStr = event;
     this.getPosts();
   }
 
