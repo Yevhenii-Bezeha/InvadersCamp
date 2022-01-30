@@ -20,7 +20,7 @@ export class AppComponent extends BaseComponent implements OnInit, OnDestroy {
 
   constructor(
     private sidebarService: SidebarService,
-    private subjectsService: ErrorsService,
+    private errorsService: ErrorsService,
     private route: Router,
     private authService: AuthService,
     private localStorageService: LocalStorageService,
@@ -38,7 +38,7 @@ export class AppComponent extends BaseComponent implements OnInit, OnDestroy {
       )
     );
     super.addObserver(
-      this.subjectsService.error.subscribe((error: any) => {
+      this.errorsService.error.subscribe((error: any) => {
         this.error = error.error.message || error;
         console.log(this.error);
       })

@@ -13,7 +13,6 @@ export class CommentComponent implements OnInit {
     new EventEmitter();
   userCommented: boolean = false;
   author: string | undefined = '';
-  ё;
 
   constructor(private localStorageService: LocalStorageService) {}
 

@@ -1,31 +1,54 @@
-import { TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+} from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { AppModule } from './app.module';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
+  let fixture!: ComponentFixture<AppComponent>;
+  let component!: AppComponent;
+  let el: DebugElement;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
+      imports: [AppModule],
+    })
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(AppComponent);
+        component = fixture.componentInstance;
+        el = fixture.debugElement;
+      });
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'appName'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('appName');
-  });
+  it('should close the error', fakeAsync(() => {
+    component.error = 'error';
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('appName app is running!');
-  });
+
+    const button = el.nativeElement.querySelector(
+      'button[data-id-test="unit"]'
+    );
+
+    button.click();
+
+    fixture.detectChanges();
+
+    flush();
+
+    const error = el.queryAll(By.css('.error'));
+
+    expect(error.length).toBe(0);
+  }));
+
+  //  spyOn(router, 'navigateByUrl')
 });
