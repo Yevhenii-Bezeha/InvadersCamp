@@ -15,7 +15,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "build:server": "tsc -p backend",
-    "build:client": "ng build",
+    "build:client": "ng build --prod",
     "watch:server": "tsc -p backend -watch",
     "start:server": "nodemon dist/server/src/app.js"
   },
