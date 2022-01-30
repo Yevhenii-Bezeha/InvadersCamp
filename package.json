@@ -10,7 +10,7 @@
   "scripts": {
     "ng": "ng",
     "start": "node dist/server/src/app.js",
-    "build": "ng build && tsc -p backend",
+    "build": "tsc -p backend && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
