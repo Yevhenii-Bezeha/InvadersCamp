@@ -26,7 +26,9 @@ export interface User {
   avatar: string;
   name: string;
   email: string;
-  password: string;
+  password?: string;
+  accessToken?: string;
+  refreshToken?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

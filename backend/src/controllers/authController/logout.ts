@@ -1,9 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { Like } from '../../utils/types';
 import SuccessResponse from '../../utils/SuccessResponse';
-import { createLike } from '../../dao/likeDao';
+import { saveToken } from '../../dao/authDao';
 
-const create = async (
+const logout = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -11,14 +10,12 @@ const create = async (
   try {
     const userId = req.headers.authorization;
 
-    const like: Like = { ...req.body, userId: userId };
+    await saveToken(userId, '');
 
-    const result: Like = await createLike(like);
-
-    res.json(new SuccessResponse(201, 'Success', result));
+    res.json(new SuccessResponse(201, 'Success', { userId: userId }));
   } catch (error: any) {
     next(error);
   }
 };
 
-export default create;
+export default logout;

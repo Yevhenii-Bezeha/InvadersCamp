@@ -17,7 +17,7 @@ const comment = new Schema(
     },
     userId: {
       type: ObjectId,
-      ref: 'posts',
+      ref: 'users',
       required: [true, 'Set userId'],
     },
   },
@@ -30,4 +30,3 @@ export const joiSchemaComment = Joi.object({
 });
 
 export const CommentModel = mongoose.model('comments', comment);
-
