@@ -16,6 +16,7 @@ import { HttpAuthService } from '@services/http-auth.service';
 export class AppComponent extends BaseComponent implements OnInit, OnDestroy {
   @ViewChild('drawer') sidebar: MatDrawer;
   public isSideNavOpened: boolean = false;
+
   public error: string = '';
 
   constructor(
