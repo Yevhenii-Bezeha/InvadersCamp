@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv';
 import * as mongoose from 'mongoose';
 
 dotenv.config();
-const uriDb: string = process.env['DB_HOST'] || 'error';
+const uriDb: string = process.env['MONGODB_URI'] || 'error';
 
 const mongooseOptions = {
   promiseLibrary: global.Promise,
