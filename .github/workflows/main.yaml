@@ -1,23 +1,22 @@
-name: hw-github-actions
+name: Test angular
 
 on:
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  frontend-test:
+  build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
         with:
-          node-version: '16'
-      - run:
-          npm ci
-      - name: Angular Full CI
-        uses: colbyhill21/angular-full-ci/@v1.0
-        with:
-          testcommand: run test
-          mocha: true
-
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run test
