@@ -1,6 +1,10 @@
 {
   "name": "app-name",
   "version": "0.0.0",
+  "engines": {
+    "node": "16.x",
+    "npm": "8.1.2"
+  },
   "main": "dist/server/app.js",
   "type": "commonjs",
   "scripts": {
@@ -32,6 +36,7 @@
     "debounce": "^1.2.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "heroku": "^7.59.2",
     "http-errors": "^2.0.0",
     "joi": "^17.5.0",
     "jsonwebtoken": "^8.5.1",
