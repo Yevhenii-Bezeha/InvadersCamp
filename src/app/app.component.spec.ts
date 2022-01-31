@@ -49,6 +49,4 @@ describe('AppComponent', () => {
 
     expect(error.length).toBe(0);
   }));
-
-  //  spyOn(router, 'navigateByUrl')
 });
