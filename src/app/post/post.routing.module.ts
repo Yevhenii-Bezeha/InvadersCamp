@@ -4,7 +4,7 @@ import { PostAddEditComponent } from './components/post-add-edit/post-add-edit.c
 import { url } from '@interfaces/url';
 import { PostComponent } from './post.component';
 
-const appRoutes: Routes = [
+export const routesPost: Routes = [
   {
     path: url.post,
     component: PostComponent,
@@ -20,7 +20,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(appRoutes)],
+  imports: [RouterModule.forChild(routesPost)],
   exports: [RouterModule],
 })
 export class PostRoutingModule {}

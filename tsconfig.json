@@ -41,7 +41,6 @@
     "strictTemplates": true
   },
   "exclude": [
-    "src",
     "backend"
   ]
 }

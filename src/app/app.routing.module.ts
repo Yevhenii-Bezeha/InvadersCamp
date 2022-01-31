@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PostsComponent } from './posts/posts.component';
 import { url } from '@interfaces/url';
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
   { path: url.home, redirectTo: url.posts, pathMatch: 'full' },
   {
     path: url.posts,

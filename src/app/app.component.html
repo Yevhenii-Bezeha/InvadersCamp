@@ -6,7 +6,12 @@
     <app-header></app-header>
     <router-outlet *ngIf="!error"></router-outlet>
     <app-error *ngIf="error" [error]="error">
-      <button (click)="onClose()" color="warn" mat-raised-button>
+      <button
+        (click)="onClose()"
+        color="warn"
+        data-id-test="unit"
+        mat-raised-button
+      >
         Ok, close it
       </button>
     </app-error>
